@@ -76,21 +76,35 @@ sdk: docker
 
 ## 🏗️ Architecture
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│              Clinical Lightweight Language Model                  │
-│                                                                    │
-│  ┌────────────┐    ┌─────────────────┐    ┌──────────────────┐  │
-│  │  Surgical  │───▶│ TinySurgical    │───▶│ Regression Models│  │
-│  │   Data     │    │    BERT         │    │  (8 algorithms)  │  │
-│  └────────────┘    └───────┬─────────┘    └────────┬─────────┘  │
-│                            │                        │              │
-│                   ┌────────▼────────┐      ┌────────▼────────┐   │
-│                   │  Distillation   │      │   Predictions   │   │
-│                   │   (D1 – D5)     │      │  (Duration, min)│   │
-│                   └─────────────────┘      └─────────────────┘   │
-└──────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+<svg width="680" height="215" viewBox="0 0 680 215" xmlns="http://www.w3.org/2000/svg">
+  <rect width="680" height="215" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="340" y="27" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Clinical Lightweight Language Model</text>
+  <rect x="20" y="42" width="130" height="55" rx="8" fill="#3b82f6"/>
+  <text x="85" y="66" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">Surgical</text>
+  <text x="85" y="84" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#bfdbfe">Data</text>
+  <rect x="195" y="42" width="165" height="55" rx="8" fill="#4f46e5"/>
+  <text x="277" y="66" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">TinySurgicalBERT</text>
+  <text x="277" y="84" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#c7d2fe">0.7 MB ONNX</text>
+  <rect x="410" y="42" width="155" height="55" rx="8" fill="#0ea5e9"/>
+  <text x="487" y="66" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">Regression Models</text>
+  <text x="487" y="84" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#bae6fd">8 algorithms</text>
+  <rect x="195" y="142" width="165" height="55" rx="8" fill="#7c3aed"/>
+  <text x="277" y="166" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">Distillation</text>
+  <text x="277" y="184" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#ede9fe">D1 – D5</text>
+  <rect x="410" y="142" width="155" height="55" rx="8" fill="#0f766e"/>
+  <text x="487" y="166" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">Predictions</text>
+  <text x="487" y="184" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#99f6e4">Duration (min)</text>
+  <line x1="150" y1="69" x2="187" y2="69" stroke="#64748b" stroke-width="1.5"/>
+  <polygon points="187,65 195,69 187,73" fill="#64748b"/>
+  <line x1="360" y1="69" x2="402" y2="69" stroke="#64748b" stroke-width="1.5"/>
+  <polygon points="402,65 410,69 402,73" fill="#64748b"/>
+  <line x1="277" y1="97" x2="277" y2="134" stroke="#64748b" stroke-width="1.5"/>
+  <polygon points="273,134 277,142 281,134" fill="#64748b"/>
+  <line x1="487" y1="97" x2="487" y2="134" stroke="#64748b" stroke-width="1.5"/>
+  <polygon points="483,134 487,142 491,134" fill="#64748b"/>
+</svg>
+</div>
 
 ---
 
