@@ -12,3 +12,9 @@ flowchart/flowchart_rules.md
 
 # File too large for GitHub LFS (over 2GB) - keep local only
 data/processed/fold_encoded.db
+
+# Data files -- keep local only, do not upload to GitHub
+*.csv
+*.db
+*.sqlite
+*.sqlite3
