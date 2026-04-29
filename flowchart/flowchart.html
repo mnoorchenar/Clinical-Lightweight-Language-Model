@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHR Data Processing Pipeline</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        svg { max-width: 100%; height: auto; }
+
+        @page { size: A4 portrait; margin: 8mm; }
+
+        @media print {
+            body {
+                padding: 0;
+                min-height: 0;
+                background: transparent;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            svg { width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+<!--
+  Layout constants
+  ─────────────────────────────────────────────────────────────────────────────
+  ViewBox          : 0 0 1000 1350
+  Phase band height: 225  (header 60px + box 145px + bottom-pad 20px)
+  Inner box height : 145  (title @+52, sub1 @+90, sub2 @+120, 25px pad below)
+  Box horizontal   : x=50 / x=365 / x=680  width=270
+  Horizontal arrows: at box vertical centre (y_box + 72)
+  Inter-phase gap  : 50 px  (arrow from band-bottom, tip 8px before next band)
+  Phase y-starts   : 140 / 415 / 690 / 965
+  Box y-starts     : 200 / 475 / 750 / 1025
+  ─────────────────────────────────────────────────────────────────────────────
+-->
+<svg viewBox="0 0 1000 1350" xmlns="http://www.w3.org/2000/svg"
+     style="font-family:'Segoe UI',Arial,sans-serif;">
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10"
+                refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M 0 1 L 9 5 L 0 9 L 2.5 5 Z" fill="#999"/>
+        </marker>
+    </defs>
+
+    <!-- ── TOP PILL ───────────────────────────────────────────────────── -->
+    <rect x="270" y="20" width="460" height="80" rx="40" fill="#555"/>
+    <text x="500" y="72" font-size="34" font-weight="500"
+          text-anchor="middle" fill="white">Raw EHR data</text>
+
+    <line x1="500" y1="100" x2="500" y2="132"
+          stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PHASE 1 — DATA PREPROCESSING   y=140  h=225  bottom=365
+    ══════════════════════════════════════════════════════════════════ -->
+    <rect x="25" y="140" width="950" height="225" rx="20"
+          fill="#3d47ba" stroke="#fff" stroke-width="3"/>
+    <text x="500" y="182" font-size="36" font-weight="600"
+          text-anchor="middle" fill="white">Phase 1 — Data preprocessing</text>
+
+    <!-- P1 Box 1: y=200 h=145  arrows y=272 -->
+    <rect x="50"  y="200" width="270" height="145" rx="18" fill="#3d47ba" stroke="#fff" stroke-width="2"/>
+    <text x="185" y="252" font-size="26" font-weight="600" text-anchor="middle" fill="white">EHR extract</text>
+    <text x="185" y="290" font-size="22" text-anchor="middle" fill="#f0f0f0">194,661 → 180,370</text>
+    <text x="185" y="320" font-size="20" text-anchor="middle" fill="#e0e0e0">cases retained</text>
+
+    <line x1="322" y1="272" x2="357" y2="272" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P1 Box 2 -->
+    <rect x="365" y="200" width="270" height="145" rx="18" fill="#3d47ba" stroke="#fff" stroke-width="2"/>
+    <text x="500" y="252" font-size="26" font-weight="600" text-anchor="middle" fill="white">Leakage removal</text>
+    <text x="500" y="290" font-size="22" text-anchor="middle" fill="#f0f0f0"
+          textLength="240" lengthAdjust="spacingAndGlyphs">Implausibility filter</text>
+    <text x="500" y="320" font-size="20" text-anchor="middle" fill="#e0e0e0"
+          textLength="240" lengthAdjust="spacingAndGlyphs">duration ∈ [0, 2880] min</text>
+
+    <line x1="637" y1="272" x2="672" y2="272" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P1 Box 3 -->
+    <rect x="680" y="200" width="270" height="145" rx="18" fill="#3d47ba" stroke="#fff" stroke-width="2"/>
+    <text x="815" y="252" font-size="26" font-weight="600" text-anchor="middle" fill="white">Cyclic + OHE</text>
+    <text x="815" y="290" font-size="22" text-anchor="middle" fill="#f0f0f0"
+          textLength="240" lengthAdjust="spacingAndGlyphs">sin/cos for periodic t</text>
+    <text x="815" y="320" font-size="20" text-anchor="middle" fill="#e0e0e0"
+          textLength="240" lengthAdjust="spacingAndGlyphs">OHE nominal → s ∈ ℝ³⁸</text>
+
+    <!-- P1 bottom=365 → arrow → P2 starts at 415 -->
+    <line x1="500" y1="365" x2="500" y2="407"
+          stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PHASE 2 — KNOWLEDGE DISTILLATION   y=415  h=225  bottom=640
+    ══════════════════════════════════════════════════════════════════ -->
+    <rect x="25" y="415" width="950" height="225" rx="20"
+          fill="#2d7a6b" stroke="#fff" stroke-width="3"/>
+    <text x="500" y="457" font-size="36" font-weight="600"
+          text-anchor="middle" fill="white">Phase 2 — Knowledge distillation</text>
+
+    <!-- P2 Box 1: y=475 h=145  arrows y=547 -->
+    <rect x="50"  y="475" width="270" height="145" rx="18" fill="#2d7a6b" stroke="#fff" stroke-width="2"/>
+    <text x="185" y="527" font-size="26" font-weight="600" text-anchor="middle" fill="white">BPE tokeniser</text>
+    <text x="185" y="565" font-size="22" text-anchor="middle" fill="#f0f0f0">V = 2,500 vocab</text>
+    <text x="185" y="595" font-size="20" text-anchor="middle" fill="#e0e0e0">0% OOV on corpus</text>
+
+    <line x1="322" y1="547" x2="357" y2="547" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P2 Box 2 -->
+    <rect x="365" y="475" width="270" height="145" rx="18" fill="#2d7a6b" stroke="#fff" stroke-width="2"/>
+    <text x="500" y="527" font-size="26" font-weight="600" text-anchor="middle" fill="white">TinySurgBERT</text>
+    <text x="500" y="565" font-size="22" text-anchor="middle" fill="#f0f0f0"
+          textLength="240" lengthAdjust="spacingAndGlyphs">2L · 4H · 128-d hidden</text>
+    <text x="500" y="595" font-size="20" text-anchor="middle" fill="#e0e0e0"
+          textLength="240" lengthAdjust="spacingAndGlyphs">0.63M params · 256-d out</text>
+
+    <line x1="637" y1="547" x2="672" y2="547" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P2 Box 3 -->
+    <rect x="680" y="475" width="270" height="145" rx="18" fill="#2d7a6b" stroke="#fff" stroke-width="2"/>
+    <text x="815" y="527" font-size="26" font-weight="600" text-anchor="middle" fill="white">INT8 + ONNX export</text>
+    <text x="815" y="565" font-size="22" text-anchor="middle" fill="#f0f0f0">0.75 MB model file</text>
+    <text x="815" y="595" font-size="20" text-anchor="middle" fill="#e0e0e0">580× CPU speedup</text>
+
+    <!-- P2 bottom=640 → arrow → P3 starts at 690 -->
+    <line x1="500" y1="640" x2="500" y2="682"
+          stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PHASE 3 — FEATURE ENGINEERING   y=690  h=225  bottom=915
+    ══════════════════════════════════════════════════════════════════ -->
+    <rect x="25" y="690" width="950" height="225" rx="20"
+          fill="#a65628" stroke="#fff" stroke-width="3"/>
+    <text x="500" y="732" font-size="36" font-weight="600"
+          text-anchor="middle" fill="white">Phase 3 — Feature engineering</text>
+
+    <!-- P3 Box 1: y=750 h=145  arrows y=822 -->
+    <rect x="50"  y="750" width="270" height="145" rx="18" fill="#a65628" stroke="#fff" stroke-width="2"/>
+    <text x="185" y="802" font-size="26" font-weight="600" text-anchor="middle" fill="white">Feature split</text>
+    <text x="185" y="840" font-size="22" text-anchor="middle" fill="#f0f0f0">s ∈ ℝ³⁸ structured</text>
+    <text x="185" y="870" font-size="20" text-anchor="middle" fill="#e0e0e0">+ free-text proc. p</text>
+
+    <line x1="322" y1="822" x2="357" y2="822" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P3 Box 2 -->
+    <rect x="365" y="750" width="270" height="145" rx="18" fill="#a65628" stroke="#fff" stroke-width="2"/>
+    <text x="500" y="800" font-size="23" font-weight="600" text-anchor="middle" fill="white">4 encoding strategies</text>
+    <text x="500" y="838" font-size="21" text-anchor="middle" fill="#f0f0f0">Baseline · SentBERT</text>
+    <text x="500" y="868" font-size="21" text-anchor="middle" fill="#f0f0f0">BioClinBERT · TinySurg</text>
+
+    <line x1="637" y1="822" x2="672" y2="822" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P3 Box 3 -->
+    <rect x="680" y="750" width="270" height="145" rx="18" fill="#a65628" stroke="#fff" stroke-width="2"/>
+    <text x="815" y="802" font-size="26" font-weight="600" text-anchor="middle" fill="white">Concatenate</text>
+    <text x="815" y="840" font-size="22" text-anchor="middle" fill="#f0f0f0">x = [φ(p) ; s]</text>
+    <text x="815" y="870" font-size="20" text-anchor="middle" fill="#e0e0e0">x ∈ ℝ^(d_φ + 38)</text>
+
+    <!-- P3 bottom=915 → arrow → P4 starts at 965 -->
+    <line x1="500" y1="915" x2="500" y2="957"
+          stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PHASE 4 — MODELLING & EVALUATION   y=965  h=225  bottom=1190
+    ══════════════════════════════════════════════════════════════════ -->
+    <rect x="25" y="965" width="950" height="225" rx="20"
+          fill="#b8860b" stroke="#fff" stroke-width="3"/>
+    <text x="500" y="1007" font-size="36" font-weight="600"
+          text-anchor="middle" fill="white">Phase 4 — Modelling &amp; evaluation</text>
+
+    <!-- P4 Box 1: y=1025 h=145  arrows y=1097 -->
+    <rect x="50"  y="1025" width="270" height="145" rx="18" fill="#b8860b" stroke="#fff" stroke-width="2"/>
+    <text x="185" y="1077" font-size="26" font-weight="600" text-anchor="middle" fill="white">5-fold CV</text>
+    <text x="185" y="1115" font-size="22" text-anchor="middle" fill="#f0f0f0">144,296 train (80%)</text>
+    <text x="185" y="1145" font-size="20" text-anchor="middle" fill="#e0e0e0">36,074 validate (20%)</text>
+
+    <line x1="322" y1="1097" x2="357" y2="1097" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P4 Box 2 -->
+    <rect x="365" y="1025" width="270" height="145" rx="18" fill="#b8860b" stroke="#fff" stroke-width="2"/>
+    <text x="500" y="1077" font-size="26" font-weight="600" text-anchor="middle" fill="white">Optuna TPE</text>
+    <text x="500" y="1115" font-size="22" text-anchor="middle" fill="#f0f0f0">8 regression models</text>
+    <text x="500" y="1145" font-size="20" text-anchor="middle" fill="#e0e0e0">20 trials per combo</text>
+
+    <line x1="637" y1="1097" x2="672" y2="1097" stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- P4 Box 3 -->
+    <rect x="680" y="1025" width="270" height="145" rx="18" fill="#b8860b" stroke="#fff" stroke-width="2"/>
+    <text x="815" y="1077" font-size="26" font-weight="600" text-anchor="middle" fill="white">Evaluation</text>
+    <text x="815" y="1115" font-size="21" text-anchor="middle" fill="#f0f0f0"
+          textLength="240" lengthAdjust="spacingAndGlyphs">MAE · RMSE · sMAPE · R²</text>
+    <text x="815" y="1145" font-size="20" text-anchor="middle" fill="#e0e0e0">Wilcoxon + FDR-BH</text>
+
+    <!-- P4 bottom=1190 → arrow → bottom pill at 1240 -->
+    <line x1="500" y1="1190" x2="500" y2="1232"
+          stroke="#999" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- ── BOTTOM PILL ─────────────────────────────────────────────── -->
+    <rect x="175" y="1240" width="650" height="90" rx="45" fill="#555"/>
+    <text x="500" y="1295" font-size="32" font-weight="500"
+          text-anchor="middle" fill="white">Duration predictions + report</text>
+    <!-- 20 px margin below (1240+90+20=1350 = viewBox height) -->
+</svg>
+</body>
+</html>

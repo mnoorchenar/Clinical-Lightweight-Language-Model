@@ -1,0 +1,84 @@
+%% 04_related_works.tex — body only, no preamble
+
+Prior work on surgical duration prediction and clinical language modelling spans four thematic areas: machine learning applied to structured Electronic Health Record (EHR) data, artificial intelligence for operating room management and deployment, clinical language models for medical free text, and knowledge distillation methods for producing compact transformer models. Each stream has advanced independently, leaving a critical intersection — domain-specific, deployment-ready text encoding for surgical scheduling — unaddressed.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Machine Learning for Surgical Duration Prediction}
+\label{sec:rw_ml}
+
+Supervised machine learning has been applied to surgical duration prediction across multiple institutional datasets, consistently demonstrating improvements over fixed-schedule heuristics. Bartek et al.\ applied a gradient-boosted ensemble to 46{,}986 retrospective surgical cases and showed that surgeon-specific models outperformed service-level models, with historical case volume per surgeon being the primary determinant of prediction accuracy \cite{bartek2019improving}. Zhao et al.\ evaluated six machine learning algorithms for robot-assisted surgery and found that ensemble methods generalised more reliably across procedure types than linear baselines, particularly for high-variance subspecialties \cite{zhao2019machine}. Martinez et al.\ compared linear regression, support vector machines, regression trees, and bagged trees at a university hospital, confirming that non-linear models outperform linear approaches when procedure-level heterogeneity is high \cite{martinez2021machine}.
+
+Foundational statistical work by Stepaniak et al.\ established that surgical case durations follow a log-normal distribution conditioned on the specific Current Procedural Terminology (CPT) code, anaesthetic type, and individual surgeon, and that modelling these combinations on multi-centre historical data yields more reliable scheduling estimates than institution-wide averages \cite{stepaniak2009modeling,stepaniak2010modeling}. The primary limitation shared across all of these approaches is their exclusive reliance on structured fields: surgeon identifier, specialty, procedure code, and patient demographics constitute the complete feature set, while the free-text procedure description recorded at the time of booking — which encodes the specific surgical plan at a granularity unavailable from any categorical code — is systematically discarded.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Artificial Intelligence in Operating Room Management}
+\label{sec:rw_or}
+
+The broader challenge of operating room management has attracted growing interest from artificial intelligence researchers. Bellini et al.\ surveyed machine learning approaches to OR optimisation and found that decision trees and rule-based models are preferred in clinical deployments due to their interpretability, while gradient-boosted and neural models are largely confined to research settings that lack the governance structures required for clinical adoption \cite{bellini2020artificial}. A subsequent review by the same group identified explainability and transparency as prerequisites for sustained clinical uptake, arguing that end-user trust erodes when models cannot justify their predictions in clinically meaningful terms \cite{bellini2024artificial}. Dios et al.\ demonstrated a decision support system for surgery scheduling deployed across several units of a large Spanish hospital, where the ability to provide an interpretable justification for each scheduling decision was a functional requirement from the outset \cite{dios2015decision}.
+
+While these works advance the case for AI-assisted OR management, they address algorithmic accuracy and interpretability without considering the storage or latency constraints of the hardware on which scheduling systems are actually deployed. None of the reviewed systems incorporates free-text procedure descriptions as a predictive input, and none evaluates whether the proposed models can satisfy the latency requirements of point-of-care scheduling on commodity hardware.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Clinical Language Models for Medical Text}
+\label{sec:rw_clm}
+
+The emergence of transformer-based language models has opened new possibilities for extracting meaning from clinical free text. Li et al.\ developed EhrBERT by fine-tuning BioBERT on 1.5 million unlabelled EHR notes and demonstrated that domain-adapted pre-training substantially improves clinical entity normalisation compared with general-domain BERT, establishing the empirical value of continued pre-training on in-domain clinical corpora \cite{li2019fine}. Turchin et al.\ compared ClinicalBERT, BioBERT, and standard BERT on identifying complex medical concepts in outpatient provider notes, finding that models pre-trained on clinical text consistently outperformed general-corpus models, with clinical domain adaptation accounting for most of the performance gain \cite{turchin2023comparison}. A scoping review by Nunes et al.\ of 47 studies confirmed that domain adaptation through continued pre-training on healthcare text is the dominant paradigm for clinical Natural Language Processing (NLP), with models such as Bio-ClinicalBERT and BioBERT representing the current state of practice across information extraction, relation detection, and clinical coding tasks \cite{nunes2024health}.
+
+Despite their effectiveness, clinical language models carry computational costs that preclude deployment on resource-constrained hardware. The models surveyed by Nunes et al.\ uniformly require 110\,M or more parameters, with on-disk footprints in the hundreds of megabytes, and none has been evaluated under the storage or latency constraints of embedded scheduling systems in perioperative care environments. Critically, no prior work has applied clinical language models to surgical procedure text for the specific purpose of duration prediction.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Knowledge Distillation and Model Compression}
+\label{sec:rw_kd}
+
+Knowledge distillation has become the principled approach to producing compact models that approximate the representational capacity of large teacher networks. Sun et al.\ proposed Patient Knowledge Distillation, which transfers knowledge from intermediate BERT layers rather than only the final output, and showed that a student retaining three to six layers recovers up to 96\,\% of teacher performance on General Language Understanding Evaluation (GLUE) benchmarks while running up to $2\times$ faster at inference \cite{sun2019patient}. Gupta and Agrawal surveyed the complete landscape of text model compression techniques — distillation, pruning, quantisation, and weight sharing — and concluded that knowledge distillation combined with post-training quantisation yields the most favourable accuracy-to-size trade-off across NLP benchmarks \cite{gupta2022compression}. Tang et al.\ extended this analysis to transformer architectures specifically, documenting that layer-reduction distillation strategies consistently outperform width-reduction approaches at equivalent parameter budgets \cite{tang2024survey}.
+
+Bibi et al.\ demonstrated that INT8 static quantisation applied after distillation introduces negligible accuracy degradation on language understanding tasks while halving per-weight storage cost relative to float32 models, confirming the practical viability of the distillation-then-quantise pipeline \cite{bibi2024advances}. Despite these advances in general-domain compression, no prior work has applied knowledge distillation to the surgical procedure text domain, nor has any resulting compressed model been integrated into and evaluated within a complete surgical duration prediction pipeline under the hardware constraints relevant to operating room scheduling.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection*{Research Gaps and Distinction of This Work}
+
+Across the four reviewed streams, a consistent and consequential gap emerges: machine learning approaches to surgical duration prediction rely exclusively on structured EHR features and discard the procedure free-text; clinical language models capable of encoding that text are too large for deployment on the resource-constrained hardware common in OR scheduling systems; and knowledge distillation methods that could close this size gap have never been applied to the surgical domain. The consequence is a binary trade-off that no existing method resolves: accurate prediction with a large clinical encoder that cannot be deployed at the point of care, or fast scheduling with a structured-only model that leaves the richest pre-operative signal untapped. This paper resolves the trade-off by distilling Bio-ClinicalBERT on a 180{,}370-case surgical procedure corpus into a 0.75\,MB INT8 student model — TinySurgicalBERT — and evaluating it within a complete five-fold cross-validated prediction pipeline across eight regression models, directly extending the work reviewed in Sections~\ref{sec:rw_ml}--\ref{sec:rw_kd} by occupying the intersection of surgical text encoding, clinical domain adaptation, and deployment-feasible model compression that none of the reviewed works addresses.
+
+\cref{tab:related_summary} summarises the reviewed works and the gap each leaves unaddressed.
+
+\begin{table*}[tp]
+\centering
+\caption{\\Summary of related works and identified research gaps.}
+\label{tab:related_summary}
+\begin{threeparttable}
+\begin{tabularx}{\linewidth}{@{}lXlX@{}}
+\toprule
+Reference & Method / Approach & Application Domain & Key Limitation \\
+\midrule
+\cite{stepaniak2009modeling} & Log-normal CPT-surgeon-anaesthetic model & OR duration prediction & Structured features only; no procedure text \\
+\cite{stepaniak2010modeling} & ANOVA surgeon-factor model & OR duration prediction & Requires large per-surgeon history \\
+\cite{bartek2019improving}   & Gradient-boosted ensemble, surgeon-specific & OR duration prediction & Structured features only; no procedure text \\
+\cite{zhao2019machine}       & Six ML algorithms, robot-assisted surgery & OR duration prediction & Structured features only; no procedure text \\
+\cite{martinez2021machine}   & LR / SVM / regression trees comparison & OR duration prediction & Structured features only; no procedure text \\
+\cite{dios2015decision}      & DSS for surgery scheduling & OR scheduling deployment & No text encoding; no edge-deployment evaluation \\
+\cite{bellini2020artificial} & ML models survey for OR optimisation & OR management & Large models; deployment constraints ignored \\
+\cite{bellini2024artificial} & AI explainability review for OR & OR management & Latency and storage not addressed \\
+\cite{li2019fine}            & EhrBERT fine-tuned on 1.5\,M EHR notes & Clinical NLP / EHR & 110\,M+ parameters; not deployment-evaluated \\
+\cite{turchin2023comparison} & ClinicalBERT / BioBERT / BERT comparison & Clinical NLP & Large models; no surgical scheduling application \\
+\cite{nunes2024health}       & Scoping review of 47 healthcare LM studies & Clinical NLP & All models large; edge deployment not evaluated \\
+\cite{sun2019patient}        & Patient-KD: intermediate-layer BERT distillation & General NLP & General-domain; no clinical or surgical variant \\
+\cite{gupta2022compression}  & Survey: distillation, pruning, quantisation & Text model compression & Not applied to clinical or surgical text \\
+\cite{tang2024survey}        & Survey: transformer compression methods & Transformer compression & Not applied to clinical or surgical text \\
+\cite{bibi2024advances}      & INT8 quantisation and pruning for NLP & NLP model compression & Not applied to surgical scheduling pipeline \\
+\bottomrule
+\end{tabularx}
+\begin{tablenotes}
+\small
+\item LR = Linear Regression; SVM = Support Vector Machine; ML = Machine Learning; OR = Operating Room; NLP = Natural Language Processing; KD = Knowledge Distillation; EHR = Electronic Health Record; DSS = Decision Support System.
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}
+
+%% Papers selected: stepaniak2009modeling, stepaniak2010modeling, bartek2019improving,
+%%                  zhao2019machine, martinez2021machine, dios2015decision,
+%%                  bellini2020artificial, bellini2024artificial, li2019fine,
+%%                  turchin2023comparison, nunes2024health, sun2019patient,
+%%                  gupta2022compression, tang2024survey, bibi2024advances
+%% Papers discarded: liu2021use — Chinese radiology (liver cancer), unrelated to surgical scheduling
+%%                   lin2019bert — clinical temporal relation extraction, unrelated task
+%%                   acharya2024survey — symbolic KD of LLMs, different paradigm from embedding distillation

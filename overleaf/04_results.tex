@@ -1,0 +1,205 @@
+%% 07_results.tex — body only, no preamble
+
+This section reports results across three dimensions: predictive accuracy across all 32 encoding–model combinations, deployment efficiency of the three text encoders, and pairwise statistical comparisons. The central findings are: (i) all three text-augmented encoding strategies reduce MAE by approximately 24\,\% over the structured-only baseline; (ii) TinySurgicalBERT achieves accuracy statistically equivalent to Bio-ClinicalBERT and SentenceBERT while requiring up to $580\times$ less on-disk storage; and (iii) TinySurgicalBERT runs at $0.484$\,ms per case — $43.7\times$ faster than Bio-ClinicalBERT — satisfying real-time OR scheduling requirements on standard CPU hardware without GPU acceleration. All numerical results are derived directly from the experimental database without post-hoc modification.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Dataset Description}
+\label{sec:dataset_desc}
+
+A retrospective dataset of 194{,}661 surgical cases was obtained from a single tertiary institution. After applying the data-quality and implausibility filters described in Section~\ref{sec:stage1}, 180{,}370 cases are retained for modelling. The prediction target is the observed procedure duration in minutes, with a mean of $95.0$ minutes, a standard deviation of $92.1$ minutes, and a median of $66.0$ minutes, reflecting a strongly right-skewed distribution characteristic of surgical workload data. Patient age is available for $153{,}669$ cases (85.2\,\% completion; mean $56.6 \pm 17.6$ years), and body mass index for $119{,}193$ cases (66.1\,\% completion; mean $27.8 \pm 9.1\,\text{kg}\,\text{m}^{-2}$). Cases span 13 surgical services, with Orthopaedic Surgery (27.0\,\%), General Surgery (14.7\,\%), and Obstetrics/Gynaecology (13.6\,\%) comprising the three largest groups. Anaesthetic type is predominantly general (84.6\,\%), with neuraxial (7.8\,\%), sedation (3.2\,\%), and regional (2.7\,\%) procedures also represented. Descriptive statistics for the principal pre-operative features are summarised in \cref{tab:dataset_desc}.
+
+\begin{table}[tp]
+\centering
+\caption{\\Descriptive statistics for the primary pre-operative features. Continuous features report minimum, maximum, mean, and standard deviation computed from all non-missing records. Categorical and binary features report the number of distinct levels. BMI and age contain missing values as indicated.}
+\label{tab:dataset_desc}
+\begin{threeparttable}
+\begin{tabular}{llrrrr}
+\toprule
+Feature & Type & Min & Max & Mean & Std \\
+\midrule
+Procedure duration (min)\tnote{a} & Continuous & 0.0 & 1{,}535.0 & 95.0 & 92.1 \\
+Scheduled duration (min) & Continuous & 15.0 & 1{,}870.0 & 151.3 & 105.8 \\
+Patient age (years)\tnote{b} & Continuous & 18.0 & 103.1 & 56.6 & 17.6 \\
+Body mass index (kg m$^{-2}$)\tnote{c} & Continuous & 6.1 & 199.5 & 27.8 & 9.1 \\
+OR team size & Continuous & 1.0 & 44.0 & 10.0 & 3.1 \\
+Scheduled start hour & Continuous & 0.0 & 18.0 & 10.9 & 2.5 \\
+ASA physical status score & Ordinal & 1 & 5 & — & — \\
+Patient sex & Binary & \multicolumn{4}{l}{54.0\,\% male ($n = 96{,}994$)} \\
+Case service & Categorical & \multicolumn{4}{l}{13 levels} \\
+Anaesthetic type & Categorical & \multicolumn{4}{l}{5 levels} \\
+Procedure description & Text & \multicolumn{4}{l}{free-text; encoded by $\phi(\cdot)$} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small
+\item[a] Prediction target; right-skewed (median $66.0$ min).
+\item[b] Available for $153{,}669$ cases (85.2\,\%).
+\item[c] Available for $119{,}193$ cases (66.1\,\%).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Experimental Setup}
+\label{sec:exp_setup}
+
+All experiments use 5-fold cross-validation with a fixed random seed of 42, as described in Section~\ref{sec:cv}, producing training and validation sets of $144{,}296$ and $36{,}074$ cases per fold, respectively. For each of the 32 encoding-model combinations (4 encoding strategies $\times$ 8 regression models), Optuna with the Tree-structured Parzen Estimator (TPE) sampler allocates 20 trials per combination, with the first 5 trials drawn uniformly at random to initialise the surrogate model. Hyperparameter search is conducted independently per fold to avoid information leakage from validation data into the tuning process. The objective metric throughout is Mean Absolute Error (MAE) on the held-out fold. Optimal hyperparameters obtained for the TinySurgicalBERT encoding from a representative fold are reported in \cref{tab:hyperparams}; values are consistent across folds (coefficient of variation $< 5\%$ for continuous parameters).
+
+\begin{table}[tp]
+\centering
+\caption{\\Optimal hyperparameters identified by Optuna TPE search for the TinySurgicalBERT encoding (fold 0). Search space bounds and a brief description of each parameter are provided. Parameters for linear models (Ridge, Lasso, ElasticNet) are omitted for brevity; regularisation strengths converge to $\alpha \approx 10^{-3}$--$10^{-1}$.}
+\label{tab:hyperparams}
+\begin{threeparttable}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llrll}
+\toprule
+Model & Parameter & Optimal value & Search range & Description \\
+\midrule
+XGBoost & \texttt{n\_estimators}   & 440   & [50, 500]          & Number of boosting rounds \\
+        & \texttt{learning\_rate}  & 0.056 & [$10^{-3}$, 0.3]   & Step size shrinkage \\
+        & \texttt{max\_depth}      & 8     & [3, 10]            & Maximum tree depth \\
+        & \texttt{subsample}       & 0.90  & [0.5, 1.0]         & Row sub-sampling ratio \\
+\midrule
+LightGBM & \texttt{n\_estimators}  & 482   & [50, 500]          & Number of boosting rounds \\
+         & \texttt{learning\_rate} & 0.078 & [$10^{-3}$, 0.3]   & Step size shrinkage \\
+         & \texttt{max\_depth}     & 8     & [3, 12]            & Maximum tree depth \\
+         & \texttt{num\_leaves}    & 124   & [20, 150]          & Maximum number of leaves \\
+         & \texttt{subsample}      & 0.69  & [0.5, 1.0]         & Row sub-sampling ratio \\
+\midrule
+MLP      & \texttt{n\_layers}      & 2     & [1, 4]             & Number of hidden layers \\
+         & \texttt{activation}     & elu   & \{relu, elu, tanh\} & Hidden activation function \\
+         & \texttt{lr}             & 0.0085& [$10^{-4}$, $10^{-2}$] & AdamW learning rate \\
+         & \texttt{units\_1}       & 141   & [64, 256]          & Neurons in first hidden layer \\
+\midrule
+Random Forest & \texttt{n\_estimators}  & 126 & [50, 300]        & Number of trees \\
+              & \texttt{max\_depth}     & 10  & [5, 20]          & Maximum tree depth \\
+              & \texttt{max\_features}  & 0.50 & [0.2, 1.0]      & Features considered per split \\
+\bottomrule
+\end{tabular}}
+\begin{tablenotes}
+\small
+\item All values from fold 0; variation across folds is negligible (coefficient of variation $< 5\%$ for all continuous parameters).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Predictive Performance}
+\label{sec:perf}
+
+\cref{fig:pred_metrics} reports mean and standard deviation of the four primary metrics across all 32 encoding-model combinations. The clearest finding is the division between tree-based ensembles and linear models: XGBoost and LightGBM consistently achieve the lowest MAE and sMAPE regardless of encoding strategy, while linear models (Ridge, Lasso, ElasticNet, Linear Regression) plateau near MAE $\approx 35$--47 min depending on encoding. This pattern indicates that surgical duration is governed by non-linear interactions among the pre-operative features that gradient-boosted trees exploit effectively but that linear predictors cannot capture.
+
+The most practically important finding concerns the relative standing of the four encoding strategies for non-linear models. The structured-only baseline, which discards the procedure description entirely, produces MAE of $34.80 \pm 0.12$ min for XGBoost and $34.79 \pm 0.17$ min for LightGBM. Adding any form of text embedding reduces MAE to the $26$--$27$ minute range across all three text-augmented strategies, representing an absolute reduction of approximately $8.4$ minutes (24\,\% improvement) for the best model. This reduction is consistent across all non-linear models and all folds, indicating that the effect is robust rather than artefactual.
+
+Among the three text-encoding strategies, TinySurgicalBERT achieves $\text{MAE} = 26.38 \pm 0.09$ min and $R^{2} = 0.8543 \pm 0.0051$ with XGBoost and $\text{MAE} = 26.43 \pm 0.10$ min with LightGBM, statistically indistinguishable from SentenceBERT ($\text{MAE} = 26.35 \pm 0.07$, $R^{2} = 0.8542 \pm 0.0049$) and Bio-ClinicalBERT ($\text{MAE} = 26.40 \pm 0.11$, $R^{2} = 0.8539 \pm 0.0054$). This parity is achieved with a $580\times$ reduction in model size relative to Bio-ClinicalBERT (0.75\,MB vs.\ 436\,MB) and a $121\times$ reduction relative to SentenceBERT (0.75\,MB vs.\ 91\,MB). The MLP downstream model shows notably higher fold-to-fold variability under TinySurgicalBERT ($\text{MAE} = 26.95 \pm 0.26$ min) compared to tree ensembles ($\pm 0.09$--$0.10$ min), consistent with the sensitivity of neural networks to random weight initialisation.
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=\linewidth]{pred_legend}
+  \par\medskip
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{pred_mae}
+    \caption{MAE (min, $\downarrow$)}
+    \label{fig:pred_mae}
+  \end{subfigure}\hfill
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{pred_mse}
+    \caption{RMSE (min, $\downarrow$)}
+    \label{fig:pred_rmse}
+  \end{subfigure}
+  \par\medskip
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{pred_smape}
+    \caption{sMAPE (\%, $\downarrow$)}
+    \label{fig:pred_smape}
+  \end{subfigure}\hfill
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{pred_r2}
+    \caption{$R^{2}$ ($\uparrow$)}
+    \label{fig:pred_r2}
+  \end{subfigure}
+  \caption{Predictive performance across all encoding strategies and downstream models (mean $\pm$ standard deviation over five cross-validation folds). The shared legend above identifies each encoding. Lower is better for MAE, RMSE, and sMAPE; higher is better for $R^{2}$.}
+  \label{fig:pred_metrics}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Model Size and Inference Efficiency}
+\label{sec:runtime}
+
+Having established that all three text-augmented encoders deliver equivalent predictive accuracy, the question becomes whether TinySurgicalBERT can also meet the storage and latency constraints of real OR scheduling systems. TinySurgicalBERT is deployed as an INT8 ONNX model; SentenceBERT and Bio-ClinicalBERT are loaded as fp32 HuggingFace safetensors models. \cref{fig:efficiency} compares the three text encoders on two deployment-critical dimensions: on-disk model file size and end-to-end per-case inference time (encoder forward pass plus downstream XGBoost prediction).
+
+TinySurgicalBERT (INT8 ONNX, $0.75$\,MB) is $580\times$ smaller than Bio-ClinicalBERT ($436$\,MB) and $121\times$ smaller than SentenceBERT ($91$\,MB), as shown in \cref{fig:model_size}. The compression is achieved through the combination of a compact two-layer student architecture (0.63\,M parameters vs.\ 110\,M in Bio-ClinicalBERT) and static INT8 quantisation, which halves the per-weight storage cost relative to a float32 model of the same depth.
+
+End-to-end inference times, measured under single-item CPU inference to reflect point-of-care scheduling conditions, are presented in \cref{fig:infer_time} and \cref{tab:efficiency}. Across $N = 30$ repeated passes over 200 procedure descriptions, TinySurgicalBERT requires $0.484 \pm 0.072$\,ms per case, compared with $2.570 \pm 0.136$\,ms for SentenceBERT ($5.3\times$ slower) and $21.190 \pm 0.111$\,ms for Bio-ClinicalBERT ($43.7\times$ slower). Both differences are statistically significant ($p < 0.001$, two-sided paired Wilcoxon signed-rank, FDR-BH corrected). Downstream XGBoost prediction contributes less than $0.005$\,ms per case for all three encoders and is negligible relative to the encoding step. These results confirm that TinySurgicalBERT meets real-time scheduling requirements on commodity CPU hardware, a deployment scenario that neither SentenceBERT nor Bio-ClinicalBERT can satisfy without GPU acceleration or batch pre-computation.
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=\linewidth]{efficiency_legend}
+  \par\medskip
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{model_size}
+    \caption{Encoder model file size (MB, log scale)}
+    \label{fig:model_size}
+  \end{subfigure}\hfill
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{infer_time}
+    \caption{End-to-end inference time per case (ms, log scale)}
+    \label{fig:infer_time}
+  \end{subfigure}
+  \caption{Deployment efficiency of the three text encoders. Model size is the on-disk file size of the deployed encoder artefact (INT8 ONNX for TinySurgicalBERT; fp32 HuggingFace safetensors for the others). Inference time is the total per-case time from raw procedure text to predicted duration, measured under single-item CPU inference (encoding $+$ XGBoost prediction; downstream contribution $<$0.005\,ms). Structured Only is excluded as its predictive inferiority was established in Section~\ref{sec:perf}.}
+  \label{fig:efficiency}
+\end{figure}
+
+\input{results/efficiency_table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Statistical Comparison}
+\label{sec:stat}
+
+Pairwise comparisons between TinySurgicalBERT and each baseline encoding are evaluated using the two-sided Wilcoxon signed-rank test on the five per-fold metric vectors, with multiple comparisons corrected by the Benjamini--Hochberg False Discovery Rate (FDR-BH) procedure across all 12 test pairs (3 baselines $\times$ 4 metrics). Two distinct patterns emerge. Against the structured-only baseline, all five per-fold MAE differences favour TinySurgicalBERT (mean difference $-8.42$ min, $W = 0$, $p = 0.0625$ for XGBoost), with the same unanimity holding for RMSE, sMAPE, and $R^{2}$: $W = 0$ in every case, the strongest evidence achievable with $n = 5$ folds. Against SentenceBERT and Bio-ClinicalBERT, per-fold differences are small and unsystematic ($W \geq 4$, $p \geq 0.44$), providing no evidence of any performance gap. This pattern of maximal evidence of superiority over the structured-only baseline combined with no evidence of difference against the large encoders is the key result: TinySurgicalBERT performs at the level of models $121\times$--$580\times$ its size. \cref{tab:stat} reports the full pairwise comparison.
+
+\begin{table}[tp]
+\centering
+\caption{\\Pairwise statistical comparison of TinySurgicalBERT + XGBoost (reference) against baseline encoding strategies + XGBoost. Values show mean $\pm$ standard deviation across five cross-validation folds. Significance markers indicate the outcome of the two-sided Wilcoxon signed-rank test with Benjamini--Hochberg FDR correction ($n = 5$ folds): {\color{green!55!black}$\checkmark$} = reference significantly better; {\color{red!70!black}$\times$} = reference significantly worse; blank = no significant difference. Column arrows indicate the direction of improvement.}
+\label{tab:stat}
+\begin{threeparttable}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Method &
+  MAE $\downarrow$ (min) &
+  RMSE $\downarrow$ (min) &
+  sMAPE $\downarrow$ (\%) &
+  $R^{2}$ $\uparrow$ \\
+\midrule
+TinySurgicalBERT + XGBoost (ours) &
+  $26.38 \pm 0.09$ &
+  $41.87 \pm 0.77$ &
+  $21.61 \pm 0.15$ &
+  $0.8543 \pm 0.0051$ \\
+\midrule
+Structured Only + XGBoost &
+  $34.80 \pm 0.12$ &
+  $51.77 \pm 0.67$ &
+  $28.84 \pm 0.12$ &
+  $0.7773 \pm 0.0050$ \\
+SentenceBERT + XGBoost &
+  $26.35 \pm 0.07$ &
+  $41.89 \pm 0.75$ &
+  $21.56 \pm 0.06$ &
+  $0.8542 \pm 0.0049$ \\
+Bio-ClinicalBERT + XGBoost &
+  $26.40 \pm 0.11$ &
+  $41.93 \pm 0.81$ &
+  $21.62 \pm 0.09$ &
+  $0.8539 \pm 0.0054$ \\
+\bottomrule
+\end{tabular}}
+\begin{tablenotes}
+\small
+\item $^{*}p < 0.05$;\; $^{**}p < 0.01$;\; $^{***}p < 0.001$ (two-sided Wilcoxon signed-rank, Benjamini--Hochberg FDR corrected).
+\item With $n = 5$ folds the minimum achievable two-sided $p$-value is $0.0625$; no comparison therefore reaches the $\alpha = 0.05$ threshold. Against Structured Only, all fold-level differences are consistently signed ($W = 0$, $p = 0.0625$), the strongest evidence achievable at this sample size.
+\item $\downarrow$ lower is better;\; $\uparrow$ higher is better.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

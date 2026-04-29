@@ -1,0 +1,127 @@
+%% 05_methodology.tex — body only, no preamble
+
+Accurate prediction of surgical case duration is a foundational challenge in operating-room scheduling: underestimates cause overtime and patient harm, while overestimates waste costly theatre capacity. Prior approaches rely almost exclusively on structured EHR fields — surgeon identity, specialty, and patient demographics — and discard the free-text procedure description despite it being the single richest predictor available at the time of booking. Exploiting this text is non-trivial: off-the-shelf sentence encoders trained on general or broad clinical corpora exhibit high Out-of-Vocabulary (OOV) rates and poor semantic discrimination for surgical terminology.
+
+This paper addresses this gap with \textbf{TinySurgicalBERT}, a 0.75\,MB INT8-quantised BERT student model distilled specifically from the surgical procedure lexicon of a 180,370-case institutional dataset, designed for real-time surgical-duration prediction on edge and mobile hardware without any cloud dependency. The overall workflow is summarised in Figure~\ref{fig:flowchart}.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Dataset and Problem Formulation}
+\label{sec:dataset}
+
+A retrospective dataset of 194{,}661 surgical cases was obtained from a single tertiary institution over a multi-year window. After applying the data-quality and implausibility filters described in Section~\ref{sec:stage1}, 180{,}370 cases are retained for analysis. Each case is represented by a tuple $(\mathbf{s}, p, y)$ where $\mathbf{s} \in \mathbb{R}^{38}$ is a vector of structured pre-operative features (see Section~\ref{sec:stage1}), $p$ is the free-text procedure description (e.g.\ ``laparoscopic cholecystectomy with intra-operative cholangiogram''), and $y \in \mathbb{R}^{+}$ is the observed surgical duration in minutes. The prediction task is:
+\begin{equation}
+  \hat{y} = f\!\left(\mathbf{x}\right),
+  \qquad
+  \mathbf{x} = \bigl[\,\phi(p);\,\mathbf{s}\,\bigr] \in \mathbb{R}^{d},
+  \label{eq:task}
+\end{equation}
+where $\phi(\cdot)$ maps the procedure text to a dense embedding vector and $[\,\cdot\,;\,\cdot\,]$ denotes concatenation. The dimension $d$ depends on the encoding strategy (Section~\ref{sec:stage2}).
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Stage 1 — Data Preprocessing}
+\label{sec:stage1}
+
+Raw EHR data contains several systematic artefacts that must be removed before modelling.
+
+\paragraph{Leakage removal.}
+Fields that are recorded \emph{after} surgery (e.g.\ actual anaesthesia end time, PACU duration) are excluded from the feature set to prevent target leakage.
+
+\paragraph{Implausibility filter.}
+Cases with a recorded duration outside $[0, 2880]$ minutes across all time columns are discarded as implausible scheduling artefacts.
+
+\paragraph{Cyclic time encoding.}
+Calendar and clock features (time-of-day, day-of-week, month) are periodic and must not be represented as raw integers. A feature $t$ with period $T$ is mapped to two dimensions via:
+\begin{equation}
+  t \;\mapsto\; \Bigl(\sin\!\tfrac{2\pi t}{T},\;\cos\!\tfrac{2\pi t}{T}\Bigr),
+  \label{eq:cyclic}
+\end{equation}
+ensuring that, for example, 23:59 and 00:01 are geometrically adjacent.
+
+\paragraph{Categorical One-Hot Encoding (OHE).}
+Nominal features (surgeon identifier, specialty, theatre, ASA grade) are one-hot encoded. After encoding and feature selection the structured representation is $\mathbf{s} \in \mathbb{R}^{38}$.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Stage 2 — Text Encoding and Knowledge Distillation}
+\label{sec:stage2}
+
+\subsubsection{Encoding Strategies}
+
+We evaluate four strategies for $\phi(\cdot)$:
+
+\begin{enumerate}
+  \item \textbf{Structured Only (baseline).}  $\phi(p) = \mathbf{0}$; the procedure text is discarded. This constitutes a strong structured-only baseline.
+  \item \textbf{SentenceBERT.}  A pre-trained general-domain sentence-transformer~\cite{reimers2019sentencebert} maps $p$ to a 384-dimensional embedding. No domain adaptation is performed.
+  \item \textbf{Bio-ClinicalBERT.}  A BERT model pre-trained on MIMIC-III clinical notes~\cite{alsentzer2019bioclinicalbert} produces a 768-d pooled embedding via mean-pooling of the last hidden layer.
+  \item \textbf{TinySurgicalBERT (ours).}  A lightweight student model (256-d output) obtained via knowledge distillation from Bio-ClinicalBERT, described in Section~\ref{sec:kd}.
+\end{enumerate}
+
+\subsubsection{TinySurgicalBERT via Knowledge Distillation}
+\label{sec:kd}
+
+\paragraph{Domain-specific tokeniser.}
+A Byte-Pair Encoding (BPE) tokeniser is trained on all 180,370 surgical procedure strings in the corpus, with vocabulary size $V = 2500$. This yields an OOV rate of exactly $0\%$ on held-out cases from the same institution, compared with $\sim\!8\%$ for the standard Bio-ClinicalBERT WordPiece vocabulary on the same data.
+
+\paragraph{Architecture.}
+The student model uses 2 transformer layers, 4 attention heads, a hidden dimension of 128, an intermediate feed-forward dimension of 256, and a learned linear output projection from 128 to 256 dimensions. The total trainable parameter count is $0.63\text{M}$, compared with $110\text{M}$ for the Bio-ClinicalBERT teacher.
+
+\paragraph{Distillation training.}
+Given a procedure string $p$, the teacher embedding $\mathbf{e}_t \in \mathbb{R}^{256}$ is obtained by mean-pooling the final hidden layer of Bio-ClinicalBERT (768-d) and projecting to 256 dimensions via Principal Component Analysis (PCA) fitted on the training corpus. The student embedding $\mathbf{e}_s = \phi_S(p) \in \mathbb{R}^{256}$ is produced by the student's output projection layer (128$\to$256\,d). The student is trained to minimise:
+\begin{equation}
+  \mathcal{L} \;=\;
+    \alpha\,\bigl\lVert \mathbf{e}_s - \mathbf{e}_t \bigr\rVert_2^2
+    \;+\;
+    (1-\alpha)\,\bigl(1 - \cos(\mathbf{e}_s,\,\mathbf{e}_t)\bigr),
+  \label{eq:kd_loss}
+\end{equation}
+where $\alpha \in (0,1)$ balances mean-squared-error alignment ($\mathcal{L}_{\mathrm{MSE}}$) against cosine similarity maximisation ($\mathcal{L}_{\mathrm{cos}}$). The MSE term encourages magnitude agreement, while the cosine term preserves directional structure regardless of scale.
+
+\paragraph{INT8 quantisation and ONNX export.}
+After distillation training, the student is statically quantised to 8-bit Integers (INT8) and exported to ONNX Runtime format, yielding a $0.75\,$MB model file. Inference is performed entirely on CPU using ONNX Runtime, with no GPU or network dependency required at prediction time.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Feature Assembly}
+\label{sec:assembly}
+
+For each encoding strategy the final input vector is constructed by concatenating the text embedding with the structured feature vector:
+\begin{equation}
+  \mathbf{x} \;=\; \bigl[\,\phi(p);\;\mathbf{s}\,\bigr] \;\in\; \mathbb{R}^{d_\phi + 38},
+  \label{eq:concat}
+\end{equation}
+where $d_\phi \in \{0, 256, 384, 384\}$ for the four encoding strategies respectively. For SentenceBERT and Bio-ClinicalBERT, a fold-wise PCA (fitted on the training fold only) reduces the raw embeddings to 384 principal components; TinySurgicalBERT's 256-dimensional output is used without further reduction.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Stage 3 — Cross-Validation Protocol}
+\label{sec:cv}
+
+To produce unbiased generalisation estimates, all experiments use \textbf{5-fold cross-validation} with random shuffling and a fixed random seed of 42. Each fold comprises 144,296 training cases (80\,\%) and 36,074 validation cases (20\,\%). The same fold assignments are used for all encoding strategies and all downstream models, ensuring that comparisons are paired at the fold level. Statistical tests therefore operate on 5-element performance vectors (one mean per fold), which determines the resolution of significance testing (see Section~\ref{sec:eval}).
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Stage 4 — Hyperparameter Optimisation and Downstream Models}
+\label{sec:hpo}
+
+\paragraph{Model family.}
+Eight regression models are evaluated: Linear Regression, Ridge, Lasso, ElasticNet, Random Forest, XGBoost, LightGBM, and a Multi-Layer Perceptron (MLP). This selection spans the spectrum from interpretable linear baselines to high-capacity non-linear ensembles.
+
+\paragraph{Optuna TPE search.}
+Each model is independently tuned using \textbf{Optuna}~\cite{akiba2019optuna} with the Tree-structured Parzen Estimator (TPE) sampler. A budget of \textbf{20 trials} is used per (encoding~$\times$~model) combination, with the first 5 trials drawn randomly to initialise the surrogate. Hyperparameter spaces are defined per model: regularisation strength for linear models; tree depth, number of estimators, and learning rate for ensemble methods; hidden size, number of layers, and dropout rate for the MLP. The objective metric for TPE is Mean Absolute Error (MAE) on the inner cross-validation fold.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Evaluation Metrics}
+\label{sec:eval}
+
+All metrics are computed per fold and reported as mean~$\pm$ standard deviation across the five folds. The four primary metrics are:
+\begin{align}
+  \mathrm{MAE}   &= \frac{1}{n}\sum_{i=1}^{n}\lvert y_i - \hat{y}_i\rvert,
+                 \label{eq:mae}\\[4pt]
+  \mathrm{RMSE}  &= \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2},
+                 \label{eq:rmse}\\[4pt]
+  \mathrm{sMAPE} &= \frac{200}{n}\sum_{i=1}^{n}
+                    \frac{\lvert y_i - \hat{y}_i\rvert}{\lvert y_i\rvert+\lvert\hat{y}_i\rvert},
+                 \label{eq:smape}\\[4pt]
+  R^{2}          &= 1 - \frac{\sum_{i}(y_i-\hat{y}_i)^2}{\sum_{i}(y_i-\bar{y})^2}.
+                 \label{eq:r2}
+\end{align}
+MAE and Root Mean Square Error (RMSE) are in units of minutes; the symmetric Mean Absolute Percentage Error (sMAPE) is scale-invariant and symmetric, avoiding the blow-up of standard MAPE near zero; $R^{2}$ measures the fraction of duration variance explained by the model.
+
+\paragraph{Statistical comparison.}
+Pairwise model comparisons use the \textbf{Wilcoxon signed-rank test} on the 5 per-fold metric vectors (two-sided, $\alpha = 0.05$). Because $n = 5$ folds is the minimum sample size at which the test can achieve a $p$-value below $0.0625$, all $p$-values from this test are reported alongside the raw fold-level differences; multiple comparisons across encoding strategies are corrected using the \textbf{Benjamini–Hochberg} False Discovery Rate (FDR-BH) procedure.

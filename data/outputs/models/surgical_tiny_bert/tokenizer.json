@@ -1,0 +1,12489 @@
+{
+  "version": "1.0",
+  "truncation": {
+    "direction": "Right",
+    "max_length": 66,
+    "strategy": "LongestFirst",
+    "stride": 0
+  },
+  "padding": {
+    "strategy": {
+      "Fixed": 66
+    },
+    "direction": "Right",
+    "pad_to_multiple_of": null,
+    "pad_id": 0,
+    "pad_type_id": 0,
+    "pad_token": "[PAD]"
+  },
+  "added_tokens": [
+    {
+      "id": 0,
+      "content": "[PAD]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 1,
+      "content": "[UNK]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 2,
+      "content": "[CLS]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 3,
+      "content": "[SEP]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 4,
+      "content": "[MASK]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    }
+  ],
+  "normalizer": {
+    "type": "Sequence",
+    "normalizers": [
+      {
+        "type": "NFD"
+      },
+      {
+        "type": "Lowercase"
+      },
+      {
+        "type": "StripAccents"
+      }
+    ]
+  },
+  "pre_tokenizer": {
+    "type": "Whitespace"
+  },
+  "post_processor": {
+    "type": "TemplateProcessing",
+    "single": [
+      {
+        "SpecialToken": {
+          "id": "[CLS]",
+          "type_id": 0
+        }
+      },
+      {
+        "Sequence": {
+          "id": "A",
+          "type_id": 0
+        }
+      },
+      {
+        "SpecialToken": {
+          "id": "[SEP]",
+          "type_id": 0
+        }
+      }
+    ],
+    "pair": [
+      {
+        "SpecialToken": {
+          "id": "[CLS]",
+          "type_id": 0
+        }
+      },
+      {
+        "Sequence": {
+          "id": "A",
+          "type_id": 0
+        }
+      },
+      {
+        "SpecialToken": {
+          "id": "[SEP]",
+          "type_id": 0
+        }
+      },
+      {
+        "Sequence": {
+          "id": "B",
+          "type_id": 1
+        }
+      },
+      {
+        "SpecialToken": {
+          "id": "[SEP]",
+          "type_id": 1
+        }
+      }
+    ],
+    "special_tokens": {
+      "[CLS]": {
+        "id": "[CLS]",
+        "ids": [
+          2
+        ],
+        "tokens": [
+          "[CLS]"
+        ]
+      },
+      "[SEP]": {
+        "id": "[SEP]",
+        "ids": [
+          3
+        ],
+        "tokens": [
+          "[SEP]"
+        ]
+      }
+    }
+  },
+  "decoder": null,
+  "model": {
+    "type": "BPE",
+    "dropout": null,
+    "unk_token": "[UNK]",
+    "continuing_subword_prefix": null,
+    "end_of_word_suffix": null,
+    "fuse_unk": false,
+    "byte_fallback": false,
+    "ignore_merges": false,
+    "vocab": {
+      "[PAD]": 0,
+      "[UNK]": 1,
+      "[CLS]": 2,
+      "[SEP]": 3,
+      "[MASK]": 4,
+      "&": 5,
+      "'": 6,
+      "(": 7,
+      ")": 8,
+      ",": 9,
+      "-": 10,
+      ".": 11,
+      "/": 12,
+      "0": 13,
+      "1": 14,
+      "2": 15,
+      "3": 16,
+      "4": 17,
+      "5": 18,
+      "6": 19,
+      "a": 20,
+      "b": 21,
+      "c": 22,
+      "d": 23,
+      "e": 24,
+      "f": 25,
+      "g": 26,
+      "h": 27,
+      "i": 28,
+      "j": 29,
+      "k": 30,
+      "l": 31,
+      "m": 32,
+      "n": 33,
+      "o": 34,
+      "p": 35,
+      "q": 36,
+      "r": 37,
+      "s": 38,
+      "t": 39,
+      "u": 40,
+      "v": 41,
+      "w": 42,
+      "x": 43,
+      "y": 44,
+      "z": 45,
+      "st": 46,
+      "re": 47,
+      "ro": 48,
+      "al": 49,
+      "io": 50,
+      "to": 51,
+      "la": 52,
+      "ion": 53,
+      "co": 54,
+      "th": 55,
+      "my": 56,
+      "ar": 57,
+      "tomy": 58,
+      "in": 59,
+      "er": 60,
+      "sco": 61,
+      "scop": 62,
+      "ic": 63,
+      "pa": 64,
+      "tion": 65,
+      "ec": 66,
+      "thro": 67,
+      "arthro": 68,
+      "an": 69,
+      "pla": 70,
+      "ne": 71,
+      "ectomy": 72,
+      "scopy": 73,
+      "plast": 74,
+      "plasty": 75,
+      "is": 76,
+      "en": 77,
+      "kne": 78,
+      "knee": 79,
+      "or": 80,
+      "tal": 81,
+      "arthroplasty": 82,
+      "yst": 83,
+      "paro": 84,
+      "scopic": 85,
+      "laparo": 86,
+      "ation": 87,
+      "ir": 88,
+      "le": 89,
+      "rec": 90,
+      "repa": 91,
+      "repair": 92,
+      "laparoscopic": 93,
+      "ab": 94,
+      "ip": 95,
+      "ed": 96,
+      "total": 97,
+      "inal": 98,
+      "tr": 99,
+      "ac": 100,
+      "ex": 101,
+      "rectomy": 102,
+      "ision": 103,
+      "di": 104,
+      "do": 105,
+      "ter": 106,
+      "arthroscopy": 107,
+      "ing": 108,
+      "hip": 109,
+      "us": 110,
+      "and": 111,
+      "mo": 112,
+      "id": 113,
+      "ure": 114,
+      "erectomy": 115,
+      "ag": 116,
+      "str": 117,
+      "sec": 118,
+      "ia": 119,
+      "hyst": 120,
+      "val": 121,
+      "si": 122,
+      "at": 123,
+      "el": 124,
+      "ve": 125,
+      "cision": 126,
+      "ho": 127,
+      "ern": 128,
+      "section": 129,
+      "tation": 130,
+      "de": 131,
+      "uc": 132,
+      "hern": 133,
+      "hernia": 134,
+      "ith": 135,
+      "dom": 136,
+      "ost": 137,
+      "tic": 138,
+      "with": 139,
+      "bo": 140,
+      "uction": 141,
+      "oscopy": 142,
+      "ur": 143,
+      "excision": 144,
+      "op": 145,
+      "ser": 146,
+      "resection": 147,
+      "cyst": 148,
+      "hysterectomy": 149,
+      "as": 150,
+      "tu": 151,
+      "idectomy": 152,
+      "abdom": 153,
+      "ra": 154,
+      "ped": 155,
+      "ast": 156,
+      "den": 157,
+      "dila": 158,
+      "dilatation": 159,
+      "em": 160,
+      "abdominal": 161,
+      "ior": 162,
+      "con": 163,
+      "ical": 164,
+      "aor": 165,
+      "bi": 166,
+      "ig": 167,
+      "otomy": 168,
+      "pro": 169,
+      "der": 170,
+      "cystoscopy": 171,
+      "aortic": 172,
+      "ul": 173,
+      "cab": 174,
+      "cabg": 175,
+      "ans": 176,
+      "um": 177,
+      "trans": 178,
+      "fo": 179,
+      "im": 180,
+      "usion": 181,
+      "remo": 182,
+      "removal": 183,
+      "recon": 184,
+      "struction": 185,
+      "reconstruction": 186,
+      "cho": 187,
+      "sp": 188,
+      "ula": 189,
+      "lo": 190,
+      "ent": 191,
+      "valve": 192,
+      "bow": 193,
+      "inser": 194,
+      "anter": 195,
+      "anterior": 196,
+      "it": 197,
+      "insertion": 198,
+      "ev": 199,
+      "uation": 200,
+      "acuation": 201,
+      "evacuation": 202,
+      "assi": 203,
+      "bowel": 204,
+      "vag": 205,
+      "dental": 206,
+      "assist": 207,
+      "rev": 208,
+      "ral": 209,
+      "ard": 210,
+      "revision": 211,
+      "mp": 212,
+      "assisted": 213,
+      "ingu": 214,
+      "inguinal": 215,
+      "dis": 216,
+      "lec": 217,
+      "acl": 218,
+      "ystectomy": 219,
+      "cholec": 220,
+      "cholecystectomy": 221,
+      "bre": 222,
+      "breast": 223,
+      "ping": 224,
+      "sal": 225,
+      "ureth": 226,
+      "ft": 227,
+      "sis": 228,
+      "urethral": 229,
+      "ot": 230,
+      "vaginal": 231,
+      "oste": 232,
+      "fusion": 233,
+      "tor": 234,
+      "oop": 235,
+      "roscopy": 236,
+      "min": 237,
+      "salping": 238,
+      "osteotomy": 239,
+      "no": 240,
+      "lectomy": 241,
+      "ng": 242,
+      "thy": 243,
+      "cr": 244,
+      "thyro": 245,
+      "ca": 246,
+      "are": 247,
+      "age": 248,
+      "oration": 249,
+      "ine": 250,
+      "salpingo": 251,
+      "hard": 252,
+      "ware": 253,
+      "hardware": 254,
+      "rest": 255,
+      "ti": 256,
+      "ub": 257,
+      "foot": 258,
+      "transurethral": 259,
+      "ss": 260,
+      "bla": 261,
+      "dder": 262,
+      "bladder": 263,
+      "cran": 264,
+      "orations": 265,
+      "restorations": 266,
+      "for": 267,
+      "thyroidectomy": 268,
+      "fem": 269,
+      "oral": 270,
+      "stat": 271,
+      "mus": 272,
+      "hyste": 273,
+      "ua": 274,
+      "trip": 275,
+      "ane": 276,
+      "ma": 277,
+      "triple": 278,
+      "desis": 279,
+      "lar": 280,
+      "teral": 281,
+      "spine": 282,
+      "ch": 283,
+      "per": 284,
+      "prostat": 285,
+      "cer": 286,
+      "vat": 287,
+      "arthrodesis": 288,
+      "vats": 289,
+      "ismus": 290,
+      "abismus": 291,
+      "strabismus": 292,
+      "nt": 293,
+      "cranio": 294,
+      "gra": 295,
+      "yng": 296,
+      "ven": 297,
+      "rad": 298,
+      "laser": 299,
+      "mour": 300,
+      "tumour": 301,
+      "igh": 302,
+      "iop": 303,
+      "ank": 304,
+      "eua": 305,
+      "lateral": 306,
+      "ial": 307,
+      "tre": 308,
+      "bilateral": 309,
+      "craniotomy": 310,
+      "ankle": 311,
+      "graft": 312,
+      "sm": 313,
+      "cerv": 314,
+      "radical": 315,
+      "herectomy": 316,
+      "ity": 317,
+      "rect": 318,
+      "oopherectomy": 319,
+      "mity": 320,
+      "extre": 321,
+      "extremity": 322,
+      "direct": 323,
+      "ph": 324,
+      "lu": 325,
+      "femoral": 326,
+      "ly": 327,
+      "laryng": 328,
+      "oidectomy": 329,
+      "toe": 330,
+      "ysm": 331,
+      "urysm": 332,
+      "aneurysm": 333,
+      "exy": 334,
+      "stim": 335,
+      "stimula": 336,
+      "stimulator": 337,
+      "impla": 338,
+      "proc": 339,
+      "ep": 340,
+      "endo": 341,
+      "omy": 342,
+      "ement": 343,
+      "prostatectomy": 344,
+      "vic": 345,
+      "li": 346,
+      "the": 347,
+      "red": 348,
+      "node": 349,
+      "implant": 350,
+      "pel": 351,
+      "tro": 352,
+      "laryngoscopy": 353,
+      "cathe": 354,
+      "catheter": 355,
+      "reduction": 356,
+      "robo": 357,
+      "robotic": 358,
+      "aden": 359,
+      "mic": 360,
+      "trac": 361,
+      "micro": 362,
+      "sho": 363,
+      "ulder": 364,
+      "shoulder": 365,
+      "umb": 366,
+      "mmo": 367,
+      "pelvic": 368,
+      "arter": 369,
+      "mammo": 370,
+      "mammoplasty": 371,
+      "tral": 372,
+      "uret": 373,
+      "mph": 374,
+      "lymph": 375,
+      "neph": 376,
+      "fore": 377,
+      "edure": 378,
+      "procedure": 379,
+      "llectomy": 380,
+      "tub": 381,
+      "ge": 382,
+      "colectomy": 383,
+      "hysteroscopy": 384,
+      "lical": 385,
+      "bilical": 386,
+      "umbilical": 387,
+      "sy": 388,
+      "lumb": 389,
+      "lumbar": 390,
+      "ton": 391,
+      "sillectomy": 392,
+      "tonsillectomy": 393,
+      "laparotomy": 394,
+      "cervical": 395,
+      "end": 396,
+      "nost": 397,
+      "par": 398,
+      "microlaryngoscopy": 399,
+      "ist": 400,
+      "nephrectomy": 401,
+      "ous": 402,
+      "by": 403,
+      "ner": 404,
+      "nerve": 405,
+      "laparoscopy": 406,
+      "retro": 407,
+      "hy": 408,
+      "stent": 409,
+      "forefoot": 410,
+      "thor": 411,
+      "pass": 412,
+      "bypass": 413,
+      "stage": 414,
+      "dissection": 415,
+      "lamin": 416,
+      "laminectomy": 417,
+      "biop": 418,
+      "biopsy": 419,
+      "ular": 420,
+      "oopho": 421,
+      "br": 422,
+      "if": 423,
+      "trial": 424,
+      "orif": 425,
+      "adenoidectomy": 426,
+      "sur": 427,
+      "diag": 428,
+      "diagnost": 429,
+      "erat": 430,
+      "operat": 431,
+      "diagnostic": 432,
+      "ive": 433,
+      "operative": 434,
+      "su": 435,
+      "ile": 436,
+      "lob": 437,
+      "brid": 438,
+      "extrac": 439,
+      "tis": 440,
+      "ostomy": 441,
+      "erior": 442,
+      "los": 443,
+      "etrial": 444,
+      "endom": 445,
+      "extraction": 446,
+      "endometrial": 447,
+      "oc": 448,
+      "ty": 449,
+      "cl": 450,
+      "tio": 451,
+      "astr": 452,
+      "astric": 453,
+      "doub": 454,
+      "double": 455,
+      "fist": 456,
+      "lation": 457,
+      "ablation": 458,
+      "pub": 459,
+      "pubic": 460,
+      "aco": 461,
+      "ator": 462,
+      "tum": 463,
+      "high": 464,
+      "disc": 465,
+      "so": 466,
+      "discectomy": 467,
+      "ple": 468,
+      "lobectomy": 469,
+      "occl": 470,
+      "occlusion": 471,
+      "mpa": 472,
+      "bial": 473,
+      "retropubic": 474,
+      "tibial": 475,
+      "tympa": 476,
+      "thoraco": 477,
+      "flu": 478,
+      "tubal": 479,
+      "sue": 480,
+      "tissue": 481,
+      "roscopic": 482,
+      "hysteroscopic": 483,
+      "clos": 484,
+      "mast": 485,
+      "rectum": 486,
+      "debrid": 487,
+      "debridement": 488,
+      "incision": 489,
+      "eck": 490,
+      "mi": 491,
+      "sectio": 492,
+      "neck": 493,
+      "rot": 494,
+      "ap": 495,
+      "dissectio": 496,
+      "tympano": 497,
+      "fluo": 498,
+      "thoracotomy": 499,
+      "arthroscopic": 500,
+      "les": 501,
+      "fla": 502,
+      "mple": 503,
+      "endoscopic": 504,
+      "arm": 505,
+      "transcatheter": 506,
+      "flap": 507,
+      "simple": 508,
+      "orch": 509,
+      "po": 510,
+      "art": 511,
+      "curet": 512,
+      "tage": 513,
+      "curettage": 514,
+      "dr": 515,
+      "igation": 516,
+      "fluoroscopy": 517,
+      "oophorectomy": 518,
+      "cor": 519,
+      "es": 520,
+      "ger": 521,
+      "va": 522,
+      "rain": 523,
+      "fistula": 524,
+      "ight": 525,
+      "mini": 526,
+      "right": 527,
+      "mitral": 528,
+      "incisional": 529,
+      "pexy": 530,
+      "post": 531,
+      "posterior": 532,
+      "dist": 533,
+      "il": 534,
+      "peri": 535,
+      "ver": 536,
+      "neal": 537,
+      "oplasty": 538,
+      "cu": 539,
+      "cord": 540,
+      "closure": 541,
+      "perito": 542,
+      "peritoneal": 543,
+      "pl": 544,
+      "spinal": 545,
+      "stand": 546,
+      "standard": 547,
+      "para": 548,
+      "vul": 549,
+      "pan": 550,
+      "lesion": 551,
+      "iopexy": 552,
+      "orchiopexy": 553,
+      "wed": 554,
+      "wedge": 555,
+      "endart": 556,
+      "endarterectomy": 557,
+      "surger": 558,
+      "surgery": 559,
+      "gast": 560,
+      "tric": 561,
+      "suction": 562,
+      "minor": 563,
+      "amp": 564,
+      "utation": 565,
+      "amputation": 566,
+      "ere": 567,
+      "entation": 568,
+      "na": 569,
+      "artery": 570,
+      "arterio": 571,
+      "venous": 572,
+      "dro": 573,
+      "deep": 574,
+      "he": 575,
+      "am": 576,
+      "lung": 577,
+      "ndo": 578,
+      "fac": 579,
+      "se": 580,
+      "brain": 581,
+      "oph": 582,
+      "rou": 583,
+      "anal": 584,
+      "femur": 585,
+      "ble": 586,
+      "ring": 587,
+      "myring": 588,
+      "parathyroidectomy": 589,
+      "roux": 590,
+      "gastric": 591,
+      "ventric": 592,
+      "tidectomy": 593,
+      "rigation": 594,
+      "irrigation": 595,
+      "lig": 596,
+      "parotidectomy": 597,
+      "ament": 598,
+      "ligament": 599,
+      "ili": 600,
+      "esoph": 601,
+      "ad": 602,
+      "soft": 603,
+      "ileostomy": 604,
+      "man": 605,
+      "bia": 606,
+      "bro": 607,
+      "plic": 608,
+      "myringotomy": 609,
+      "lit": 610,
+      "pos": 611,
+      "carot": 612,
+      "carotid": 613,
+      "cond": 614,
+      "asc": 615,
+      "tibia": 616,
+      "of": 617,
+      "insi": 618,
+      "insitu": 619,
+      "cement": 620,
+      "hydro": 621,
+      "fre": 622,
+      "pane": 623,
+      "ndoscopy": 624,
+      "panendoscopy": 625,
+      "distal": 626,
+      "ventral": 627,
+      "ix": 628,
+      "cle": 629,
+      "ventricular": 630,
+      "mastoidectomy": 631,
+      "tendo": 632,
+      "tendon": 633,
+      "free": 634,
+      "bone": 635,
+      "sh": 636,
+      "ulotomy": 637,
+      "liver": 638,
+      "instr": 639,
+      "umentation": 640,
+      "instrumentation": 641,
+      "prostate": 642,
+      "urethro": 643,
+      "tympanoplasty": 644,
+      "vulva": 645,
+      "ange": 646,
+      "change": 647,
+      "unt": 648,
+      "shunt": 649,
+      "ncho": 650,
+      "applic": 651,
+      "broncho": 652,
+      "bronchoscopy": 653,
+      "leg": 654,
+      "cervix": 655,
+      "cel": 656,
+      "coch": 657,
+      "lear": 658,
+      "cochlear": 659,
+      "placement": 660,
+      "xi": 661,
+      "mandi": 662,
+      "urethropexy": 663,
+      "ang": 664,
+      "ated": 665,
+      "nav": 666,
+      "fle": 667,
+      "ioplasty": 668,
+      "gastro": 669,
+      "un": 670,
+      "vein": 671,
+      "ico": 672,
+      "ted": 673,
+      "igated": 674,
+      "navigated": 675,
+      "ileo": 676,
+      "ase": 677,
+      "tympanomastoidectomy": 678,
+      "cystectomy": 679,
+      "var": 680,
+      "varico": 681,
+      "tane": 682,
+      "taneous": 683,
+      "cap": 684,
+      "col": 685,
+      "cutaneous": 686,
+      "varicose": 687,
+      "fing": 688,
+      "finger": 689,
+      "imal": 690,
+      "qua": 691,
+      "rele": 692,
+      "release": 693,
+      "xible": 694,
+      "flexible": 695,
+      "hem": 696,
+      "pi": 697,
+      "sin": 698,
+      "sinus": 699,
+      "uit": 700,
+      "conduit": 701,
+      "ileoconduit": 702,
+      "cal": 703,
+      "stere": 704,
+      "tial": 705,
+      "partial": 706,
+      "urete": 707,
+      "igastric": 708,
+      "split": 709,
+      "epigastric": 710,
+      "iliac": 711,
+      "eal": 712,
+      "dial": 713,
+      "actic": 714,
+      "otactic": 715,
+      "stereotactic": 716,
+      "tel": 717,
+      "patel": 718,
+      "sub": 719,
+      "esophag": 720,
+      "angioplasty": 721,
+      "low": 722,
+      "resur": 723,
+      "facing": 724,
+      "resurfacing": 725,
+      "ureteroscopy": 726,
+      "expan": 727,
+      "ide": 728,
+      "irc": 729,
+      "stomy": 730,
+      "padi": 731,
+      "hypos": 732,
+      "padias": 733,
+      "hypospadias": 734,
+      "ey": 735,
+      "ff": 736,
+      "tube": 737,
+      "rotator": 738,
+      "cuff": 739,
+      "sta": 740,
+      "ort": 741,
+      "whip": 742,
+      "lefor": 743,
+      "whipple": 744,
+      "lefort": 745,
+      "car": 746,
+      "expander": 747,
+      "stern": 748,
+      "eye": 749,
+      "dy": 750,
+      "sulotomy": 751,
+      "body": 752,
+      "capsulotomy": 753,
+      "inoplasty": 754,
+      "applicator": 755,
+      "cleft": 756,
+      "hdr": 757,
+      "gmo": 758,
+      "sigmo": 759,
+      "ress": 760,
+      "act": 761,
+      "acro": 762,
+      "ulectomy": 763,
+      "duc": 764,
+      "pedectomy": 765,
+      "stapedectomy": 766,
+      "duct": 767,
+      "celectomy": 768,
+      "esophagectomy": 769,
+      "gastrostomy": 770,
+      "bral": 771,
+      "wide": 772,
+      "erebral": 773,
+      "cerebral": 774,
+      "sing": 775,
+      "single": 776,
+      "mastectomy": 777,
+      "ath": 778,
+      "port": 779,
+      "acath": 780,
+      "portacath": 781,
+      "elo": 782,
+      "uple": 783,
+      "druple": 784,
+      "quadruple": 785,
+      "patello": 786,
+      "len": 787,
+      "pal": 788,
+      "sk": 789,
+      "hydrocelectomy": 790,
+      "lymphaden": 791,
+      "elec": 792,
+      "sigmoid": 793,
+      "electro": 794,
+      "ach": 795,
+      "sep": 796,
+      "circ": 797,
+      "umcision": 798,
+      "circumcision": 799,
+      "pac": 800,
+      "nal": 801,
+      "comp": 802,
+      "aryng": 803,
+      "decomp": 804,
+      "up": 805,
+      "ross": 806,
+      "me": 807,
+      "rectal": 808,
+      "ureteral": 809,
+      "salpingectomy": 810,
+      "trache": 811,
+      "orr": 812,
+      "zation": 813,
+      "tery": 814,
+      "head": 815,
+      "rostat": 816,
+      "oprostat": 817,
+      "cystoprostat": 818,
+      "cystoprostatectomy": 819,
+      "hemorr": 820,
+      "hoidectomy": 821,
+      "vagus": 822,
+      "hemorrhoidectomy": 823,
+      "bat": 824,
+      "battery": 825,
+      "tom": 826,
+      "ression": 827,
+      "decompression": 828,
+      "iectomy": 829,
+      "percutaneous": 830,
+      "med": 831,
+      "electrode": 832,
+      "iast": 833,
+      "skin": 834,
+      "mediast": 835,
+      "replacement": 836,
+      "app": 837,
+      "cre": 838,
+      "rocystectomy": 839,
+      "oophorocystectomy": 840,
+      "inter": 841,
+      "perine": 842,
+      "craniectomy": 843,
+      "xil": 844,
+      "pharyng": 845,
+      "ferior": 846,
+      "scar": 847,
+      "inferior": 848,
+      "forator": 849,
+      "perforator": 850,
+      "perforators": 851,
+      "hia": 852,
+      "vasc": 853,
+      "vascular": 854,
+      "pleu": 855,
+      "toplasty": 856,
+      "perineal": 857,
+      "ageal": 858,
+      "esophageal": 859,
+      "lip": 860,
+      "py": 861,
+      "ary": 862,
+      "intr": 863,
+      "exchange": 864,
+      "gastrectomy": 865,
+      "lano": 866,
+      "melano": 867,
+      "melanoma": 868,
+      "transanal": 869,
+      "ention": 870,
+      "distention": 871,
+      "hydrodistention": 872,
+      "hand": 873,
+      "ectom": 874,
+      "fr": 875,
+      "lymphadenectom": 876,
+      "sternotomy": 877,
+      "endectomy": 878,
+      "acture": 879,
+      "appendectomy": 880,
+      "fracture": 881,
+      "belo": 882,
+      "stab": 883,
+      "iculectomy": 884,
+      "ilization": 885,
+      "posacro": 886,
+      "colposacro": 887,
+      "below": 888,
+      "stabilization": 889,
+      "colposacropexy": 890,
+      "eral": 891,
+      "heral": 892,
+      "ipheral": 893,
+      "peripheral": 894,
+      "mandible": 895,
+      "elbow": 896,
+      "sent": 897,
+      "pleuroscopy": 898,
+      "nor": 899,
+      "ving": 900,
+      "rela": 901,
+      "donor": 902,
+      "living": 903,
+      "related": 904,
+      "axil": 905,
+      "lary": 906,
+      "axillary": 907,
+      "mandib": 908,
+      "sag": 909,
+      "all": 910,
+      "ittal": 911,
+      "sagittal": 912,
+      "tuit": 913,
+      "pituit": 914,
+      "pituitary": 915,
+      "nail": 916,
+      "upper": 917,
+      "ligation": 918,
+      "inoscopy": 919,
+      "mas": 920,
+      "tus": 921,
+      "mass": 922,
+      "vectomy": 923,
+      "und": 924,
+      "tracheostomy": 925,
+      "mediastinoscopy": 926,
+      "thic": 927,
+      "kness": 928,
+      "thickness": 929,
+      "vulvectomy": 930,
+      "ysis": 931,
+      "dialysis": 932,
+      "ug": 933,
+      "stit": 934,
+      "need": 935,
+      "interstit": 936,
+      "needle": 937,
+      "interstitial": 938,
+      "ear": 939,
+      "pth": 940,
+      "depth": 941,
+      "hiatus": 942,
+      "pop": 943,
+      "liteal": 944,
+      "popliteal": 945,
+      "niculectomy": 946,
+      "panniculectomy": 947,
+      "cranioplasty": 948,
+      "aoral": 949,
+      "intraoral": 950,
+      "bul": 951,
+      "ipping": 952,
+      "stripping": 953,
+      "denti": 954,
+      "bifemoral": 955,
+      "impac": 956,
+      "dentition": 957,
+      "impacted": 958,
+      "ural": 959,
+      "lon": 960,
+      "rist": 961,
+      "wrist": 962,
+      "muscle": 963,
+      "pen": 964,
+      "tem": 965,
+      "illes": 966,
+      "achilles": 967,
+      "aug": 968,
+      "mentation": 969,
+      "acic": 970,
+      "thoracic": 971,
+      "augmentation": 972,
+      "bing": 973,
+      "lacr": 974,
+      "probing": 975,
+      "ult": 976,
+      "vault": 977,
+      "lacrimal": 978,
+      "left": 979,
+      "condy": 980,
+      "closed": 981,
+      "nd": 982,
+      "ate": 983,
+      "dural": 984,
+      "je": 985,
+      "tectomy": 986,
+      "idal": 987,
+      "proctectomy": 988,
+      "pilon": 989,
+      "pilonidal": 990,
+      "arthrotomy": 991,
+      "cane": 992,
+      "fistulotomy": 993,
+      "calcane": 994,
+      "calcaneus": 995,
+      "over": 996,
+      "glo": 997,
+      "hto": 998,
+      "eloplasty": 999,
+      "pyeloplasty": 1000,
+      "icondy": 1001,
+      "abdomen": 1002,
+      "ssectomy": 1003,
+      "unicondy": 1004,
+      "glossectomy": 1005,
+      "unicondylar": 1006,
+      "cross": 1007,
+      "drain": 1008,
+      "crossover": 1009,
+      "renal": 1010,
+      "loop": 1011,
+      "mandibular": 1012,
+      "orchidectomy": 1013,
+      "thumb": 1014,
+      "expl": 1015,
+      "ending": 1016,
+      "ascending": 1017,
+      "exploration": 1018,
+      "neu": 1019,
+      "pancre": 1020,
+      "pancreat": 1021,
+      "fasc": 1022,
+      "subdural": 1023,
+      "ce": 1024,
+      "can": 1025,
+      "hin": 1026,
+      "ening": 1027,
+      "lith": 1028,
+      "drainage": 1029,
+      "transoral": 1030,
+      "adrenal": 1031,
+      "litho": 1032,
+      "adrenalectomy": 1033,
+      "radio": 1034,
+      "ker": 1035,
+      "local": 1036,
+      "pancreatectomy": 1037,
+      "cancer": 1038,
+      "open": 1039,
+      "radial": 1040,
+      "vagin": 1041,
+      "facial": 1042,
+      "palate": 1043,
+      "splen": 1044,
+      "vagina": 1045,
+      "recto": 1046,
+      "eds": 1047,
+      "ump": 1048,
+      "cell": 1049,
+      "splenectomy": 1050,
+      "forearm": 1051,
+      "myotomy": 1052,
+      "abdominoplasty": 1053,
+      "trig": 1054,
+      "cranial": 1055,
+      "tive": 1056,
+      "face": 1057,
+      "dine": 1058,
+      "ldr": 1059,
+      "iodine": 1060,
+      "active": 1061,
+      "seeds": 1062,
+      "application": 1063,
+      "radioactive": 1064,
+      "syst": 1065,
+      "system": 1066,
+      "gth": 1067,
+      "length": 1068,
+      "lengthening": 1069,
+      "ocho": 1070,
+      "osteocho": 1071,
+      "oma": 1072,
+      "mes": 1073,
+      "laryngectomy": 1074,
+      "microvascular": 1075,
+      "pharyngeal": 1076,
+      "te": 1077,
+      "gram": 1078,
+      "hinoplasty": 1079,
+      "asal": 1080,
+      "asto": 1081,
+      "cla": 1082,
+      "nephro": 1083,
+      "ato": 1084,
+      "bur": 1085,
+      "inel": 1086,
+      "sentinel": 1087,
+      "sion": 1088,
+      "ureter": 1089,
+      "torhinoplasty": 1090,
+      "septorhinoplasty": 1091,
+      "neuro": 1092,
+      "orbi": 1093,
+      "mound": 1094,
+      "fat": 1095,
+      "osis": 1096,
+      "sive": 1097,
+      "cast": 1098,
+      "burr": 1099,
+      "pin": 1100,
+      "hole": 1101,
+      "pinn": 1102,
+      "ntation": 1103,
+      "thyroplasty": 1104,
+      "implantation": 1105,
+      "trigger": 1106,
+      "reimplantation": 1107,
+      "iphy": 1108,
+      "epiphy": 1109,
+      "colostomy": 1110,
+      "rectopexy": 1111,
+      "pinning": 1112,
+      "orbit": 1113,
+      "mesh": 1114,
+      "ndro": 1115,
+      "osteochondro": 1116,
+      "osteochondroma": 1117,
+      "sthe": 1118,
+      "prosthe": 1119,
+      "fascio": 1120,
+      "prosthesis": 1121,
+      "fu": 1122,
+      "fundo": 1123,
+      "spa": 1124,
+      "spacer": 1125,
+      "rotation": 1126,
+      "small": 1127,
+      "nne": 1128,
+      "wall": 1129,
+      "tunne": 1130,
+      "tunnel": 1131,
+      "tobifemoral": 1132,
+      "inva": 1133,
+      "radi": 1134,
+      "aortobifemoral": 1135,
+      "minimal": 1136,
+      "invasive": 1137,
+      "minimally": 1138,
+      "sus": 1139,
+      "ximal": 1140,
+      "cone": 1141,
+      "proximal": 1142,
+      "lapro": 1143,
+      "pension": 1144,
+      "suspension": 1145,
+      "laproscopic": 1146,
+      "ureterectomy": 1147,
+      "lysis": 1148,
+      "apical": 1149,
+      "ju": 1150,
+      "nostomy": 1151,
+      "jeju": 1152,
+      "jejunostomy": 1153,
+      "jec": 1154,
+      "injec": 1155,
+      "injection": 1156,
+      "mous": 1157,
+      "lower": 1158,
+      "gla": 1159,
+      "gland": 1160,
+      "exost": 1161,
+      "microdiscectomy": 1162,
+      "hemato": 1163,
+      "pharyngoplasty": 1164,
+      "exostosis": 1165,
+      "hematoma": 1166,
+      "dor": 1167,
+      "mul": 1168,
+      "nis": 1169,
+      "sen": 1170,
+      "latis": 1171,
+      "simus": 1172,
+      "ulation": 1173,
+      "tiligament": 1174,
+      "plication": 1175,
+      "fundoplication": 1176,
+      "dorsi": 1177,
+      "multiligament": 1178,
+      "nissen": 1179,
+      "latissimus": 1180,
+      "crest": 1181,
+      "ben": 1182,
+      "tar": 1183,
+      "tall": 1184,
+      "bentall": 1185,
+      "sternum": 1186,
+      "squa": 1187,
+      "ulostomy": 1188,
+      "ventriculostomy": 1189,
+      "squamous": 1190,
+      "xy": 1191,
+      "ipulation": 1192,
+      "manipulation": 1193,
+      "paxy": 1194,
+      "lithopaxy": 1195,
+      "canal": 1196,
+      "sup": 1197,
+      "sentinal": 1198,
+      "vis": 1199,
+      "thir": 1200,
+      "creation": 1201,
+      "third": 1202,
+      "bank": 1203,
+      "icle": 1204,
+      "ull": 1205,
+      "king": 1206,
+      "lump": 1207,
+      "lumpectomy": 1208,
+      "otoplasty": 1209,
+      "pid": 1210,
+      "debul": 1211,
+      "debulking": 1212,
+      "ib": 1213,
+      "ulum": 1214,
+      "ove": 1215,
+      "above": 1216,
+      "hybrid": 1217,
+      "bankart": 1218,
+      "cat": 1219,
+      "sacro": 1220,
+      "aract": 1221,
+      "inous": 1222,
+      "spinous": 1223,
+      "nephroureterectomy": 1224,
+      "cataract": 1225,
+      "sacrospinous": 1226,
+      "pedicle": 1227,
+      "ei": 1228,
+      "ound": 1229,
+      "altem": 1230,
+      "eier": 1231,
+      "altemeier": 1232,
+      "grafting": 1233,
+      "vertic": 1234,
+      "fasciotomy": 1235,
+      "divertic": 1236,
+      "insertio": 1237,
+      "ten": 1238,
+      "mar": 1239,
+      "pedicled": 1240,
+      "endovascular": 1241,
+      "glos": 1242,
+      "redo": 1243,
+      "thyroglos": 1244,
+      "septoplasty": 1245,
+      "thyroglossal": 1246,
+      "nasal": 1247,
+      "aker": 1248,
+      "romandibular": 1249,
+      "emaker": 1250,
+      "pacemaker": 1251,
+      "bullectomy": 1252,
+      "tero": 1253,
+      "gang": 1254,
+      "lion": 1255,
+      "neuroma": 1256,
+      "ganglion": 1257,
+      "glob": 1258,
+      "retroperitoneal": 1259,
+      "septal": 1260,
+      "global": 1261,
+      "vit": 1262,
+      "zen": 1263,
+      "paraesophageal": 1264,
+      "cess": 1265,
+      "kers": 1266,
+      "diverticulum": 1267,
+      "zenkers": 1268,
+      "fix": 1269,
+      "ian": 1270,
+      "osuction": 1271,
+      "sio": 1272,
+      "uspid": 1273,
+      "proach": 1274,
+      "procto": 1275,
+      "approach": 1276,
+      "tricuspid": 1277,
+      "liposuction": 1278,
+      "epiphysio": 1279,
+      "epiphysiodesis": 1280,
+      "top": 1281,
+      "scap": 1282,
+      "ta": 1283,
+      "submandibular": 1284,
+      "fer": 1285,
+      "yg": 1286,
+      "transfer": 1287,
+      "foss": 1288,
+      "fossa": 1289,
+      "zyg": 1290,
+      "tract": 1291,
+      "latar": 1292,
+      "anasto": 1293,
+      "mosis": 1294,
+      "jet": 1295,
+      "latarjet": 1296,
+      "anastomosis": 1297,
+      "cure": 1298,
+      "gro": 1299,
+      "nar": 1300,
+      "ulnar": 1301,
+      "poromandibular": 1302,
+      "carpal": 1303,
+      "temporomandibular": 1304,
+      "groin": 1305,
+      "contract": 1306,
+      "contracture": 1307,
+      "udr": 1308,
+      "root": 1309,
+      "aring": 1310,
+      "talc": 1311,
+      "opexy": 1312,
+      "aorta": 1313,
+      "sparing": 1314,
+      "poudr": 1315,
+      "poudrage": 1316,
+      "neo": 1317,
+      "scapular": 1318,
+      "mal": 1319,
+      "van": 1320,
+      "grade": 1321,
+      "retrograde": 1322,
+      "advan": 1323,
+      "advancement": 1324,
+      "nose": 1325,
+      "mastopexy": 1326,
+      "fluoro": 1327,
+      "dfoot": 1328,
+      "pelvis": 1329,
+      "hindfoot": 1330,
+      "hart": 1331,
+      "mans": 1332,
+      "vian": 1333,
+      "subcla": 1334,
+      "hartmans": 1335,
+      "subclavian": 1336,
+      "lio": 1337,
+      "tur": 1338,
+      "scolio": 1339,
+      "sition": 1340,
+      "parasto": 1341,
+      "position": 1342,
+      "zygoma": 1343,
+      "scoliosis": 1344,
+      "parastomal": 1345,
+      "ica": 1346,
+      "lead": 1347,
+      "spica": 1348,
+      "chial": 1349,
+      "lymphadenectomy": 1350,
+      "atrial": 1351,
+      "dup": 1352,
+      "ran": 1353,
+      "uy": 1354,
+      "sphin": 1355,
+      "tripsy": 1356,
+      "tren": 1357,
+      "lift": 1358,
+      "elogram": 1359,
+      "pyelogram": 1360,
+      "lithotripsy": 1361,
+      "dupuy": 1362,
+      "sphinc": 1363,
+      "dupuytren": 1364,
+      "est": 1365,
+      "rib": 1366,
+      "maxi": 1367,
+      "proctocolectomy": 1368,
+      "maxillectomy": 1369,
+      "bar": 1370,
+      "scess": 1371,
+      "abscess": 1372,
+      "def": 1373,
+      "transposition": 1374,
+      "assiste": 1375,
+      "ail": 1376,
+      "sem": 1377,
+      "toen": 1378,
+      "icirc": 1379,
+      "ect": 1380,
+      "patella": 1381,
+      "radius": 1382,
+      "defect": 1383,
+      "semicirc": 1384,
+      "toenail": 1385,
+      "semicircular": 1386,
+      "pump": 1387,
+      "mandibulectomy": 1388,
+      "men": 1389,
+      "om": 1390,
+      "press": 1391,
+      "sore": 1392,
+      "brow": 1393,
+      "pressure": 1394,
+      "ersal": 1395,
+      "reversal": 1396,
+      "poly": 1397,
+      "ele": 1398,
+      "one": 1399,
+      "wound": 1400,
+      "arthrogram": 1401,
+      "esophagoscopy": 1402,
+      "aur": 1403,
+      "ld": 1404,
+      "ment": 1405,
+      "basal": 1406,
+      "tori": 1407,
+      "infusion": 1408,
+      "ess": 1409,
+      "rin": 1410,
+      "sw": 1411,
+      "pala": 1412,
+      "radiess": 1413,
+      "radiesse": 1414,
+      "retrosigmoid": 1415,
+      "laby": 1416,
+      "uloplasty": 1417,
+      "vicle": 1418,
+      "myringoplasty": 1419,
+      "clavicle": 1420,
+      "sphinctero": 1421,
+      "rinth": 1422,
+      "labyrinth": 1423,
+      "stone": 1424,
+      "iol": 1425,
+      "gastrocutaneous": 1426,
+      "mediastinal": 1427,
+      "ranial": 1428,
+      "pt": 1429,
+      "reanastomosis": 1430,
+      "lept": 1431,
+      "able": 1432,
+      "neurolept": 1433,
+      "hes": 1434,
+      "exter": 1435,
+      "dodesis": 1436,
+      "fold": 1437,
+      "chest": 1438,
+      "adhes": 1439,
+      "epiphydodesis": 1440,
+      "external": 1441,
+      "foldable": 1442,
+      "adhesion": 1443,
+      "internal": 1444,
+      "hiatal": 1445,
+      "fir": 1446,
+      "vil": 1447,
+      "lous": 1448,
+      "adenoma": 1449,
+      "first": 1450,
+      "villous": 1451,
+      "hic": 1452,
+      "kman": 1453,
+      "stro": 1454,
+      "brostro": 1455,
+      "hickman": 1456,
+      "brostrom": 1457,
+      "neobladder": 1458,
+      "esis": 1459,
+      "ization": 1460,
+      "poc": 1461,
+      "res": 1462,
+      "mon": 1463,
+      "liesis": 1464,
+      "tumor": 1465,
+      "colpoc": 1466,
+      "intra": 1467,
+      "tunnels": 1468,
+      "colpocliesis": 1469,
+      "av": 1470,
+      "oss": 1471,
+      "vide": 1472,
+      "iculoplasty": 1473,
+      "devic": 1474,
+      "uch": 1475,
+      "pouch": 1476,
+      "vad": 1477,
+      "nephrolithotripsy": 1478,
+      "ossiculoplasty": 1479,
+      "video": 1480,
+      "device": 1481,
+      "binoplasty": 1482,
+      "ital": 1483,
+      "enter": 1484,
+      "penis": 1485,
+      "turbinoplasty": 1486,
+      "adhesions": 1487,
+      "hum": 1488,
+      "erus": 1489,
+      "dig": 1490,
+      "fixator": 1491,
+      "humerus": 1492,
+      "olar": 1493,
+      "win": 1494,
+      "stic": 1495,
+      "ischial": 1496,
+      "dow": 1497,
+      "bile": 1498,
+      "skull": 1499,
+      "window": 1500,
+      "cne": 1501,
+      "psy": 1502,
+      "rig": 1503,
+      "lene": 1504,
+      "atment": 1505,
+      "prolene": 1506,
+      "treatment": 1507,
+      "epile": 1508,
+      "mius": 1509,
+      "gastrocne": 1510,
+      "penectomy": 1511,
+      "rigid": 1512,
+      "epilepsy": 1513,
+      "gastrocnemius": 1514,
+      "rac": 1515,
+      "uder": 1516,
+      "studer": 1517,
+      "iscal": 1518,
+      "acty": 1519,
+      "urethrectomy": 1520,
+      "synd": 1521,
+      "teno": 1522,
+      "meniscal": 1523,
+      "actyly": 1524,
+      "syndactyly": 1525,
+      "notomy": 1526,
+      "ustic": 1527,
+      "cysto": 1528,
+      "acoustic": 1529,
+      "tympanotomy": 1530,
+      "gort": 1531,
+      "gortex": 1532,
+      "xor": 1533,
+      "steal": 1534,
+      "rapubic": 1535,
+      "flexor": 1536,
+      "tracheal": 1537,
+      "suprapubic": 1538,
+      "stealth": 1539,
+      "bioplasty": 1540,
+      "ces": 1541,
+      "ire": 1542,
+      "pec": 1543,
+      "wire": 1544,
+      "labioplasty": 1545,
+      "commo": 1546,
+      "arean": 1547,
+      "laryngoph": 1548,
+      "aryngectomy": 1549,
+      "cesarean": 1550,
+      "common": 1551,
+      "laryngopharyngectomy": 1552,
+      "ak": 1553,
+      "cs": 1554,
+      "sac": 1555,
+      "tho": 1556,
+      "leak": 1557,
+      "translabyrinth": 1558,
+      "thered": 1559,
+      "tethered": 1560,
+      "vitrectomy": 1561,
+      "fixation": 1562,
+      "csf": 1563,
+      "lin": 1564,
+      "plu": 1565,
+      "ttom": 1566,
+      "ant": 1567,
+      "trun": 1568,
+      "bottom": 1569,
+      "peric": 1570,
+      "ialization": 1571,
+      "phant": 1572,
+      "supialization": 1573,
+      "marsupialization": 1574,
+      "bartho": 1575,
+      "polyp": 1576,
+      "elephant": 1577,
+      "tenolysis": 1578,
+      "sacral": 1579,
+      "lins": 1580,
+      "plug": 1581,
+      "trunk": 1582,
+      "bartholins": 1583,
+      "full": 1584,
+      "alve": 1585,
+      "thigh": 1586,
+      "palatoplasty": 1587,
+      "cus": 1588,
+      "ginal": 1589,
+      "mat": 1590,
+      "xoma": 1591,
+      "myxoma": 1592,
+      "inten": 1593,
+      "tras": 1594,
+      "sity": 1595,
+      "cystot": 1596,
+      "ultras": 1597,
+      "focus": 1598,
+      "bridge": 1599,
+      "club": 1600,
+      "bonebridge": 1601,
+      "marginal": 1602,
+      "auriculectomy": 1603,
+      "intensity": 1604,
+      "ultrasound": 1605,
+      "focused": 1606,
+      "ero": 1607,
+      "eat": 1608,
+      "pneu": 1609,
+      "perianal": 1610,
+      "monectomy": 1611,
+      "pneumonectomy": 1612,
+      "aph": 1613,
+      "gastroscopy": 1614,
+      "sweat": 1615,
+      "alveolar": 1616,
+      "clubfoot": 1617,
+      "ful": 1618,
+      "iu": 1619,
+      "jo": 1620,
+      "poral": 1621,
+      "ual": 1622,
+      "int": 1623,
+      "sico": 1624,
+      "vesico": 1625,
+      "pled": 1626,
+      "urethrotomy": 1627,
+      "gastrojejunostomy": 1628,
+      "stapled": 1629,
+      "temporal": 1630,
+      "visual": 1631,
+      "iud": 1632,
+      "joint": 1633,
+      "gy": 1634,
+      "rag": 1635,
+      "sphincterotomy": 1636,
+      "digital": 1637,
+      "cm": 1638,
+      "fib": 1639,
+      "mectomy": 1640,
+      "pcl": 1641,
+      "myom": 1642,
+      "antero": 1643,
+      "diaph": 1644,
+      "vest": 1645,
+      "loc": 1646,
+      "thymectomy": 1647,
+      "lobe": 1648,
+      "hydroce": 1649,
+      "fasciocutaneous": 1650,
+      "cmc": 1651,
+      "myomectomy": 1652,
+      "anterolateral": 1653,
+      "diaphrag": 1654,
+      "az": 1655,
+      "roof": 1656,
+      "allo": 1657,
+      "alaz": 1658,
+      "lath": 1659,
+      "labia": 1660,
+      "ance": 1661,
+      "atres": 1662,
+      "deroof": 1663,
+      "transnasal": 1664,
+      "chalaz": 1665,
+      "liance": 1666,
+      "cortic": 1667,
+      "appliance": 1668,
+      "fascial": 1669,
+      "avm": 1670,
+      "allograft": 1671,
+      "latham": 1672,
+      "atresia": 1673,
+      "deroofing": 1674,
+      "chalazion": 1675,
+      "ham": 1676,
+      "iz": 1677,
+      "ition": 1678,
+      "alition": 1679,
+      "coalition": 1680,
+      "thyroid": 1681,
+      "subtotal": 1682,
+      "tarsal": 1683,
+      "fe": 1684,
+      "fi": 1685,
+      "qu": 1686,
+      "ron": 1687,
+      "cavit": 1688,
+      "cavitron": 1689,
+      "vical": 1690,
+      "intrac": 1691,
+      "ervical": 1692,
+      "ulna": 1693,
+      "ndral": 1694,
+      "osteochondral": 1695,
+      "canalplasty": 1696,
+      "suprac": 1697,
+      "supracervical": 1698,
+      "nate": 1699,
+      "onal": 1700,
+      "oesophageal": 1701,
+      "reflu": 1702,
+      "ecic": 1703,
+      "string": 1704,
+      "extracranial": 1705,
+      "subtrig": 1706,
+      "tracheoesophageal": 1707,
+      "rectovaginal": 1708,
+      "hamstring": 1709,
+      "intracranial": 1710,
+      "reflux": 1711,
+      "subtrigonal": 1712,
+      "nestr": 1713,
+      "difi": 1714,
+      "modifi": 1715,
+      "brach": 1716,
+      "neonate": 1717,
+      "fenestr": 1718,
+      "modified": 1719,
+      "gur": 1720,
+      "tv": 1721,
+      "sten": 1722,
+      "anchial": 1723,
+      "using": 1724,
+      "hyster": 1725,
+      "maxil": 1726,
+      "branchial": 1727,
+      "matic": 1728,
+      "fulgur": 1729,
+      "diaphragmatic": 1730,
+      "tvt": 1731,
+      "stenosis": 1732,
+      "maxilla": 1733,
+      "fulguration": 1734,
+      "base": 1735,
+      "ibul": 1736,
+      "exenter": 1737,
+      "sutur": 1738,
+      "parathyroid": 1739,
+      "intraoperative": 1740,
+      "vestibul": 1741,
+      "hydrocele": 1742,
+      "exenteration": 1743,
+      "suturing": 1744,
+      "vestibuloplasty": 1745,
+      "pre": 1746,
+      "tex": 1747,
+      "icular": 1748,
+      "acj": 1749,
+      "ign": 1750,
+      "foreign": 1751,
+      "auricular": 1752,
+      "location": 1753,
+      "pull": 1754,
+      "colo": 1755,
+      "arge": 1756,
+      "throug": 1757,
+      "enso": 1758,
+      "motor": 1759,
+      "choanal": 1760,
+      "charge": 1761,
+      "ocele": 1762,
+      "cortex": 1763,
+      "fren": 1764,
+      "urethrolysis": 1765,
+      "uretero": 1766,
+      "swenso": 1767,
+      "sphincteroplasty": 1768,
+      "coloanal": 1769,
+      "through": 1770,
+      "swenson": 1771,
+      "gen": 1772,
+      "gical": 1773,
+      "jor": 1774,
+      "rhin": 1775,
+      "uvul": 1776,
+      "alato": 1777,
+      "ardial": 1778,
+      "opalato": 1779,
+      "dislocation": 1780,
+      "major": 1781,
+      "surgical": 1782,
+      "mesenter": 1783,
+      "uvulopalato": 1784,
+      "mesenteric": 1785,
+      "uvulopalatopharyngoplasty": 1786,
+      "cro": 1787,
+      "orec": 1788,
+      "scro": 1789,
+      "vity": 1790,
+      "toral": 1791,
+      "costomy": 1792,
+      "arch": 1793,
+      "anorec": 1794,
+      "enuc": 1795,
+      "leation": 1796,
+      "cavity": 1797,
+      "hymen": 1798,
+      "corp": 1799,
+      "cecostomy": 1800,
+      "pectoral": 1801,
+      "genioplasty": 1802,
+      "scrotal": 1803,
+      "anorectoplasty": 1804,
+      "enucleation": 1805,
+      "pectoralis": 1806,
+      "oid": 1807,
+      "iogram": 1808,
+      "comast": 1809,
+      "myectomy": 1810,
+      "anast": 1811,
+      "necomast": 1812,
+      "mastoid": 1813,
+      "ileoanal": 1814,
+      "palatal": 1815,
+      "gynecomast": 1816,
+      "gynecomastia": 1817,
+      "ling": 1818,
+      "sling": 1819,
+      "rodesis": 1820,
+      "rapid": 1821,
+      "ardectomy": 1822,
+      "tico": 1823,
+      "rectus": 1824,
+      "expansion": 1825,
+      "palmar": 1826,
+      "pleurodesis": 1827,
+      "fasciectomy": 1828,
+      "pericardectomy": 1829,
+      "fenestrated": 1830,
+      "atoplasty": 1831,
+      "ido": 1832,
+      "pp": 1833,
+      "alpp": 1834,
+      "lang": 1835,
+      "ory": 1836,
+      "access": 1837,
+      "diac": 1838,
+      "cholang": 1839,
+      "pleural": 1840,
+      "cardiac": 1841,
+      "sigmoido": 1842,
+      "meatoplasty": 1843,
+      "pectus": 1844,
+      "pericardial": 1845,
+      "alpps": 1846,
+      "accessory": 1847,
+      "cholangiogram": 1848,
+      "sigmoidoscopy": 1849,
+      "36": 1850,
+      "eve": 1851,
+      "sle": 1852,
+      "tour": 1853,
+      "ravit": 1854,
+      "contour": 1855,
+      "subcutaneous": 1856,
+      "decompres": 1857,
+      "fibula": 1858,
+      "brachioplasty": 1859,
+      "360": 1860,
+      "sleeve": 1861,
+      "ravitch": 1862,
+      "decompressive": 1863,
+      "dur": 1864,
+      "vator": 1865,
+      "levator": 1866,
+      "exca": 1867,
+      "vatum": 1868,
+      "thoracoabdominal": 1869,
+      "eningocele": 1870,
+      "labyrinthectomy": 1871,
+      "vesicotomy": 1872,
+      "vesicovaginal": 1873,
+      "dura": 1874,
+      "excavatum": 1875,
+      "cc": 1876,
+      "et": 1877,
+      "fic": 1878,
+      "hiz": 1879,
+      "meningocele": 1880,
+      "pero": 1881,
+      "rhiz": 1882,
+      "arti": 1883,
+      "abulum": 1884,
+      "acet": 1885,
+      "entero": 1886,
+      "crico": 1887,
+      "sequ": 1888,
+      "sigmoidectomy": 1889,
+      "proctosigmoidectomy": 1890,
+      "estrectomy": 1891,
+      "ficial": 1892,
+      "peroneal": 1893,
+      "rhizotomy": 1894,
+      "artificial": 1895,
+      "acetabulum": 1896,
+      "sequestrectomy": 1897,
+      "dac": 1898,
+      "grac": 1899,
+      "ocyst": 1900,
+      "ry": 1901,
+      "spac": 1902,
+      "ue": 1903,
+      "uter": 1904,
+      "alo": 1905,
+      "tong": 1906,
+      "plate": 1907,
+      "orhin": 1908,
+      "decortic": 1909,
+      "ilis": 1910,
+      "parapharyngeal": 1911,
+      "navigation": 1912,
+      "tenotomy": 1913,
+      "frenulectomy": 1914,
+      "ureterostomy": 1915,
+      "dacry": 1916,
+      "gracilis": 1917,
+      "ocystorhin": 1918,
+      "space": 1919,
+      "tongue": 1920,
+      "decortication": 1921,
+      "dacryocystorhin": 1922,
+      "dacryocystorhinostomy": 1923,
+      "au": 1924,
+      "gment": 1925,
+      "rhy": 1926,
+      "plant": 1927,
+      "ipital": 1928,
+      "segment": 1929,
+      "ileofemoral": 1930,
+      "hemi": 1931,
+      "vasculariz": 1932,
+      "sphincter": 1933,
+      "fibular": 1934,
+      "hymenectomy": 1935,
+      "rhytidectomy": 1936,
+      "plantar": 1937,
+      "segmentectomy": 1938,
+      "vascularized": 1939,
+      "bectomy": 1940,
+      "gr": 1941,
+      "gu": 1942,
+      "mbectomy": 1943,
+      "nk": 1944,
+      "on": 1945,
+      "rod": 1946,
+      "comple": 1947,
+      "myelo": 1948,
+      "thrombectomy": 1949,
+      "ided": 1950,
+      "bocc": 1951,
+      "profundo": 1952,
+      "ulcer": 1953,
+      "image": 1954,
+      "subocc": 1955,
+      "losotomy": 1956,
+      "flank": 1957,
+      "callosotomy": 1958,
+      "digit": 1959,
+      "corpus": 1960,
+      "grid": 1961,
+      "guided": 1962,
+      "completion": 1963,
+      "myelomeningocele": 1964,
+      "profundoplasty": 1965,
+      "suboccipital": 1966,
+      "irod": 1967,
+      "kar": 1968,
+      "oromandibular": 1969,
+      "pto": 1970,
+      "pherectomy": 1971,
+      "eculectomy": 1972,
+      "ispherectomy": 1973,
+      "abeculectomy": 1974,
+      "trabeculectomy": 1975,
+      "attu": 1976,
+      "peds": 1977,
+      "transmastoid": 1978,
+      "vaginoplasty": 1979,
+      "torso": 1980,
+      "cercla": 1981,
+      "thoracolumbar": 1982,
+      "fresh": 1983,
+      "shirod": 1984,
+      "hemispherectomy": 1985,
+      "perineoplasty": 1986,
+      "polypectomy": 1987,
+      "corticectomy": 1988,
+      "enterocutaneous": 1989,
+      "ptosis": 1990,
+      "attune": 1991,
+      "cerclage": 1992,
+      "shirodkar": 1993,
+      "du": 1994,
+      "nip": 1995,
+      "oir": 1996,
+      "oden": 1997,
+      "voir": 1998,
+      "we": 1999,
+      "ya": 2000,
+      "reser": 2001,
+      "ercle": 2002,
+      "elid": 2003,
+      "logy": 2004,
+      "maya": 2005,
+      "tubercle": 2006,
+      "hepa": 2007,
+      "patellar": 2008,
+      "eyelid": 2009,
+      "condylo": 2010,
+      "radiology": 2011,
+      "ommaya": 2012,
+      "duoden": 2013,
+      "nipple": 2014,
+      "reservoir": 2015,
+      "bip": 2016,
+      "olec": 2017,
+      "pul": 2018,
+      "sectomy": 2019,
+      "tt": 2020,
+      "tac": 2021,
+      "tocelectomy": 2022,
+      "lacer": 2023,
+      "arpal": 2024,
+      "erma": 2025,
+      "sperma": 2026,
+      "cauter": 2027,
+      "tie": 2028,
+      "metac": 2029,
+      "ranon": 2030,
+      "monary": 2031,
+      "mata": 2032,
+      "rhinectomy": 2033,
+      "cricopharyngeal": 2034,
+      "hepatico": 2035,
+      "condylomata": 2036,
+      "bipolar": 2037,
+      "olecranon": 2038,
+      "pulmonary": 2039,
+      "laceration": 2040,
+      "spermatocelectomy": 2041,
+      "cauterization": 2042,
+      "metacarpal": 2043,
+      "gge": 2044,
+      "year": 2045,
+      "rein": 2046,
+      "thlon": 2047,
+      "tria": 2048,
+      "cystoplasty": 2049,
+      "transcanal": 2050,
+      "loid": 2051,
+      "forcement": 2052,
+      "laryngeal": 2053,
+      "cup": 2054,
+      "minora": 2055,
+      "seton": 2056,
+      "round": 2057,
+      "under": 2058,
+      "colloid": 2059,
+      "meato": 2060,
+      "pharyngectomy": 2061,
+      "clagge": 2062,
+      "orbital": 2063,
+      "rhinotomy": 2064,
+      "years": 2065,
+      "reinforcement": 2066,
+      "triathlon": 2067,
+      "meatotomy": 2068,
+      "claggett": 2069,
+      "aro": 2070,
+      "lingu": 2071,
+      "tend": 2072,
+      "colon": 2073,
+      "anoplasty": 2074,
+      "extend": 2075,
+      "ident": 2076,
+      "atic": 2077,
+      "attico": 2078,
+      "elian": 2079,
+      "igelian": 2080,
+      "spigelian": 2081,
+      "vaginoscopy": 2082,
+      "endoscopy": 2083,
+      "varicocelectomy": 2084,
+      "meso": 2085,
+      "zygom": 2086,
+      "brachial": 2087,
+      "plateau": 2088,
+      "lingual": 2089,
+      "extended": 2090,
+      "atticotomy": 2091,
+      "zygomatic": 2092,
+      "halo": 2093,
+      "iv": 2094,
+      "omastoid": 2095,
+      "sical": 2096,
+      "xus": 2097,
+      "resectio": 2098,
+      "romyotomy": 2099,
+      "intu": 2100,
+      "vesical": 2101,
+      "urach": 2102,
+      "ulated": 2103,
+      "loromyotomy": 2104,
+      "plexus": 2105,
+      "fluid": 2106,
+      "geration": 2107,
+      "sternomastoid": 2108,
+      "pyloromyotomy": 2109,
+      "rectovesical": 2110,
+      "fulgeration": 2111,
+      "quintu": 2112,
+      "frenuloplasty": 2113,
+      "corpectomy": 2114,
+      "mesorectal": 2115,
+      "ivc": 2116,
+      "urachal": 2117,
+      "quintuple": 2118,
+      "bac": 2119,
+      "cti": 2120,
+      "eone": 2121,
+      "fen": 2122,
+      "go": 2123,
+      "jun": 2124,
+      "nus": 2125,
+      "pir": 2126,
+      "scal": 2127,
+      "vh": 2128,
+      "alus": 2129,
+      "ication": 2130,
+      "hoid": 2131,
+      "aspir": 2132,
+      "conjun": 2133,
+      "lofen": 2134,
+      "iteone": 2135,
+      "periteone": 2136,
+      "graf": 2137,
+      "phalus": 2138,
+      "retroperiteone": 2139,
+      "ification": 2140,
+      "ileal": 2141,
+      "flail": 2142,
+      "esvh": 2143,
+      "loculated": 2144,
+      "hydrocephalus": 2145,
+      "fenestration": 2146,
+      "hymenotomy": 2147,
+      "weight": 2148,
+      "identification": 2149,
+      "baclofen": 2150,
+      "ctival": 2151,
+      "gold": 2152,
+      "nuss": 2153,
+      "scalp": 2154,
+      "aspiration": 2155,
+      "conjunctival": 2156,
+      "retroperiteonescopic": 2157,
+      "25": 2158,
+      "bio": 2159,
+      "eg": 2160,
+      "ga": 2161,
+      "har": 2162,
+      "heck": 2163,
+      "omph": 2164,
+      "oelectro": 2165,
+      "pr": 2166,
+      "rhinoplasty": 2167,
+      "wart": 2168,
+      "sticle": 2169,
+      "almous": 2170,
+      "alocele": 2171,
+      "lage": 2172,
+      "thalmous": 2173,
+      "anti": 2174,
+      "enoph": 2175,
+      "ence": 2176,
+      "rection": 2177,
+      "recheck": 2178,
+      "iat": 2179,
+      "pediat": 2180,
+      "imary": 2181,
+      "novectomy": 2182,
+      "tilage": 2183,
+      "graph": 2184,
+      "phalo": 2185,
+      "pharo": 2186,
+      "synovectomy": 2187,
+      "correction": 2188,
+      "seeg": 2189,
+      "blepharo": 2190,
+      "legion": 2191,
+      "collateral": 2192,
+      "stereoelectro": 2193,
+      "cartilage": 2194,
+      "testicle": 2195,
+      "diverticulectomy": 2196,
+      "scaphoid": 2197,
+      "diaphragm": 2198,
+      "duodenal": 2199,
+      "biotic": 2200,
+      "harvest": 2201,
+      "omphalocele": 2202,
+      "primary": 2203,
+      "antibiotic": 2204,
+      "enophthalmous": 2205,
+      "encephalo": 2206,
+      "graphy": 2207,
+      "blepharoplasty": 2208,
+      "stereoelectroencephalo": 2209,
+      "stereoelectroencephalography": 2210,
+      "10": 2211,
+      "card": 2212,
+      "hel": 2213,
+      "nyst": 2214,
+      "prepa": 2215,
+      "stem": 2216,
+      "iover": 2217,
+      "ech": 2218,
+      "ecmo": 2219,
+      "bond": 2220,
+      "vicular": 2221,
+      "laminoplasty": 2222,
+      "corneal": 2223,
+      "navicular": 2224,
+      "tellar": 2225,
+      "lensectomy": 2226,
+      "pancreatic": 2227,
+      "bursectomy": 2228,
+      "tenosynovectomy": 2229,
+      "cricoid": 2230,
+      "harvesting": 2231,
+      "cardiover": 2232,
+      "nystom": 2233,
+      "prepatellar": 2234,
+      "bonding": 2235,
+      "cp": 2236,
+      "da": 2237,
+      "dal": 2238,
+      "eth": 2239,
+      "ein": 2240,
+      "gous": 2241,
+      "iac": 2242,
+      "ium": 2243,
+      "iqu": 2244,
+      "nas": 2245,
+      "niqu": 2246,
+      "oscop": 2247,
+      "rip": 2248,
+      "sch": 2249,
+      "tech": 2250,
+      "utery": 2251,
+      "vas": 2252,
+      "viac": 2253,
+      "stag": 2254,
+      "stein": 2255,
+      "room": 2256,
+      "tolo": 2257,
+      "las": 2258,
+      "thectomy": 2259,
+      "artic": 2260,
+      "ercp": 2261,
+      "erda": 2262,
+      "paeds": 2263,
+      "ledo": 2264,
+      "acle": 2265,
+      "cystotomy": 2266,
+      "uloscop": 2267,
+      "transgastric": 2268,
+      "choduoden": 2269,
+      "choledo": 2270,
+      "disartic": 2271,
+      "cautery": 2272,
+      "sympa": 2273,
+      "diagnosti": 2274,
+      "operating": 2275,
+      "broviac": 2276,
+      "urethroplasty": 2277,
+      "septum": 2278,
+      "interposition": 2279,
+      "cele": 2280,
+      "pinnacle": 2281,
+      "diverticuloscop": 2282,
+      "ranula": 2283,
+      "ureterocele": 2284,
+      "uterine": 2285,
+      "autolo": 2286,
+      "weerda": 2287,
+      "colonoscopy": 2288,
+      "cardioversion": 2289,
+      "dallas": 2290,
+      "ethmo": 2291,
+      "nique": 2292,
+      "ripstein": 2293,
+      "technique": 2294,
+      "vasectomy": 2295,
+      "staging": 2296,
+      "choduodenostomy": 2297,
+      "choledochoduodenostomy": 2298,
+      "disarticulation": 2299,
+      "sympathectomy": 2300,
+      "diverticuloscope": 2301,
+      "autologous": 2302,
+      "3r": 2303,
+      "ii": 2304,
+      "ler": 2305,
+      "mation": 2306,
+      "nx": 2307,
+      "por": 2308,
+      "r3": 2309,
+      "utero": 2310,
+      "vision": 2311,
+      "zero": 2312,
+      "iotomy": 2313,
+      "toentero": 2314,
+      "icardial": 2315,
+      "nesis": 2316,
+      "isis": 2317,
+      "formation": 2318,
+      "stimulation": 2319,
+      "epicardial": 2320,
+      "genesis": 2321,
+      "syn": 2322,
+      "thoracoscopy": 2323,
+      "ophary": 2324,
+      "gastrosch": 2325,
+      "malformation": 2326,
+      "cortical": 2327,
+      "ureterolysis": 2328,
+      "heller": 2329,
+      "nasophary": 2330,
+      "ethmoidectomy": 2331,
+      "3rd": 2332,
+      "portoentero": 2333,
+      "uterosacral": 2334,
+      "gastroschisis": 2335,
+      "nasopharynx": 2336,
+      "portoenterostomy": 2337,
+      "ave": 2338,
+      "dh": 2339,
+      "ela": 2340,
+      "gon": 2341,
+      "haph": 2342,
+      "itor": 2343,
+      "ked": 2344,
+      "mt": 2345,
+      "mu": 2346,
+      "mis": 2347,
+      "ow": 2348,
+      "smo": 2349,
+      "sorr": 2350,
+      "tit": 2351,
+      "utaneous": 2352,
+      "zaro": 2353,
+      "toma": 2354,
+      "cosal": 2355,
+      "cocc": 2356,
+      "thopexy": 2357,
+      "inic": 2358,
+      "icp": 2359,
+      "aner": 2360,
+      "anch": 2361,
+      "anium": 2362,
+      "orage": 2363,
+      "talus": 2364,
+      "leep": 2365,
+      "eding": 2366,
+      "division": 2367,
+      "dotomy": 2368,
+      "usal": 2369,
+      "moid": 2370,
+      "desmo": 2371,
+      "bolectomy": 2372,
+      "boss": 2373,
+      "embolectomy": 2374,
+      "dermoid": 2375,
+      "transcr": 2376,
+      "spy": 2377,
+      "loaner": 2378,
+      "entectomy": 2379,
+      "phi": 2380,
+      "ocutaneous": 2381,
+      "clinic": 2382,
+      "tibialis": 2383,
+      "cordotomy": 2384,
+      "arteriovenous": 2385,
+      "ilizaro": 2386,
+      "broid": 2387,
+      "shave": 2388,
+      "ileorectal": 2389,
+      "submu": 2390,
+      "tracheocutaneous": 2391,
+      "median": 2392,
+      "canthopexy": 2393,
+      "vaginectomy": 2394,
+      "tarsorr": 2395,
+      "taked": 2396,
+      "omentectomy": 2397,
+      "monitor": 2398,
+      "alveoplasty": 2399,
+      "feeding": 2400,
+      "fibroid": 2401,
+      "colonic": 2402,
+      "syndesmo": 2403,
+      "dhs": 2404,
+      "elastic": 2405,
+      "haphy": 2406,
+      "mtp": 2407,
+      "own": 2408,
+      "titanium": 2409,
+      "anchorage": 2410,
+      "transcrusal": 2411,
+      "ilizarov": 2412,
+      "submucosal": 2413,
+      "tarsorrhaphy": 2414,
+      "takedown": 2415,
+      "syndesmotic": 2416,
+      "amin": 2417,
+      "cy": 2418,
+      "cin": 2419,
+      "dre": 2420,
+      "dle": 2421,
+      "del": 2422,
+      "iver": 2423,
+      "ky": 2424,
+      "mid": 2425,
+      "mit": 2426,
+      "oroscopic": 2427,
+      "otrache": 2428,
+      "pectomy": 2429,
+      "pho": 2430,
+      "sum": 2431,
+      "tent": 2432,
+      "tear": 2433,
+      "vation": 2434,
+      "yge": 2435,
+      "relocation": 2436,
+      "rono": 2437,
+      "ioinguinal": 2438,
+      "lapa": 2439,
+      "lata": 2440,
+      "core": 2441,
+      "cotomy": 2442,
+      "corono": 2443,
+      "artoma": 2444,
+      "tomycin": 2445,
+      "inat": 2446,
+      "inum": 2447,
+      "patent": 2448,
+      "isiotomy": 2449,
+      "trident": 2450,
+      "examin": 2451,
+      "agment": 2452,
+      "ophy": 2453,
+      "ray": 2454,
+      "eminal": 2455,
+      "cranium": 2456,
+      "chin": 2457,
+      "laryngotrache": 2458,
+      "episiotomy": 2459,
+      "trachel": 2460,
+      "syrin": 2461,
+      "fluroscopy": 2462,
+      "mitomycin": 2463,
+      "ilioinguinal": 2464,
+      "arteriosus": 2465,
+      "angiogram": 2466,
+      "leforte": 2467,
+      "carpectomy": 2468,
+      "carinat": 2469,
+      "ductus": 2470,
+      "mediastinum": 2471,
+      "fragment": 2472,
+      "neurectomy": 2473,
+      "fascia": 2474,
+      "trigeminal": 2475,
+      "burch": 2476,
+      "neuronavigation": 2477,
+      "elevation": 2478,
+      "hamartoma": 2479,
+      "rhinophy": 2480,
+      "duraplasty": 2481,
+      "goniotomy": 2482,
+      "coccyge": 2483,
+      "drez": 2484,
+      "deliver": 2485,
+      "kypho": 2486,
+      "middle": 2487,
+      "summit": 2488,
+      "lapaoroscopic": 2489,
+      "coronoidectomy": 2490,
+      "examination": 2491,
+      "laryngotracheoplasty": 2492,
+      "trachelectomy": 2493,
+      "syrinx": 2494,
+      "carinatum": 2495,
+      "rhinophyma": 2496,
+      "coccygeal": 2497,
+      "delivery": 2498,
+      "kyphoplasty": 2499
+    },
+    "merges": [
+      [
+        "s",
+        "t"
+      ],
+      [
+        "r",
+        "e"
+      ],
+      [
+        "r",
+        "o"
+      ],
+      [
+        "a",
+        "l"
+      ],
+      [
+        "i",
+        "o"
+      ],
+      [
+        "t",
+        "o"
+      ],
+      [
+        "l",
+        "a"
+      ],
+      [
+        "io",
+        "n"
+      ],
+      [
+        "c",
+        "o"
+      ],
+      [
+        "t",
+        "h"
+      ],
+      [
+        "m",
+        "y"
+      ],
+      [
+        "a",
+        "r"
+      ],
+      [
+        "to",
+        "my"
+      ],
+      [
+        "i",
+        "n"
+      ],
+      [
+        "e",
+        "r"
+      ],
+      [
+        "s",
+        "co"
+      ],
+      [
+        "sco",
+        "p"
+      ],
+      [
+        "i",
+        "c"
+      ],
+      [
+        "p",
+        "a"
+      ],
+      [
+        "t",
+        "ion"
+      ],
+      [
+        "e",
+        "c"
+      ],
+      [
+        "th",
+        "ro"
+      ],
+      [
+        "ar",
+        "thro"
+      ],
+      [
+        "a",
+        "n"
+      ],
+      [
+        "p",
+        "la"
+      ],
+      [
+        "n",
+        "e"
+      ],
+      [
+        "ec",
+        "tomy"
+      ],
+      [
+        "scop",
+        "y"
+      ],
+      [
+        "pla",
+        "st"
+      ],
+      [
+        "plast",
+        "y"
+      ],
+      [
+        "i",
+        "s"
+      ],
+      [
+        "e",
+        "n"
+      ],
+      [
+        "k",
+        "ne"
+      ],
+      [
+        "kne",
+        "e"
+      ],
+      [
+        "o",
+        "r"
+      ],
+      [
+        "t",
+        "al"
+      ],
+      [
+        "arthro",
+        "plasty"
+      ],
+      [
+        "y",
+        "st"
+      ],
+      [
+        "pa",
+        "ro"
+      ],
+      [
+        "scop",
+        "ic"
+      ],
+      [
+        "la",
+        "paro"
+      ],
+      [
+        "a",
+        "tion"
+      ],
+      [
+        "i",
+        "r"
+      ],
+      [
+        "l",
+        "e"
+      ],
+      [
+        "re",
+        "c"
+      ],
+      [
+        "re",
+        "pa"
+      ],
+      [
+        "repa",
+        "ir"
+      ],
+      [
+        "laparo",
+        "scopic"
+      ],
+      [
+        "a",
+        "b"
+      ],
+      [
+        "i",
+        "p"
+      ],
+      [
+        "e",
+        "d"
+      ],
+      [
+        "to",
+        "tal"
+      ],
+      [
+        "in",
+        "al"
+      ],
+      [
+        "t",
+        "r"
+      ],
+      [
+        "a",
+        "c"
+      ],
+      [
+        "e",
+        "x"
+      ],
+      [
+        "rec",
+        "tomy"
+      ],
+      [
+        "is",
+        "ion"
+      ],
+      [
+        "d",
+        "i"
+      ],
+      [
+        "d",
+        "o"
+      ],
+      [
+        "t",
+        "er"
+      ],
+      [
+        "arthro",
+        "scopy"
+      ],
+      [
+        "in",
+        "g"
+      ],
+      [
+        "h",
+        "ip"
+      ],
+      [
+        "u",
+        "s"
+      ],
+      [
+        "an",
+        "d"
+      ],
+      [
+        "m",
+        "o"
+      ],
+      [
+        "i",
+        "d"
+      ],
+      [
+        "u",
+        "re"
+      ],
+      [
+        "e",
+        "rectomy"
+      ],
+      [
+        "a",
+        "g"
+      ],
+      [
+        "st",
+        "r"
+      ],
+      [
+        "s",
+        "ec"
+      ],
+      [
+        "i",
+        "a"
+      ],
+      [
+        "h",
+        "yst"
+      ],
+      [
+        "v",
+        "al"
+      ],
+      [
+        "s",
+        "i"
+      ],
+      [
+        "a",
+        "t"
+      ],
+      [
+        "e",
+        "l"
+      ],
+      [
+        "v",
+        "e"
+      ],
+      [
+        "c",
+        "ision"
+      ],
+      [
+        "h",
+        "o"
+      ],
+      [
+        "er",
+        "n"
+      ],
+      [
+        "sec",
+        "tion"
+      ],
+      [
+        "t",
+        "ation"
+      ],
+      [
+        "d",
+        "e"
+      ],
+      [
+        "u",
+        "c"
+      ],
+      [
+        "h",
+        "ern"
+      ],
+      [
+        "hern",
+        "ia"
+      ],
+      [
+        "i",
+        "th"
+      ],
+      [
+        "do",
+        "m"
+      ],
+      [
+        "o",
+        "st"
+      ],
+      [
+        "t",
+        "ic"
+      ],
+      [
+        "w",
+        "ith"
+      ],
+      [
+        "b",
+        "o"
+      ],
+      [
+        "uc",
+        "tion"
+      ],
+      [
+        "o",
+        "scopy"
+      ],
+      [
+        "u",
+        "r"
+      ],
+      [
+        "ex",
+        "cision"
+      ],
+      [
+        "o",
+        "p"
+      ],
+      [
+        "s",
+        "er"
+      ],
+      [
+        "re",
+        "section"
+      ],
+      [
+        "c",
+        "yst"
+      ],
+      [
+        "hyst",
+        "erectomy"
+      ],
+      [
+        "a",
+        "s"
+      ],
+      [
+        "t",
+        "u"
+      ],
+      [
+        "id",
+        "ectomy"
+      ],
+      [
+        "ab",
+        "dom"
+      ],
+      [
+        "r",
+        "a"
+      ],
+      [
+        "p",
+        "ed"
+      ],
+      [
+        "a",
+        "st"
+      ],
+      [
+        "d",
+        "en"
+      ],
+      [
+        "di",
+        "la"
+      ],
+      [
+        "dila",
+        "tation"
+      ],
+      [
+        "e",
+        "m"
+      ],
+      [
+        "abdom",
+        "inal"
+      ],
+      [
+        "io",
+        "r"
+      ],
+      [
+        "co",
+        "n"
+      ],
+      [
+        "ic",
+        "al"
+      ],
+      [
+        "a",
+        "or"
+      ],
+      [
+        "b",
+        "i"
+      ],
+      [
+        "i",
+        "g"
+      ],
+      [
+        "o",
+        "tomy"
+      ],
+      [
+        "p",
+        "ro"
+      ],
+      [
+        "d",
+        "er"
+      ],
+      [
+        "cyst",
+        "oscopy"
+      ],
+      [
+        "aor",
+        "tic"
+      ],
+      [
+        "u",
+        "l"
+      ],
+      [
+        "c",
+        "ab"
+      ],
+      [
+        "cab",
+        "g"
+      ],
+      [
+        "an",
+        "s"
+      ],
+      [
+        "u",
+        "m"
+      ],
+      [
+        "tr",
+        "ans"
+      ],
+      [
+        "f",
+        "o"
+      ],
+      [
+        "i",
+        "m"
+      ],
+      [
+        "us",
+        "ion"
+      ],
+      [
+        "re",
+        "mo"
+      ],
+      [
+        "remo",
+        "val"
+      ],
+      [
+        "re",
+        "con"
+      ],
+      [
+        "str",
+        "uction"
+      ],
+      [
+        "recon",
+        "struction"
+      ],
+      [
+        "c",
+        "ho"
+      ],
+      [
+        "s",
+        "p"
+      ],
+      [
+        "u",
+        "la"
+      ],
+      [
+        "l",
+        "o"
+      ],
+      [
+        "en",
+        "t"
+      ],
+      [
+        "val",
+        "ve"
+      ],
+      [
+        "bo",
+        "w"
+      ],
+      [
+        "in",
+        "ser"
+      ],
+      [
+        "an",
+        "ter"
+      ],
+      [
+        "anter",
+        "ior"
+      ],
+      [
+        "i",
+        "t"
+      ],
+      [
+        "inser",
+        "tion"
+      ],
+      [
+        "e",
+        "v"
+      ],
+      [
+        "u",
+        "ation"
+      ],
+      [
+        "ac",
+        "uation"
+      ],
+      [
+        "ev",
+        "acuation"
+      ],
+      [
+        "as",
+        "si"
+      ],
+      [
+        "bow",
+        "el"
+      ],
+      [
+        "v",
+        "ag"
+      ],
+      [
+        "den",
+        "tal"
+      ],
+      [
+        "assi",
+        "st"
+      ],
+      [
+        "re",
+        "v"
+      ],
+      [
+        "r",
+        "al"
+      ],
+      [
+        "ar",
+        "d"
+      ],
+      [
+        "rev",
+        "ision"
+      ],
+      [
+        "m",
+        "p"
+      ],
+      [
+        "assist",
+        "ed"
+      ],
+      [
+        "ing",
+        "u"
+      ],
+      [
+        "ingu",
+        "inal"
+      ],
+      [
+        "d",
+        "is"
+      ],
+      [
+        "l",
+        "ec"
+      ],
+      [
+        "ac",
+        "l"
+      ],
+      [
+        "yst",
+        "ectomy"
+      ],
+      [
+        "cho",
+        "lec"
+      ],
+      [
+        "cholec",
+        "ystectomy"
+      ],
+      [
+        "b",
+        "re"
+      ],
+      [
+        "bre",
+        "ast"
+      ],
+      [
+        "p",
+        "ing"
+      ],
+      [
+        "s",
+        "al"
+      ],
+      [
+        "ure",
+        "th"
+      ],
+      [
+        "f",
+        "t"
+      ],
+      [
+        "s",
+        "is"
+      ],
+      [
+        "ureth",
+        "ral"
+      ],
+      [
+        "o",
+        "t"
+      ],
+      [
+        "vag",
+        "inal"
+      ],
+      [
+        "ost",
+        "e"
+      ],
+      [
+        "f",
+        "usion"
+      ],
+      [
+        "to",
+        "r"
+      ],
+      [
+        "o",
+        "op"
+      ],
+      [
+        "ro",
+        "scopy"
+      ],
+      [
+        "m",
+        "in"
+      ],
+      [
+        "sal",
+        "ping"
+      ],
+      [
+        "oste",
+        "otomy"
+      ],
+      [
+        "n",
+        "o"
+      ],
+      [
+        "l",
+        "ectomy"
+      ],
+      [
+        "n",
+        "g"
+      ],
+      [
+        "th",
+        "y"
+      ],
+      [
+        "c",
+        "r"
+      ],
+      [
+        "thy",
+        "ro"
+      ],
+      [
+        "c",
+        "a"
+      ],
+      [
+        "a",
+        "re"
+      ],
+      [
+        "ag",
+        "e"
+      ],
+      [
+        "or",
+        "ation"
+      ],
+      [
+        "in",
+        "e"
+      ],
+      [
+        "salping",
+        "o"
+      ],
+      [
+        "h",
+        "ard"
+      ],
+      [
+        "w",
+        "are"
+      ],
+      [
+        "hard",
+        "ware"
+      ],
+      [
+        "re",
+        "st"
+      ],
+      [
+        "t",
+        "i"
+      ],
+      [
+        "u",
+        "b"
+      ],
+      [
+        "fo",
+        "ot"
+      ],
+      [
+        "trans",
+        "urethral"
+      ],
+      [
+        "s",
+        "s"
+      ],
+      [
+        "b",
+        "la"
+      ],
+      [
+        "d",
+        "der"
+      ],
+      [
+        "bla",
+        "dder"
+      ],
+      [
+        "cr",
+        "an"
+      ],
+      [
+        "oration",
+        "s"
+      ],
+      [
+        "rest",
+        "orations"
+      ],
+      [
+        "f",
+        "or"
+      ],
+      [
+        "thyro",
+        "idectomy"
+      ],
+      [
+        "f",
+        "em"
+      ],
+      [
+        "or",
+        "al"
+      ],
+      [
+        "st",
+        "at"
+      ],
+      [
+        "m",
+        "us"
+      ],
+      [
+        "hyst",
+        "e"
+      ],
+      [
+        "u",
+        "a"
+      ],
+      [
+        "tr",
+        "ip"
+      ],
+      [
+        "an",
+        "e"
+      ],
+      [
+        "m",
+        "a"
+      ],
+      [
+        "trip",
+        "le"
+      ],
+      [
+        "de",
+        "sis"
+      ],
+      [
+        "la",
+        "r"
+      ],
+      [
+        "ter",
+        "al"
+      ],
+      [
+        "sp",
+        "ine"
+      ],
+      [
+        "c",
+        "h"
+      ],
+      [
+        "p",
+        "er"
+      ],
+      [
+        "pro",
+        "stat"
+      ],
+      [
+        "c",
+        "er"
+      ],
+      [
+        "v",
+        "at"
+      ],
+      [
+        "arthro",
+        "desis"
+      ],
+      [
+        "vat",
+        "s"
+      ],
+      [
+        "is",
+        "mus"
+      ],
+      [
+        "ab",
+        "ismus"
+      ],
+      [
+        "str",
+        "abismus"
+      ],
+      [
+        "n",
+        "t"
+      ],
+      [
+        "cran",
+        "io"
+      ],
+      [
+        "g",
+        "ra"
+      ],
+      [
+        "y",
+        "ng"
+      ],
+      [
+        "v",
+        "en"
+      ],
+      [
+        "ra",
+        "d"
+      ],
+      [
+        "la",
+        "ser"
+      ],
+      [
+        "mo",
+        "ur"
+      ],
+      [
+        "tu",
+        "mour"
+      ],
+      [
+        "ig",
+        "h"
+      ],
+      [
+        "io",
+        "p"
+      ],
+      [
+        "an",
+        "k"
+      ],
+      [
+        "e",
+        "ua"
+      ],
+      [
+        "la",
+        "teral"
+      ],
+      [
+        "i",
+        "al"
+      ],
+      [
+        "t",
+        "re"
+      ],
+      [
+        "bi",
+        "lateral"
+      ],
+      [
+        "cranio",
+        "tomy"
+      ],
+      [
+        "ank",
+        "le"
+      ],
+      [
+        "gra",
+        "ft"
+      ],
+      [
+        "s",
+        "m"
+      ],
+      [
+        "cer",
+        "v"
+      ],
+      [
+        "rad",
+        "ical"
+      ],
+      [
+        "h",
+        "erectomy"
+      ],
+      [
+        "it",
+        "y"
+      ],
+      [
+        "rec",
+        "t"
+      ],
+      [
+        "oop",
+        "herectomy"
+      ],
+      [
+        "m",
+        "ity"
+      ],
+      [
+        "ex",
+        "tre"
+      ],
+      [
+        "extre",
+        "mity"
+      ],
+      [
+        "di",
+        "rect"
+      ],
+      [
+        "p",
+        "h"
+      ],
+      [
+        "l",
+        "u"
+      ],
+      [
+        "fem",
+        "oral"
+      ],
+      [
+        "l",
+        "y"
+      ],
+      [
+        "lar",
+        "yng"
+      ],
+      [
+        "o",
+        "idectomy"
+      ],
+      [
+        "to",
+        "e"
+      ],
+      [
+        "y",
+        "sm"
+      ],
+      [
+        "ur",
+        "ysm"
+      ],
+      [
+        "ane",
+        "urysm"
+      ],
+      [
+        "ex",
+        "y"
+      ],
+      [
+        "st",
+        "im"
+      ],
+      [
+        "stim",
+        "ula"
+      ],
+      [
+        "stimula",
+        "tor"
+      ],
+      [
+        "im",
+        "pla"
+      ],
+      [
+        "pro",
+        "c"
+      ],
+      [
+        "e",
+        "p"
+      ],
+      [
+        "en",
+        "do"
+      ],
+      [
+        "o",
+        "my"
+      ],
+      [
+        "em",
+        "ent"
+      ],
+      [
+        "prostat",
+        "ectomy"
+      ],
+      [
+        "v",
+        "ic"
+      ],
+      [
+        "l",
+        "i"
+      ],
+      [
+        "th",
+        "e"
+      ],
+      [
+        "re",
+        "d"
+      ],
+      [
+        "no",
+        "de"
+      ],
+      [
+        "impla",
+        "nt"
+      ],
+      [
+        "p",
+        "el"
+      ],
+      [
+        "t",
+        "ro"
+      ],
+      [
+        "laryng",
+        "oscopy"
+      ],
+      [
+        "ca",
+        "the"
+      ],
+      [
+        "cathe",
+        "ter"
+      ],
+      [
+        "red",
+        "uction"
+      ],
+      [
+        "ro",
+        "bo"
+      ],
+      [
+        "robo",
+        "tic"
+      ],
+      [
+        "a",
+        "den"
+      ],
+      [
+        "m",
+        "ic"
+      ],
+      [
+        "tr",
+        "ac"
+      ],
+      [
+        "mic",
+        "ro"
+      ],
+      [
+        "s",
+        "ho"
+      ],
+      [
+        "ul",
+        "der"
+      ],
+      [
+        "sho",
+        "ulder"
+      ],
+      [
+        "um",
+        "b"
+      ],
+      [
+        "m",
+        "mo"
+      ],
+      [
+        "pel",
+        "vic"
+      ],
+      [
+        "ar",
+        "ter"
+      ],
+      [
+        "ma",
+        "mmo"
+      ],
+      [
+        "mammo",
+        "plasty"
+      ],
+      [
+        "tr",
+        "al"
+      ],
+      [
+        "ure",
+        "t"
+      ],
+      [
+        "mp",
+        "h"
+      ],
+      [
+        "ly",
+        "mph"
+      ],
+      [
+        "ne",
+        "ph"
+      ],
+      [
+        "fo",
+        "re"
+      ],
+      [
+        "ed",
+        "ure"
+      ],
+      [
+        "proc",
+        "edure"
+      ],
+      [
+        "l",
+        "lectomy"
+      ],
+      [
+        "tu",
+        "b"
+      ],
+      [
+        "g",
+        "e"
+      ],
+      [
+        "co",
+        "lectomy"
+      ],
+      [
+        "hyste",
+        "roscopy"
+      ],
+      [
+        "l",
+        "ical"
+      ],
+      [
+        "bi",
+        "lical"
+      ],
+      [
+        "um",
+        "bilical"
+      ],
+      [
+        "s",
+        "y"
+      ],
+      [
+        "l",
+        "umb"
+      ],
+      [
+        "lumb",
+        "ar"
+      ],
+      [
+        "to",
+        "n"
+      ],
+      [
+        "si",
+        "llectomy"
+      ],
+      [
+        "ton",
+        "sillectomy"
+      ],
+      [
+        "laparo",
+        "tomy"
+      ],
+      [
+        "cerv",
+        "ical"
+      ],
+      [
+        "en",
+        "d"
+      ],
+      [
+        "n",
+        "ost"
+      ],
+      [
+        "p",
+        "ar"
+      ],
+      [
+        "micro",
+        "laryngoscopy"
+      ],
+      [
+        "i",
+        "st"
+      ],
+      [
+        "neph",
+        "rectomy"
+      ],
+      [
+        "o",
+        "us"
+      ],
+      [
+        "b",
+        "y"
+      ],
+      [
+        "n",
+        "er"
+      ],
+      [
+        "ner",
+        "ve"
+      ],
+      [
+        "laparo",
+        "scopy"
+      ],
+      [
+        "re",
+        "tro"
+      ],
+      [
+        "h",
+        "y"
+      ],
+      [
+        "st",
+        "ent"
+      ],
+      [
+        "fore",
+        "foot"
+      ],
+      [
+        "th",
+        "or"
+      ],
+      [
+        "pa",
+        "ss"
+      ],
+      [
+        "by",
+        "pass"
+      ],
+      [
+        "st",
+        "age"
+      ],
+      [
+        "dis",
+        "section"
+      ],
+      [
+        "la",
+        "min"
+      ],
+      [
+        "lamin",
+        "ectomy"
+      ],
+      [
+        "b",
+        "iop"
+      ],
+      [
+        "biop",
+        "sy"
+      ],
+      [
+        "ula",
+        "r"
+      ],
+      [
+        "oop",
+        "ho"
+      ],
+      [
+        "b",
+        "r"
+      ],
+      [
+        "i",
+        "f"
+      ],
+      [
+        "tr",
+        "ial"
+      ],
+      [
+        "or",
+        "if"
+      ],
+      [
+        "aden",
+        "oidectomy"
+      ],
+      [
+        "s",
+        "ur"
+      ],
+      [
+        "di",
+        "ag"
+      ],
+      [
+        "diag",
+        "nost"
+      ],
+      [
+        "er",
+        "at"
+      ],
+      [
+        "op",
+        "erat"
+      ],
+      [
+        "diagnost",
+        "ic"
+      ],
+      [
+        "i",
+        "ve"
+      ],
+      [
+        "operat",
+        "ive"
+      ],
+      [
+        "s",
+        "u"
+      ],
+      [
+        "i",
+        "le"
+      ],
+      [
+        "lo",
+        "b"
+      ],
+      [
+        "br",
+        "id"
+      ],
+      [
+        "ex",
+        "trac"
+      ],
+      [
+        "t",
+        "is"
+      ],
+      [
+        "ost",
+        "omy"
+      ],
+      [
+        "er",
+        "ior"
+      ],
+      [
+        "lo",
+        "s"
+      ],
+      [
+        "e",
+        "trial"
+      ],
+      [
+        "en",
+        "dom"
+      ],
+      [
+        "extrac",
+        "tion"
+      ],
+      [
+        "endom",
+        "etrial"
+      ],
+      [
+        "o",
+        "c"
+      ],
+      [
+        "t",
+        "y"
+      ],
+      [
+        "c",
+        "l"
+      ],
+      [
+        "t",
+        "io"
+      ],
+      [
+        "a",
+        "str"
+      ],
+      [
+        "astr",
+        "ic"
+      ],
+      [
+        "do",
+        "ub"
+      ],
+      [
+        "doub",
+        "le"
+      ],
+      [
+        "f",
+        "ist"
+      ],
+      [
+        "la",
+        "tion"
+      ],
+      [
+        "ab",
+        "lation"
+      ],
+      [
+        "p",
+        "ub"
+      ],
+      [
+        "pub",
+        "ic"
+      ],
+      [
+        "a",
+        "co"
+      ],
+      [
+        "a",
+        "tor"
+      ],
+      [
+        "tu",
+        "m"
+      ],
+      [
+        "h",
+        "igh"
+      ],
+      [
+        "dis",
+        "c"
+      ],
+      [
+        "s",
+        "o"
+      ],
+      [
+        "disc",
+        "ectomy"
+      ],
+      [
+        "p",
+        "le"
+      ],
+      [
+        "lob",
+        "ectomy"
+      ],
+      [
+        "oc",
+        "cl"
+      ],
+      [
+        "occl",
+        "usion"
+      ],
+      [
+        "m",
+        "pa"
+      ],
+      [
+        "bi",
+        "al"
+      ],
+      [
+        "retro",
+        "pubic"
+      ],
+      [
+        "ti",
+        "bial"
+      ],
+      [
+        "ty",
+        "mpa"
+      ],
+      [
+        "thor",
+        "aco"
+      ],
+      [
+        "f",
+        "lu"
+      ],
+      [
+        "tub",
+        "al"
+      ],
+      [
+        "su",
+        "e"
+      ],
+      [
+        "tis",
+        "sue"
+      ],
+      [
+        "ro",
+        "scopic"
+      ],
+      [
+        "hyste",
+        "roscopic"
+      ],
+      [
+        "c",
+        "los"
+      ],
+      [
+        "m",
+        "ast"
+      ],
+      [
+        "rec",
+        "tum"
+      ],
+      [
+        "de",
+        "brid"
+      ],
+      [
+        "debrid",
+        "ement"
+      ],
+      [
+        "in",
+        "cision"
+      ],
+      [
+        "ec",
+        "k"
+      ],
+      [
+        "m",
+        "i"
+      ],
+      [
+        "sec",
+        "tio"
+      ],
+      [
+        "n",
+        "eck"
+      ],
+      [
+        "ro",
+        "t"
+      ],
+      [
+        "a",
+        "p"
+      ],
+      [
+        "dis",
+        "sectio"
+      ],
+      [
+        "tympa",
+        "no"
+      ],
+      [
+        "flu",
+        "o"
+      ],
+      [
+        "thoraco",
+        "tomy"
+      ],
+      [
+        "arthro",
+        "scopic"
+      ],
+      [
+        "le",
+        "s"
+      ],
+      [
+        "f",
+        "la"
+      ],
+      [
+        "mp",
+        "le"
+      ],
+      [
+        "endo",
+        "scopic"
+      ],
+      [
+        "ar",
+        "m"
+      ],
+      [
+        "trans",
+        "catheter"
+      ],
+      [
+        "fla",
+        "p"
+      ],
+      [
+        "si",
+        "mple"
+      ],
+      [
+        "or",
+        "ch"
+      ],
+      [
+        "p",
+        "o"
+      ],
+      [
+        "ar",
+        "t"
+      ],
+      [
+        "c",
+        "uret"
+      ],
+      [
+        "t",
+        "age"
+      ],
+      [
+        "curet",
+        "tage"
+      ],
+      [
+        "d",
+        "r"
+      ],
+      [
+        "ig",
+        "ation"
+      ],
+      [
+        "fluo",
+        "roscopy"
+      ],
+      [
+        "oopho",
+        "rectomy"
+      ],
+      [
+        "co",
+        "r"
+      ],
+      [
+        "e",
+        "s"
+      ],
+      [
+        "g",
+        "er"
+      ],
+      [
+        "v",
+        "a"
+      ],
+      [
+        "ra",
+        "in"
+      ],
+      [
+        "fist",
+        "ula"
+      ],
+      [
+        "igh",
+        "t"
+      ],
+      [
+        "min",
+        "i"
+      ],
+      [
+        "r",
+        "ight"
+      ],
+      [
+        "mi",
+        "tral"
+      ],
+      [
+        "incision",
+        "al"
+      ],
+      [
+        "p",
+        "exy"
+      ],
+      [
+        "p",
+        "ost"
+      ],
+      [
+        "post",
+        "erior"
+      ],
+      [
+        "di",
+        "st"
+      ],
+      [
+        "i",
+        "l"
+      ],
+      [
+        "per",
+        "i"
+      ],
+      [
+        "v",
+        "er"
+      ],
+      [
+        "ne",
+        "al"
+      ],
+      [
+        "o",
+        "plasty"
+      ],
+      [
+        "c",
+        "u"
+      ],
+      [
+        "cor",
+        "d"
+      ],
+      [
+        "clos",
+        "ure"
+      ],
+      [
+        "peri",
+        "to"
+      ],
+      [
+        "perito",
+        "neal"
+      ],
+      [
+        "p",
+        "l"
+      ],
+      [
+        "sp",
+        "inal"
+      ],
+      [
+        "st",
+        "and"
+      ],
+      [
+        "stand",
+        "ard"
+      ],
+      [
+        "par",
+        "a"
+      ],
+      [
+        "v",
+        "ul"
+      ],
+      [
+        "pa",
+        "n"
+      ],
+      [
+        "les",
+        "ion"
+      ],
+      [
+        "iop",
+        "exy"
+      ],
+      [
+        "orch",
+        "iopexy"
+      ],
+      [
+        "w",
+        "ed"
+      ],
+      [
+        "wed",
+        "ge"
+      ],
+      [
+        "end",
+        "art"
+      ],
+      [
+        "endart",
+        "erectomy"
+      ],
+      [
+        "sur",
+        "ger"
+      ],
+      [
+        "surger",
+        "y"
+      ],
+      [
+        "g",
+        "ast"
+      ],
+      [
+        "tr",
+        "ic"
+      ],
+      [
+        "s",
+        "uction"
+      ],
+      [
+        "min",
+        "or"
+      ],
+      [
+        "a",
+        "mp"
+      ],
+      [
+        "u",
+        "tation"
+      ],
+      [
+        "amp",
+        "utation"
+      ],
+      [
+        "e",
+        "re"
+      ],
+      [
+        "en",
+        "tation"
+      ],
+      [
+        "n",
+        "a"
+      ],
+      [
+        "arter",
+        "y"
+      ],
+      [
+        "arter",
+        "io"
+      ],
+      [
+        "ven",
+        "ous"
+      ],
+      [
+        "d",
+        "ro"
+      ],
+      [
+        "de",
+        "ep"
+      ],
+      [
+        "h",
+        "e"
+      ],
+      [
+        "a",
+        "m"
+      ],
+      [
+        "lu",
+        "ng"
+      ],
+      [
+        "n",
+        "do"
+      ],
+      [
+        "f",
+        "ac"
+      ],
+      [
+        "s",
+        "e"
+      ],
+      [
+        "b",
+        "rain"
+      ],
+      [
+        "op",
+        "h"
+      ],
+      [
+        "ro",
+        "u"
+      ],
+      [
+        "an",
+        "al"
+      ],
+      [
+        "fem",
+        "ur"
+      ],
+      [
+        "b",
+        "le"
+      ],
+      [
+        "r",
+        "ing"
+      ],
+      [
+        "my",
+        "ring"
+      ],
+      [
+        "para",
+        "thyroidectomy"
+      ],
+      [
+        "rou",
+        "x"
+      ],
+      [
+        "g",
+        "astric"
+      ],
+      [
+        "ven",
+        "tric"
+      ],
+      [
+        "t",
+        "idectomy"
+      ],
+      [
+        "r",
+        "igation"
+      ],
+      [
+        "ir",
+        "rigation"
+      ],
+      [
+        "l",
+        "ig"
+      ],
+      [
+        "paro",
+        "tidectomy"
+      ],
+      [
+        "am",
+        "ent"
+      ],
+      [
+        "lig",
+        "ament"
+      ],
+      [
+        "i",
+        "li"
+      ],
+      [
+        "es",
+        "oph"
+      ],
+      [
+        "a",
+        "d"
+      ],
+      [
+        "so",
+        "ft"
+      ],
+      [
+        "ile",
+        "ostomy"
+      ],
+      [
+        "m",
+        "an"
+      ],
+      [
+        "b",
+        "ia"
+      ],
+      [
+        "b",
+        "ro"
+      ],
+      [
+        "pl",
+        "ic"
+      ],
+      [
+        "myring",
+        "otomy"
+      ],
+      [
+        "l",
+        "it"
+      ],
+      [
+        "po",
+        "s"
+      ],
+      [
+        "ca",
+        "rot"
+      ],
+      [
+        "carot",
+        "id"
+      ],
+      [
+        "con",
+        "d"
+      ],
+      [
+        "as",
+        "c"
+      ],
+      [
+        "ti",
+        "bia"
+      ],
+      [
+        "o",
+        "f"
+      ],
+      [
+        "in",
+        "si"
+      ],
+      [
+        "insi",
+        "tu"
+      ],
+      [
+        "c",
+        "ement"
+      ],
+      [
+        "hy",
+        "dro"
+      ],
+      [
+        "f",
+        "re"
+      ],
+      [
+        "pa",
+        "ne"
+      ],
+      [
+        "ndo",
+        "scopy"
+      ],
+      [
+        "pane",
+        "ndoscopy"
+      ],
+      [
+        "dist",
+        "al"
+      ],
+      [
+        "ven",
+        "tral"
+      ],
+      [
+        "i",
+        "x"
+      ],
+      [
+        "c",
+        "le"
+      ],
+      [
+        "ventric",
+        "ular"
+      ],
+      [
+        "mast",
+        "oidectomy"
+      ],
+      [
+        "t",
+        "endo"
+      ],
+      [
+        "tendo",
+        "n"
+      ],
+      [
+        "fre",
+        "e"
+      ],
+      [
+        "bo",
+        "ne"
+      ],
+      [
+        "s",
+        "h"
+      ],
+      [
+        "ul",
+        "otomy"
+      ],
+      [
+        "li",
+        "ver"
+      ],
+      [
+        "in",
+        "str"
+      ],
+      [
+        "um",
+        "entation"
+      ],
+      [
+        "instr",
+        "umentation"
+      ],
+      [
+        "prostat",
+        "e"
+      ],
+      [
+        "ure",
+        "thro"
+      ],
+      [
+        "tympano",
+        "plasty"
+      ],
+      [
+        "vul",
+        "va"
+      ],
+      [
+        "an",
+        "ge"
+      ],
+      [
+        "ch",
+        "ange"
+      ],
+      [
+        "u",
+        "nt"
+      ],
+      [
+        "sh",
+        "unt"
+      ],
+      [
+        "n",
+        "cho"
+      ],
+      [
+        "ap",
+        "plic"
+      ],
+      [
+        "bro",
+        "ncho"
+      ],
+      [
+        "broncho",
+        "scopy"
+      ],
+      [
+        "le",
+        "g"
+      ],
+      [
+        "cerv",
+        "ix"
+      ],
+      [
+        "c",
+        "el"
+      ],
+      [
+        "co",
+        "ch"
+      ],
+      [
+        "le",
+        "ar"
+      ],
+      [
+        "coch",
+        "lear"
+      ],
+      [
+        "pla",
+        "cement"
+      ],
+      [
+        "x",
+        "i"
+      ],
+      [
+        "man",
+        "di"
+      ],
+      [
+        "urethro",
+        "pexy"
+      ],
+      [
+        "an",
+        "g"
+      ],
+      [
+        "at",
+        "ed"
+      ],
+      [
+        "na",
+        "v"
+      ],
+      [
+        "f",
+        "le"
+      ],
+      [
+        "io",
+        "plasty"
+      ],
+      [
+        "gast",
+        "ro"
+      ],
+      [
+        "u",
+        "n"
+      ],
+      [
+        "ve",
+        "in"
+      ],
+      [
+        "i",
+        "co"
+      ],
+      [
+        "t",
+        "ed"
+      ],
+      [
+        "ig",
+        "ated"
+      ],
+      [
+        "nav",
+        "igated"
+      ],
+      [
+        "ile",
+        "o"
+      ],
+      [
+        "as",
+        "e"
+      ],
+      [
+        "tympano",
+        "mastoidectomy"
+      ],
+      [
+        "cyst",
+        "ectomy"
+      ],
+      [
+        "v",
+        "ar"
+      ],
+      [
+        "var",
+        "ico"
+      ],
+      [
+        "t",
+        "ane"
+      ],
+      [
+        "tane",
+        "ous"
+      ],
+      [
+        "ca",
+        "p"
+      ],
+      [
+        "co",
+        "l"
+      ],
+      [
+        "cu",
+        "taneous"
+      ],
+      [
+        "varico",
+        "se"
+      ],
+      [
+        "f",
+        "ing"
+      ],
+      [
+        "fing",
+        "er"
+      ],
+      [
+        "im",
+        "al"
+      ],
+      [
+        "q",
+        "ua"
+      ],
+      [
+        "re",
+        "le"
+      ],
+      [
+        "rele",
+        "ase"
+      ],
+      [
+        "xi",
+        "ble"
+      ],
+      [
+        "fle",
+        "xible"
+      ],
+      [
+        "h",
+        "em"
+      ],
+      [
+        "p",
+        "i"
+      ],
+      [
+        "s",
+        "in"
+      ],
+      [
+        "sin",
+        "us"
+      ],
+      [
+        "u",
+        "it"
+      ],
+      [
+        "cond",
+        "uit"
+      ],
+      [
+        "ileo",
+        "conduit"
+      ],
+      [
+        "c",
+        "al"
+      ],
+      [
+        "st",
+        "ere"
+      ],
+      [
+        "ti",
+        "al"
+      ],
+      [
+        "par",
+        "tial"
+      ],
+      [
+        "uret",
+        "e"
+      ],
+      [
+        "ig",
+        "astric"
+      ],
+      [
+        "sp",
+        "lit"
+      ],
+      [
+        "ep",
+        "igastric"
+      ],
+      [
+        "ili",
+        "ac"
+      ],
+      [
+        "e",
+        "al"
+      ],
+      [
+        "di",
+        "al"
+      ],
+      [
+        "ac",
+        "tic"
+      ],
+      [
+        "ot",
+        "actic"
+      ],
+      [
+        "stere",
+        "otactic"
+      ],
+      [
+        "t",
+        "el"
+      ],
+      [
+        "pa",
+        "tel"
+      ],
+      [
+        "s",
+        "ub"
+      ],
+      [
+        "esoph",
+        "ag"
+      ],
+      [
+        "ang",
+        "ioplasty"
+      ],
+      [
+        "lo",
+        "w"
+      ],
+      [
+        "re",
+        "sur"
+      ],
+      [
+        "fac",
+        "ing"
+      ],
+      [
+        "resur",
+        "facing"
+      ],
+      [
+        "urete",
+        "roscopy"
+      ],
+      [
+        "ex",
+        "pan"
+      ],
+      [
+        "id",
+        "e"
+      ],
+      [
+        "ir",
+        "c"
+      ],
+      [
+        "st",
+        "omy"
+      ],
+      [
+        "pa",
+        "di"
+      ],
+      [
+        "hy",
+        "pos"
+      ],
+      [
+        "padi",
+        "as"
+      ],
+      [
+        "hypos",
+        "padias"
+      ],
+      [
+        "e",
+        "y"
+      ],
+      [
+        "f",
+        "f"
+      ],
+      [
+        "tub",
+        "e"
+      ],
+      [
+        "rot",
+        "ator"
+      ],
+      [
+        "cu",
+        "ff"
+      ],
+      [
+        "st",
+        "a"
+      ],
+      [
+        "or",
+        "t"
+      ],
+      [
+        "w",
+        "hip"
+      ],
+      [
+        "le",
+        "for"
+      ],
+      [
+        "whip",
+        "ple"
+      ],
+      [
+        "lefor",
+        "t"
+      ],
+      [
+        "c",
+        "ar"
+      ],
+      [
+        "expan",
+        "der"
+      ],
+      [
+        "st",
+        "ern"
+      ],
+      [
+        "ey",
+        "e"
+      ],
+      [
+        "d",
+        "y"
+      ],
+      [
+        "s",
+        "ulotomy"
+      ],
+      [
+        "bo",
+        "dy"
+      ],
+      [
+        "cap",
+        "sulotomy"
+      ],
+      [
+        "in",
+        "oplasty"
+      ],
+      [
+        "applic",
+        "ator"
+      ],
+      [
+        "cle",
+        "ft"
+      ],
+      [
+        "h",
+        "dr"
+      ],
+      [
+        "g",
+        "mo"
+      ],
+      [
+        "si",
+        "gmo"
+      ],
+      [
+        "re",
+        "ss"
+      ],
+      [
+        "ac",
+        "t"
+      ],
+      [
+        "ac",
+        "ro"
+      ],
+      [
+        "ul",
+        "ectomy"
+      ],
+      [
+        "d",
+        "uc"
+      ],
+      [
+        "ped",
+        "ectomy"
+      ],
+      [
+        "sta",
+        "pedectomy"
+      ],
+      [
+        "duc",
+        "t"
+      ],
+      [
+        "cel",
+        "ectomy"
+      ],
+      [
+        "esophag",
+        "ectomy"
+      ],
+      [
+        "gastro",
+        "stomy"
+      ],
+      [
+        "b",
+        "ral"
+      ],
+      [
+        "w",
+        "ide"
+      ],
+      [
+        "ere",
+        "bral"
+      ],
+      [
+        "c",
+        "erebral"
+      ],
+      [
+        "s",
+        "ing"
+      ],
+      [
+        "sing",
+        "le"
+      ],
+      [
+        "mast",
+        "ectomy"
+      ],
+      [
+        "a",
+        "th"
+      ],
+      [
+        "p",
+        "ort"
+      ],
+      [
+        "ac",
+        "ath"
+      ],
+      [
+        "port",
+        "acath"
+      ],
+      [
+        "el",
+        "o"
+      ],
+      [
+        "u",
+        "ple"
+      ],
+      [
+        "dr",
+        "uple"
+      ],
+      [
+        "qua",
+        "druple"
+      ],
+      [
+        "patel",
+        "lo"
+      ],
+      [
+        "l",
+        "en"
+      ],
+      [
+        "p",
+        "al"
+      ],
+      [
+        "s",
+        "k"
+      ],
+      [
+        "hydro",
+        "celectomy"
+      ],
+      [
+        "lymph",
+        "aden"
+      ],
+      [
+        "el",
+        "ec"
+      ],
+      [
+        "sigmo",
+        "id"
+      ],
+      [
+        "elec",
+        "tro"
+      ],
+      [
+        "ac",
+        "h"
+      ],
+      [
+        "s",
+        "ep"
+      ],
+      [
+        "c",
+        "irc"
+      ],
+      [
+        "um",
+        "cision"
+      ],
+      [
+        "circ",
+        "umcision"
+      ],
+      [
+        "pa",
+        "c"
+      ],
+      [
+        "n",
+        "al"
+      ],
+      [
+        "co",
+        "mp"
+      ],
+      [
+        "ar",
+        "yng"
+      ],
+      [
+        "de",
+        "comp"
+      ],
+      [
+        "u",
+        "p"
+      ],
+      [
+        "ro",
+        "ss"
+      ],
+      [
+        "m",
+        "e"
+      ],
+      [
+        "rec",
+        "tal"
+      ],
+      [
+        "ure",
+        "teral"
+      ],
+      [
+        "salping",
+        "ectomy"
+      ],
+      [
+        "trac",
+        "he"
+      ],
+      [
+        "or",
+        "r"
+      ],
+      [
+        "z",
+        "ation"
+      ],
+      [
+        "ter",
+        "y"
+      ],
+      [
+        "he",
+        "ad"
+      ],
+      [
+        "ro",
+        "stat"
+      ],
+      [
+        "op",
+        "rostat"
+      ],
+      [
+        "cyst",
+        "oprostat"
+      ],
+      [
+        "cystoprostat",
+        "ectomy"
+      ],
+      [
+        "hem",
+        "orr"
+      ],
+      [
+        "ho",
+        "idectomy"
+      ],
+      [
+        "vag",
+        "us"
+      ],
+      [
+        "hemorr",
+        "hoidectomy"
+      ],
+      [
+        "b",
+        "at"
+      ],
+      [
+        "bat",
+        "tery"
+      ],
+      [
+        "to",
+        "m"
+      ],
+      [
+        "ress",
+        "ion"
+      ],
+      [
+        "decomp",
+        "ression"
+      ],
+      [
+        "i",
+        "ectomy"
+      ],
+      [
+        "per",
+        "cutaneous"
+      ],
+      [
+        "m",
+        "ed"
+      ],
+      [
+        "electro",
+        "de"
+      ],
+      [
+        "ia",
+        "st"
+      ],
+      [
+        "sk",
+        "in"
+      ],
+      [
+        "med",
+        "iast"
+      ],
+      [
+        "re",
+        "placement"
+      ],
+      [
+        "ap",
+        "p"
+      ],
+      [
+        "c",
+        "re"
+      ],
+      [
+        "ro",
+        "cystectomy"
+      ],
+      [
+        "oopho",
+        "rocystectomy"
+      ],
+      [
+        "in",
+        "ter"
+      ],
+      [
+        "per",
+        "ine"
+      ],
+      [
+        "cran",
+        "iectomy"
+      ],
+      [
+        "x",
+        "il"
+      ],
+      [
+        "ph",
+        "aryng"
+      ],
+      [
+        "f",
+        "erior"
+      ],
+      [
+        "s",
+        "car"
+      ],
+      [
+        "in",
+        "ferior"
+      ],
+      [
+        "for",
+        "ator"
+      ],
+      [
+        "per",
+        "forator"
+      ],
+      [
+        "perforator",
+        "s"
+      ],
+      [
+        "h",
+        "ia"
+      ],
+      [
+        "v",
+        "asc"
+      ],
+      [
+        "vasc",
+        "ular"
+      ],
+      [
+        "ple",
+        "u"
+      ],
+      [
+        "to",
+        "plasty"
+      ],
+      [
+        "perine",
+        "al"
+      ],
+      [
+        "age",
+        "al"
+      ],
+      [
+        "esoph",
+        "ageal"
+      ],
+      [
+        "l",
+        "ip"
+      ],
+      [
+        "p",
+        "y"
+      ],
+      [
+        "ar",
+        "y"
+      ],
+      [
+        "in",
+        "tr"
+      ],
+      [
+        "ex",
+        "change"
+      ],
+      [
+        "gast",
+        "rectomy"
+      ],
+      [
+        "la",
+        "no"
+      ],
+      [
+        "me",
+        "lano"
+      ],
+      [
+        "melano",
+        "ma"
+      ],
+      [
+        "trans",
+        "anal"
+      ],
+      [
+        "en",
+        "tion"
+      ],
+      [
+        "dist",
+        "ention"
+      ],
+      [
+        "hydro",
+        "distention"
+      ],
+      [
+        "h",
+        "and"
+      ],
+      [
+        "ec",
+        "tom"
+      ],
+      [
+        "f",
+        "r"
+      ],
+      [
+        "lymphaden",
+        "ectom"
+      ],
+      [
+        "stern",
+        "otomy"
+      ],
+      [
+        "end",
+        "ectomy"
+      ],
+      [
+        "act",
+        "ure"
+      ],
+      [
+        "app",
+        "endectomy"
+      ],
+      [
+        "fr",
+        "acture"
+      ],
+      [
+        "b",
+        "elo"
+      ],
+      [
+        "st",
+        "ab"
+      ],
+      [
+        "ic",
+        "ulectomy"
+      ],
+      [
+        "ili",
+        "zation"
+      ],
+      [
+        "pos",
+        "acro"
+      ],
+      [
+        "col",
+        "posacro"
+      ],
+      [
+        "belo",
+        "w"
+      ],
+      [
+        "stab",
+        "ilization"
+      ],
+      [
+        "colposacro",
+        "pexy"
+      ],
+      [
+        "er",
+        "al"
+      ],
+      [
+        "h",
+        "eral"
+      ],
+      [
+        "ip",
+        "heral"
+      ],
+      [
+        "per",
+        "ipheral"
+      ],
+      [
+        "mandi",
+        "ble"
+      ],
+      [
+        "el",
+        "bow"
+      ],
+      [
+        "s",
+        "ent"
+      ],
+      [
+        "pleu",
+        "roscopy"
+      ],
+      [
+        "n",
+        "or"
+      ],
+      [
+        "v",
+        "ing"
+      ],
+      [
+        "re",
+        "la"
+      ],
+      [
+        "do",
+        "nor"
+      ],
+      [
+        "li",
+        "ving"
+      ],
+      [
+        "rela",
+        "ted"
+      ],
+      [
+        "a",
+        "xil"
+      ],
+      [
+        "lar",
+        "y"
+      ],
+      [
+        "axil",
+        "lary"
+      ],
+      [
+        "mandi",
+        "b"
+      ],
+      [
+        "s",
+        "ag"
+      ],
+      [
+        "al",
+        "l"
+      ],
+      [
+        "it",
+        "tal"
+      ],
+      [
+        "sag",
+        "ittal"
+      ],
+      [
+        "tu",
+        "it"
+      ],
+      [
+        "pi",
+        "tuit"
+      ],
+      [
+        "pituit",
+        "ary"
+      ],
+      [
+        "na",
+        "il"
+      ],
+      [
+        "up",
+        "per"
+      ],
+      [
+        "l",
+        "igation"
+      ],
+      [
+        "in",
+        "oscopy"
+      ],
+      [
+        "m",
+        "as"
+      ],
+      [
+        "t",
+        "us"
+      ],
+      [
+        "mas",
+        "s"
+      ],
+      [
+        "v",
+        "ectomy"
+      ],
+      [
+        "un",
+        "d"
+      ],
+      [
+        "trache",
+        "ostomy"
+      ],
+      [
+        "mediast",
+        "inoscopy"
+      ],
+      [
+        "th",
+        "ic"
+      ],
+      [
+        "kne",
+        "ss"
+      ],
+      [
+        "thic",
+        "kness"
+      ],
+      [
+        "vul",
+        "vectomy"
+      ],
+      [
+        "y",
+        "sis"
+      ],
+      [
+        "dial",
+        "ysis"
+      ],
+      [
+        "u",
+        "g"
+      ],
+      [
+        "st",
+        "it"
+      ],
+      [
+        "ne",
+        "ed"
+      ],
+      [
+        "inter",
+        "stit"
+      ],
+      [
+        "need",
+        "le"
+      ],
+      [
+        "interstit",
+        "ial"
+      ],
+      [
+        "e",
+        "ar"
+      ],
+      [
+        "p",
+        "th"
+      ],
+      [
+        "de",
+        "pth"
+      ],
+      [
+        "hia",
+        "tus"
+      ],
+      [
+        "p",
+        "op"
+      ],
+      [
+        "lit",
+        "eal"
+      ],
+      [
+        "pop",
+        "liteal"
+      ],
+      [
+        "n",
+        "iculectomy"
+      ],
+      [
+        "pan",
+        "niculectomy"
+      ],
+      [
+        "cranio",
+        "plasty"
+      ],
+      [
+        "aor",
+        "al"
+      ],
+      [
+        "intr",
+        "aoral"
+      ],
+      [
+        "b",
+        "ul"
+      ],
+      [
+        "ip",
+        "ping"
+      ],
+      [
+        "str",
+        "ipping"
+      ],
+      [
+        "den",
+        "ti"
+      ],
+      [
+        "bi",
+        "femoral"
+      ],
+      [
+        "im",
+        "pac"
+      ],
+      [
+        "denti",
+        "tion"
+      ],
+      [
+        "impac",
+        "ted"
+      ],
+      [
+        "ur",
+        "al"
+      ],
+      [
+        "lo",
+        "n"
+      ],
+      [
+        "r",
+        "ist"
+      ],
+      [
+        "w",
+        "rist"
+      ],
+      [
+        "mus",
+        "cle"
+      ],
+      [
+        "p",
+        "en"
+      ],
+      [
+        "t",
+        "em"
+      ],
+      [
+        "il",
+        "les"
+      ],
+      [
+        "ach",
+        "illes"
+      ],
+      [
+        "a",
+        "ug"
+      ],
+      [
+        "m",
+        "entation"
+      ],
+      [
+        "ac",
+        "ic"
+      ],
+      [
+        "thor",
+        "acic"
+      ],
+      [
+        "aug",
+        "mentation"
+      ],
+      [
+        "b",
+        "ing"
+      ],
+      [
+        "la",
+        "cr"
+      ],
+      [
+        "pro",
+        "bing"
+      ],
+      [
+        "ul",
+        "t"
+      ],
+      [
+        "va",
+        "ult"
+      ],
+      [
+        "lacr",
+        "imal"
+      ],
+      [
+        "le",
+        "ft"
+      ],
+      [
+        "cond",
+        "y"
+      ],
+      [
+        "clos",
+        "ed"
+      ],
+      [
+        "n",
+        "d"
+      ],
+      [
+        "at",
+        "e"
+      ],
+      [
+        "d",
+        "ural"
+      ],
+      [
+        "j",
+        "e"
+      ],
+      [
+        "t",
+        "ectomy"
+      ],
+      [
+        "id",
+        "al"
+      ],
+      [
+        "proc",
+        "tectomy"
+      ],
+      [
+        "pi",
+        "lon"
+      ],
+      [
+        "pilon",
+        "idal"
+      ],
+      [
+        "arthro",
+        "tomy"
+      ],
+      [
+        "c",
+        "ane"
+      ],
+      [
+        "fist",
+        "ulotomy"
+      ],
+      [
+        "cal",
+        "cane"
+      ],
+      [
+        "calcane",
+        "us"
+      ],
+      [
+        "o",
+        "ver"
+      ],
+      [
+        "g",
+        "lo"
+      ],
+      [
+        "h",
+        "to"
+      ],
+      [
+        "el",
+        "oplasty"
+      ],
+      [
+        "py",
+        "eloplasty"
+      ],
+      [
+        "i",
+        "condy"
+      ],
+      [
+        "abdom",
+        "en"
+      ],
+      [
+        "ss",
+        "ectomy"
+      ],
+      [
+        "un",
+        "icondy"
+      ],
+      [
+        "glo",
+        "ssectomy"
+      ],
+      [
+        "unicondy",
+        "lar"
+      ],
+      [
+        "c",
+        "ross"
+      ],
+      [
+        "d",
+        "rain"
+      ],
+      [
+        "cross",
+        "over"
+      ],
+      [
+        "re",
+        "nal"
+      ],
+      [
+        "lo",
+        "op"
+      ],
+      [
+        "mandib",
+        "ular"
+      ],
+      [
+        "orch",
+        "idectomy"
+      ],
+      [
+        "th",
+        "umb"
+      ],
+      [
+        "ex",
+        "pl"
+      ],
+      [
+        "end",
+        "ing"
+      ],
+      [
+        "asc",
+        "ending"
+      ],
+      [
+        "expl",
+        "oration"
+      ],
+      [
+        "ne",
+        "u"
+      ],
+      [
+        "pan",
+        "cre"
+      ],
+      [
+        "pancre",
+        "at"
+      ],
+      [
+        "f",
+        "asc"
+      ],
+      [
+        "sub",
+        "dural"
+      ],
+      [
+        "c",
+        "e"
+      ],
+      [
+        "c",
+        "an"
+      ],
+      [
+        "h",
+        "in"
+      ],
+      [
+        "en",
+        "ing"
+      ],
+      [
+        "l",
+        "ith"
+      ],
+      [
+        "drain",
+        "age"
+      ],
+      [
+        "trans",
+        "oral"
+      ],
+      [
+        "ad",
+        "renal"
+      ],
+      [
+        "lith",
+        "o"
+      ],
+      [
+        "adrenal",
+        "ectomy"
+      ],
+      [
+        "rad",
+        "io"
+      ],
+      [
+        "k",
+        "er"
+      ],
+      [
+        "lo",
+        "cal"
+      ],
+      [
+        "pancreat",
+        "ectomy"
+      ],
+      [
+        "can",
+        "cer"
+      ],
+      [
+        "op",
+        "en"
+      ],
+      [
+        "ra",
+        "dial"
+      ],
+      [
+        "vag",
+        "in"
+      ],
+      [
+        "fac",
+        "ial"
+      ],
+      [
+        "pal",
+        "ate"
+      ],
+      [
+        "sp",
+        "len"
+      ],
+      [
+        "vagin",
+        "a"
+      ],
+      [
+        "rec",
+        "to"
+      ],
+      [
+        "ed",
+        "s"
+      ],
+      [
+        "um",
+        "p"
+      ],
+      [
+        "cel",
+        "l"
+      ],
+      [
+        "splen",
+        "ectomy"
+      ],
+      [
+        "fore",
+        "arm"
+      ],
+      [
+        "my",
+        "otomy"
+      ],
+      [
+        "abdom",
+        "inoplasty"
+      ],
+      [
+        "tr",
+        "ig"
+      ],
+      [
+        "cran",
+        "ial"
+      ],
+      [
+        "ti",
+        "ve"
+      ],
+      [
+        "fac",
+        "e"
+      ],
+      [
+        "d",
+        "ine"
+      ],
+      [
+        "l",
+        "dr"
+      ],
+      [
+        "io",
+        "dine"
+      ],
+      [
+        "ac",
+        "tive"
+      ],
+      [
+        "se",
+        "eds"
+      ],
+      [
+        "applic",
+        "ation"
+      ],
+      [
+        "radio",
+        "active"
+      ],
+      [
+        "s",
+        "yst"
+      ],
+      [
+        "syst",
+        "em"
+      ],
+      [
+        "g",
+        "th"
+      ],
+      [
+        "len",
+        "gth"
+      ],
+      [
+        "length",
+        "ening"
+      ],
+      [
+        "o",
+        "cho"
+      ],
+      [
+        "oste",
+        "ocho"
+      ],
+      [
+        "o",
+        "ma"
+      ],
+      [
+        "m",
+        "es"
+      ],
+      [
+        "laryng",
+        "ectomy"
+      ],
+      [
+        "micro",
+        "vascular"
+      ],
+      [
+        "pharyng",
+        "eal"
+      ],
+      [
+        "t",
+        "e"
+      ],
+      [
+        "gra",
+        "m"
+      ],
+      [
+        "h",
+        "inoplasty"
+      ],
+      [
+        "as",
+        "al"
+      ],
+      [
+        "ast",
+        "o"
+      ],
+      [
+        "c",
+        "la"
+      ],
+      [
+        "neph",
+        "ro"
+      ],
+      [
+        "a",
+        "to"
+      ],
+      [
+        "b",
+        "ur"
+      ],
+      [
+        "in",
+        "el"
+      ],
+      [
+        "sent",
+        "inel"
+      ],
+      [
+        "s",
+        "ion"
+      ],
+      [
+        "ure",
+        "ter"
+      ],
+      [
+        "tor",
+        "hinoplasty"
+      ],
+      [
+        "sep",
+        "torhinoplasty"
+      ],
+      [
+        "neu",
+        "ro"
+      ],
+      [
+        "or",
+        "bi"
+      ],
+      [
+        "mo",
+        "und"
+      ],
+      [
+        "f",
+        "at"
+      ],
+      [
+        "o",
+        "sis"
+      ],
+      [
+        "si",
+        "ve"
+      ],
+      [
+        "c",
+        "ast"
+      ],
+      [
+        "bur",
+        "r"
+      ],
+      [
+        "p",
+        "in"
+      ],
+      [
+        "ho",
+        "le"
+      ],
+      [
+        "pin",
+        "n"
+      ],
+      [
+        "n",
+        "tation"
+      ],
+      [
+        "thyro",
+        "plasty"
+      ],
+      [
+        "impla",
+        "ntation"
+      ],
+      [
+        "trig",
+        "ger"
+      ],
+      [
+        "re",
+        "implantation"
+      ],
+      [
+        "ip",
+        "hy"
+      ],
+      [
+        "ep",
+        "iphy"
+      ],
+      [
+        "col",
+        "ostomy"
+      ],
+      [
+        "recto",
+        "pexy"
+      ],
+      [
+        "pinn",
+        "ing"
+      ],
+      [
+        "orbi",
+        "t"
+      ],
+      [
+        "mes",
+        "h"
+      ],
+      [
+        "n",
+        "dro"
+      ],
+      [
+        "osteocho",
+        "ndro"
+      ],
+      [
+        "osteochondro",
+        "ma"
+      ],
+      [
+        "st",
+        "he"
+      ],
+      [
+        "pro",
+        "sthe"
+      ],
+      [
+        "fasc",
+        "io"
+      ],
+      [
+        "prosthe",
+        "sis"
+      ],
+      [
+        "f",
+        "u"
+      ],
+      [
+        "fu",
+        "ndo"
+      ],
+      [
+        "s",
+        "pa"
+      ],
+      [
+        "spa",
+        "cer"
+      ],
+      [
+        "ro",
+        "tation"
+      ],
+      [
+        "sm",
+        "all"
+      ],
+      [
+        "n",
+        "ne"
+      ],
+      [
+        "w",
+        "all"
+      ],
+      [
+        "tu",
+        "nne"
+      ],
+      [
+        "tunne",
+        "l"
+      ],
+      [
+        "to",
+        "bifemoral"
+      ],
+      [
+        "in",
+        "va"
+      ],
+      [
+        "ra",
+        "di"
+      ],
+      [
+        "aor",
+        "tobifemoral"
+      ],
+      [
+        "min",
+        "imal"
+      ],
+      [
+        "inva",
+        "sive"
+      ],
+      [
+        "minimal",
+        "ly"
+      ],
+      [
+        "s",
+        "us"
+      ],
+      [
+        "x",
+        "imal"
+      ],
+      [
+        "co",
+        "ne"
+      ],
+      [
+        "pro",
+        "ximal"
+      ],
+      [
+        "la",
+        "pro"
+      ],
+      [
+        "pen",
+        "sion"
+      ],
+      [
+        "sus",
+        "pension"
+      ],
+      [
+        "lapro",
+        "scopic"
+      ],
+      [
+        "uret",
+        "erectomy"
+      ],
+      [
+        "ly",
+        "sis"
+      ],
+      [
+        "ap",
+        "ical"
+      ],
+      [
+        "j",
+        "u"
+      ],
+      [
+        "nost",
+        "omy"
+      ],
+      [
+        "je",
+        "ju"
+      ],
+      [
+        "jeju",
+        "nostomy"
+      ],
+      [
+        "j",
+        "ec"
+      ],
+      [
+        "in",
+        "jec"
+      ],
+      [
+        "injec",
+        "tion"
+      ],
+      [
+        "mo",
+        "us"
+      ],
+      [
+        "low",
+        "er"
+      ],
+      [
+        "g",
+        "la"
+      ],
+      [
+        "gla",
+        "nd"
+      ],
+      [
+        "ex",
+        "ost"
+      ],
+      [
+        "micro",
+        "discectomy"
+      ],
+      [
+        "hem",
+        "ato"
+      ],
+      [
+        "pharyng",
+        "oplasty"
+      ],
+      [
+        "exost",
+        "osis"
+      ],
+      [
+        "hemato",
+        "ma"
+      ],
+      [
+        "d",
+        "or"
+      ],
+      [
+        "m",
+        "ul"
+      ],
+      [
+        "n",
+        "is"
+      ],
+      [
+        "s",
+        "en"
+      ],
+      [
+        "la",
+        "tis"
+      ],
+      [
+        "si",
+        "mus"
+      ],
+      [
+        "ula",
+        "tion"
+      ],
+      [
+        "ti",
+        "ligament"
+      ],
+      [
+        "plic",
+        "ation"
+      ],
+      [
+        "fundo",
+        "plication"
+      ],
+      [
+        "dor",
+        "si"
+      ],
+      [
+        "mul",
+        "tiligament"
+      ],
+      [
+        "nis",
+        "sen"
+      ],
+      [
+        "latis",
+        "simus"
+      ],
+      [
+        "c",
+        "rest"
+      ],
+      [
+        "b",
+        "en"
+      ],
+      [
+        "t",
+        "ar"
+      ],
+      [
+        "tal",
+        "l"
+      ],
+      [
+        "ben",
+        "tall"
+      ],
+      [
+        "stern",
+        "um"
+      ],
+      [
+        "s",
+        "qua"
+      ],
+      [
+        "ul",
+        "ostomy"
+      ],
+      [
+        "ventric",
+        "ulostomy"
+      ],
+      [
+        "squa",
+        "mous"
+      ],
+      [
+        "x",
+        "y"
+      ],
+      [
+        "ip",
+        "ulation"
+      ],
+      [
+        "man",
+        "ipulation"
+      ],
+      [
+        "pa",
+        "xy"
+      ],
+      [
+        "litho",
+        "paxy"
+      ],
+      [
+        "c",
+        "anal"
+      ],
+      [
+        "su",
+        "p"
+      ],
+      [
+        "sent",
+        "inal"
+      ],
+      [
+        "v",
+        "is"
+      ],
+      [
+        "th",
+        "ir"
+      ],
+      [
+        "cre",
+        "ation"
+      ],
+      [
+        "thir",
+        "d"
+      ],
+      [
+        "b",
+        "ank"
+      ],
+      [
+        "ic",
+        "le"
+      ],
+      [
+        "ul",
+        "l"
+      ],
+      [
+        "k",
+        "ing"
+      ],
+      [
+        "l",
+        "ump"
+      ],
+      [
+        "lump",
+        "ectomy"
+      ],
+      [
+        "o",
+        "toplasty"
+      ],
+      [
+        "p",
+        "id"
+      ],
+      [
+        "de",
+        "bul"
+      ],
+      [
+        "debul",
+        "king"
+      ],
+      [
+        "i",
+        "b"
+      ],
+      [
+        "ul",
+        "um"
+      ],
+      [
+        "o",
+        "ve"
+      ],
+      [
+        "ab",
+        "ove"
+      ],
+      [
+        "hy",
+        "brid"
+      ],
+      [
+        "bank",
+        "art"
+      ],
+      [
+        "c",
+        "at"
+      ],
+      [
+        "s",
+        "acro"
+      ],
+      [
+        "ar",
+        "act"
+      ],
+      [
+        "in",
+        "ous"
+      ],
+      [
+        "sp",
+        "inous"
+      ],
+      [
+        "nephro",
+        "ureterectomy"
+      ],
+      [
+        "cat",
+        "aract"
+      ],
+      [
+        "sacro",
+        "spinous"
+      ],
+      [
+        "ped",
+        "icle"
+      ],
+      [
+        "e",
+        "i"
+      ],
+      [
+        "o",
+        "und"
+      ],
+      [
+        "al",
+        "tem"
+      ],
+      [
+        "ei",
+        "er"
+      ],
+      [
+        "altem",
+        "eier"
+      ],
+      [
+        "graft",
+        "ing"
+      ],
+      [
+        "ver",
+        "tic"
+      ],
+      [
+        "fascio",
+        "tomy"
+      ],
+      [
+        "di",
+        "vertic"
+      ],
+      [
+        "inser",
+        "tio"
+      ],
+      [
+        "t",
+        "en"
+      ],
+      [
+        "m",
+        "ar"
+      ],
+      [
+        "pedicle",
+        "d"
+      ],
+      [
+        "endo",
+        "vascular"
+      ],
+      [
+        "g",
+        "los"
+      ],
+      [
+        "re",
+        "do"
+      ],
+      [
+        "thyro",
+        "glos"
+      ],
+      [
+        "sep",
+        "toplasty"
+      ],
+      [
+        "thyroglos",
+        "sal"
+      ],
+      [
+        "n",
+        "asal"
+      ],
+      [
+        "a",
+        "ker"
+      ],
+      [
+        "ro",
+        "mandibular"
+      ],
+      [
+        "em",
+        "aker"
+      ],
+      [
+        "pac",
+        "emaker"
+      ],
+      [
+        "bul",
+        "lectomy"
+      ],
+      [
+        "te",
+        "ro"
+      ],
+      [
+        "g",
+        "ang"
+      ],
+      [
+        "l",
+        "ion"
+      ],
+      [
+        "neuro",
+        "ma"
+      ],
+      [
+        "gang",
+        "lion"
+      ],
+      [
+        "g",
+        "lob"
+      ],
+      [
+        "retro",
+        "peritoneal"
+      ],
+      [
+        "sep",
+        "tal"
+      ],
+      [
+        "glob",
+        "al"
+      ],
+      [
+        "v",
+        "it"
+      ],
+      [
+        "z",
+        "en"
+      ],
+      [
+        "para",
+        "esophageal"
+      ],
+      [
+        "ce",
+        "ss"
+      ],
+      [
+        "ker",
+        "s"
+      ],
+      [
+        "divertic",
+        "ulum"
+      ],
+      [
+        "zen",
+        "kers"
+      ],
+      [
+        "f",
+        "ix"
+      ],
+      [
+        "i",
+        "an"
+      ],
+      [
+        "o",
+        "suction"
+      ],
+      [
+        "s",
+        "io"
+      ],
+      [
+        "us",
+        "pid"
+      ],
+      [
+        "pro",
+        "ach"
+      ],
+      [
+        "proc",
+        "to"
+      ],
+      [
+        "ap",
+        "proach"
+      ],
+      [
+        "tric",
+        "uspid"
+      ],
+      [
+        "lip",
+        "osuction"
+      ],
+      [
+        "epiphy",
+        "sio"
+      ],
+      [
+        "epiphysio",
+        "desis"
+      ],
+      [
+        "to",
+        "p"
+      ],
+      [
+        "s",
+        "cap"
+      ],
+      [
+        "t",
+        "a"
+      ],
+      [
+        "sub",
+        "mandibular"
+      ],
+      [
+        "f",
+        "er"
+      ],
+      [
+        "y",
+        "g"
+      ],
+      [
+        "trans",
+        "fer"
+      ],
+      [
+        "fo",
+        "ss"
+      ],
+      [
+        "foss",
+        "a"
+      ],
+      [
+        "z",
+        "yg"
+      ],
+      [
+        "trac",
+        "t"
+      ],
+      [
+        "la",
+        "tar"
+      ],
+      [
+        "an",
+        "asto"
+      ],
+      [
+        "mo",
+        "sis"
+      ],
+      [
+        "je",
+        "t"
+      ],
+      [
+        "latar",
+        "jet"
+      ],
+      [
+        "anasto",
+        "mosis"
+      ],
+      [
+        "c",
+        "ure"
+      ],
+      [
+        "g",
+        "ro"
+      ],
+      [
+        "n",
+        "ar"
+      ],
+      [
+        "ul",
+        "nar"
+      ],
+      [
+        "po",
+        "romandibular"
+      ],
+      [
+        "car",
+        "pal"
+      ],
+      [
+        "tem",
+        "poromandibular"
+      ],
+      [
+        "gro",
+        "in"
+      ],
+      [
+        "con",
+        "tract"
+      ],
+      [
+        "contract",
+        "ure"
+      ],
+      [
+        "u",
+        "dr"
+      ],
+      [
+        "ro",
+        "ot"
+      ],
+      [
+        "ar",
+        "ing"
+      ],
+      [
+        "tal",
+        "c"
+      ],
+      [
+        "op",
+        "exy"
+      ],
+      [
+        "aor",
+        "ta"
+      ],
+      [
+        "sp",
+        "aring"
+      ],
+      [
+        "po",
+        "udr"
+      ],
+      [
+        "poudr",
+        "age"
+      ],
+      [
+        "ne",
+        "o"
+      ],
+      [
+        "scap",
+        "ular"
+      ],
+      [
+        "m",
+        "al"
+      ],
+      [
+        "v",
+        "an"
+      ],
+      [
+        "gra",
+        "de"
+      ],
+      [
+        "retro",
+        "grade"
+      ],
+      [
+        "ad",
+        "van"
+      ],
+      [
+        "advan",
+        "cement"
+      ],
+      [
+        "no",
+        "se"
+      ],
+      [
+        "mast",
+        "opexy"
+      ],
+      [
+        "fluo",
+        "ro"
+      ],
+      [
+        "d",
+        "foot"
+      ],
+      [
+        "pel",
+        "vis"
+      ],
+      [
+        "hin",
+        "dfoot"
+      ],
+      [
+        "h",
+        "art"
+      ],
+      [
+        "m",
+        "ans"
+      ],
+      [
+        "v",
+        "ian"
+      ],
+      [
+        "sub",
+        "cla"
+      ],
+      [
+        "hart",
+        "mans"
+      ],
+      [
+        "subcla",
+        "vian"
+      ],
+      [
+        "l",
+        "io"
+      ],
+      [
+        "t",
+        "ur"
+      ],
+      [
+        "sco",
+        "lio"
+      ],
+      [
+        "si",
+        "tion"
+      ],
+      [
+        "par",
+        "asto"
+      ],
+      [
+        "po",
+        "sition"
+      ],
+      [
+        "zyg",
+        "oma"
+      ],
+      [
+        "scolio",
+        "sis"
+      ],
+      [
+        "parasto",
+        "mal"
+      ],
+      [
+        "ic",
+        "a"
+      ],
+      [
+        "le",
+        "ad"
+      ],
+      [
+        "sp",
+        "ica"
+      ],
+      [
+        "ch",
+        "ial"
+      ],
+      [
+        "lymphaden",
+        "ectomy"
+      ],
+      [
+        "a",
+        "trial"
+      ],
+      [
+        "d",
+        "up"
+      ],
+      [
+        "r",
+        "an"
+      ],
+      [
+        "u",
+        "y"
+      ],
+      [
+        "sp",
+        "hin"
+      ],
+      [
+        "trip",
+        "sy"
+      ],
+      [
+        "tre",
+        "n"
+      ],
+      [
+        "li",
+        "ft"
+      ],
+      [
+        "elo",
+        "gram"
+      ],
+      [
+        "py",
+        "elogram"
+      ],
+      [
+        "litho",
+        "tripsy"
+      ],
+      [
+        "dup",
+        "uy"
+      ],
+      [
+        "sphin",
+        "c"
+      ],
+      [
+        "dupuy",
+        "tren"
+      ],
+      [
+        "e",
+        "st"
+      ],
+      [
+        "r",
+        "ib"
+      ],
+      [
+        "ma",
+        "xi"
+      ],
+      [
+        "procto",
+        "colectomy"
+      ],
+      [
+        "maxi",
+        "llectomy"
+      ],
+      [
+        "b",
+        "ar"
+      ],
+      [
+        "s",
+        "cess"
+      ],
+      [
+        "ab",
+        "scess"
+      ],
+      [
+        "de",
+        "f"
+      ],
+      [
+        "trans",
+        "position"
+      ],
+      [
+        "assist",
+        "e"
+      ],
+      [
+        "a",
+        "il"
+      ],
+      [
+        "s",
+        "em"
+      ],
+      [
+        "to",
+        "en"
+      ],
+      [
+        "ic",
+        "irc"
+      ],
+      [
+        "ec",
+        "t"
+      ],
+      [
+        "patel",
+        "la"
+      ],
+      [
+        "radi",
+        "us"
+      ],
+      [
+        "def",
+        "ect"
+      ],
+      [
+        "sem",
+        "icirc"
+      ],
+      [
+        "toen",
+        "ail"
+      ],
+      [
+        "semicirc",
+        "ular"
+      ],
+      [
+        "p",
+        "ump"
+      ],
+      [
+        "mandib",
+        "ulectomy"
+      ],
+      [
+        "m",
+        "en"
+      ],
+      [
+        "o",
+        "m"
+      ],
+      [
+        "p",
+        "ress"
+      ],
+      [
+        "so",
+        "re"
+      ],
+      [
+        "bro",
+        "w"
+      ],
+      [
+        "press",
+        "ure"
+      ],
+      [
+        "er",
+        "sal"
+      ],
+      [
+        "rev",
+        "ersal"
+      ],
+      [
+        "po",
+        "ly"
+      ],
+      [
+        "e",
+        "le"
+      ],
+      [
+        "o",
+        "ne"
+      ],
+      [
+        "w",
+        "ound"
+      ],
+      [
+        "arthro",
+        "gram"
+      ],
+      [
+        "esophag",
+        "oscopy"
+      ],
+      [
+        "a",
+        "ur"
+      ],
+      [
+        "l",
+        "d"
+      ],
+      [
+        "m",
+        "ent"
+      ],
+      [
+        "b",
+        "asal"
+      ],
+      [
+        "tor",
+        "i"
+      ],
+      [
+        "in",
+        "fusion"
+      ],
+      [
+        "e",
+        "ss"
+      ],
+      [
+        "r",
+        "in"
+      ],
+      [
+        "s",
+        "w"
+      ],
+      [
+        "pal",
+        "a"
+      ],
+      [
+        "radi",
+        "ess"
+      ],
+      [
+        "radiess",
+        "e"
+      ],
+      [
+        "retro",
+        "sigmoid"
+      ],
+      [
+        "la",
+        "by"
+      ],
+      [
+        "ul",
+        "oplasty"
+      ],
+      [
+        "vic",
+        "le"
+      ],
+      [
+        "myring",
+        "oplasty"
+      ],
+      [
+        "cla",
+        "vicle"
+      ],
+      [
+        "sphinc",
+        "tero"
+      ],
+      [
+        "rin",
+        "th"
+      ],
+      [
+        "laby",
+        "rinth"
+      ],
+      [
+        "st",
+        "one"
+      ],
+      [
+        "io",
+        "l"
+      ],
+      [
+        "gastro",
+        "cutaneous"
+      ],
+      [
+        "mediast",
+        "inal"
+      ],
+      [
+        "ran",
+        "ial"
+      ],
+      [
+        "p",
+        "t"
+      ],
+      [
+        "re",
+        "anastomosis"
+      ],
+      [
+        "le",
+        "pt"
+      ],
+      [
+        "ab",
+        "le"
+      ],
+      [
+        "neuro",
+        "lept"
+      ],
+      [
+        "h",
+        "es"
+      ],
+      [
+        "ex",
+        "ter"
+      ],
+      [
+        "do",
+        "desis"
+      ],
+      [
+        "fo",
+        "ld"
+      ],
+      [
+        "ch",
+        "est"
+      ],
+      [
+        "ad",
+        "hes"
+      ],
+      [
+        "epiphy",
+        "dodesis"
+      ],
+      [
+        "exter",
+        "nal"
+      ],
+      [
+        "fold",
+        "able"
+      ],
+      [
+        "adhes",
+        "ion"
+      ],
+      [
+        "inter",
+        "nal"
+      ],
+      [
+        "hia",
+        "tal"
+      ],
+      [
+        "f",
+        "ir"
+      ],
+      [
+        "v",
+        "il"
+      ],
+      [
+        "lo",
+        "us"
+      ],
+      [
+        "aden",
+        "oma"
+      ],
+      [
+        "fir",
+        "st"
+      ],
+      [
+        "vil",
+        "lous"
+      ],
+      [
+        "h",
+        "ic"
+      ],
+      [
+        "k",
+        "man"
+      ],
+      [
+        "st",
+        "ro"
+      ],
+      [
+        "bro",
+        "stro"
+      ],
+      [
+        "hic",
+        "kman"
+      ],
+      [
+        "brostro",
+        "m"
+      ],
+      [
+        "neo",
+        "bladder"
+      ],
+      [
+        "e",
+        "sis"
+      ],
+      [
+        "i",
+        "zation"
+      ],
+      [
+        "p",
+        "oc"
+      ],
+      [
+        "re",
+        "s"
+      ],
+      [
+        "mo",
+        "n"
+      ],
+      [
+        "li",
+        "esis"
+      ],
+      [
+        "tum",
+        "or"
+      ],
+      [
+        "col",
+        "poc"
+      ],
+      [
+        "intr",
+        "a"
+      ],
+      [
+        "tunnel",
+        "s"
+      ],
+      [
+        "colpoc",
+        "liesis"
+      ],
+      [
+        "a",
+        "v"
+      ],
+      [
+        "o",
+        "ss"
+      ],
+      [
+        "v",
+        "ide"
+      ],
+      [
+        "ic",
+        "uloplasty"
+      ],
+      [
+        "de",
+        "vic"
+      ],
+      [
+        "uc",
+        "h"
+      ],
+      [
+        "po",
+        "uch"
+      ],
+      [
+        "va",
+        "d"
+      ],
+      [
+        "nephro",
+        "lithotripsy"
+      ],
+      [
+        "oss",
+        "iculoplasty"
+      ],
+      [
+        "vide",
+        "o"
+      ],
+      [
+        "devic",
+        "e"
+      ],
+      [
+        "b",
+        "inoplasty"
+      ],
+      [
+        "i",
+        "tal"
+      ],
+      [
+        "en",
+        "ter"
+      ],
+      [
+        "pen",
+        "is"
+      ],
+      [
+        "tur",
+        "binoplasty"
+      ],
+      [
+        "adhesion",
+        "s"
+      ],
+      [
+        "h",
+        "um"
+      ],
+      [
+        "er",
+        "us"
+      ],
+      [
+        "di",
+        "g"
+      ],
+      [
+        "fix",
+        "ator"
+      ],
+      [
+        "hum",
+        "erus"
+      ],
+      [
+        "o",
+        "lar"
+      ],
+      [
+        "w",
+        "in"
+      ],
+      [
+        "st",
+        "ic"
+      ],
+      [
+        "is",
+        "chial"
+      ],
+      [
+        "do",
+        "w"
+      ],
+      [
+        "bi",
+        "le"
+      ],
+      [
+        "sk",
+        "ull"
+      ],
+      [
+        "win",
+        "dow"
+      ],
+      [
+        "c",
+        "ne"
+      ],
+      [
+        "p",
+        "sy"
+      ],
+      [
+        "r",
+        "ig"
+      ],
+      [
+        "le",
+        "ne"
+      ],
+      [
+        "at",
+        "ment"
+      ],
+      [
+        "pro",
+        "lene"
+      ],
+      [
+        "tre",
+        "atment"
+      ],
+      [
+        "ep",
+        "ile"
+      ],
+      [
+        "mi",
+        "us"
+      ],
+      [
+        "gastro",
+        "cne"
+      ],
+      [
+        "pen",
+        "ectomy"
+      ],
+      [
+        "rig",
+        "id"
+      ],
+      [
+        "epile",
+        "psy"
+      ],
+      [
+        "gastrocne",
+        "mius"
+      ],
+      [
+        "r",
+        "ac"
+      ],
+      [
+        "u",
+        "der"
+      ],
+      [
+        "st",
+        "uder"
+      ],
+      [
+        "is",
+        "cal"
+      ],
+      [
+        "ac",
+        "ty"
+      ],
+      [
+        "ureth",
+        "rectomy"
+      ],
+      [
+        "sy",
+        "nd"
+      ],
+      [
+        "ten",
+        "o"
+      ],
+      [
+        "men",
+        "iscal"
+      ],
+      [
+        "acty",
+        "ly"
+      ],
+      [
+        "synd",
+        "actyly"
+      ],
+      [
+        "n",
+        "otomy"
+      ],
+      [
+        "u",
+        "stic"
+      ],
+      [
+        "cyst",
+        "o"
+      ],
+      [
+        "aco",
+        "ustic"
+      ],
+      [
+        "tympa",
+        "notomy"
+      ],
+      [
+        "g",
+        "ort"
+      ],
+      [
+        "gort",
+        "ex"
+      ],
+      [
+        "x",
+        "or"
+      ],
+      [
+        "st",
+        "eal"
+      ],
+      [
+        "ra",
+        "pubic"
+      ],
+      [
+        "fle",
+        "xor"
+      ],
+      [
+        "trache",
+        "al"
+      ],
+      [
+        "sup",
+        "rapubic"
+      ],
+      [
+        "steal",
+        "th"
+      ],
+      [
+        "b",
+        "ioplasty"
+      ],
+      [
+        "c",
+        "es"
+      ],
+      [
+        "i",
+        "re"
+      ],
+      [
+        "p",
+        "ec"
+      ],
+      [
+        "w",
+        "ire"
+      ],
+      [
+        "la",
+        "bioplasty"
+      ],
+      [
+        "co",
+        "mmo"
+      ],
+      [
+        "are",
+        "an"
+      ],
+      [
+        "laryng",
+        "oph"
+      ],
+      [
+        "aryng",
+        "ectomy"
+      ],
+      [
+        "ces",
+        "arean"
+      ],
+      [
+        "commo",
+        "n"
+      ],
+      [
+        "laryngoph",
+        "aryngectomy"
+      ],
+      [
+        "a",
+        "k"
+      ],
+      [
+        "c",
+        "s"
+      ],
+      [
+        "s",
+        "ac"
+      ],
+      [
+        "th",
+        "o"
+      ],
+      [
+        "le",
+        "ak"
+      ],
+      [
+        "trans",
+        "labyrinth"
+      ],
+      [
+        "the",
+        "red"
+      ],
+      [
+        "te",
+        "thered"
+      ],
+      [
+        "vit",
+        "rectomy"
+      ],
+      [
+        "fix",
+        "ation"
+      ],
+      [
+        "cs",
+        "f"
+      ],
+      [
+        "l",
+        "in"
+      ],
+      [
+        "p",
+        "lu"
+      ],
+      [
+        "t",
+        "tom"
+      ],
+      [
+        "an",
+        "t"
+      ],
+      [
+        "tr",
+        "un"
+      ],
+      [
+        "bo",
+        "ttom"
+      ],
+      [
+        "per",
+        "ic"
+      ],
+      [
+        "ial",
+        "ization"
+      ],
+      [
+        "ph",
+        "ant"
+      ],
+      [
+        "sup",
+        "ialization"
+      ],
+      [
+        "mar",
+        "supialization"
+      ],
+      [
+        "bar",
+        "tho"
+      ],
+      [
+        "poly",
+        "p"
+      ],
+      [
+        "ele",
+        "phant"
+      ],
+      [
+        "teno",
+        "lysis"
+      ],
+      [
+        "sac",
+        "ral"
+      ],
+      [
+        "lin",
+        "s"
+      ],
+      [
+        "plu",
+        "g"
+      ],
+      [
+        "trun",
+        "k"
+      ],
+      [
+        "bartho",
+        "lins"
+      ],
+      [
+        "f",
+        "ull"
+      ],
+      [
+        "al",
+        "ve"
+      ],
+      [
+        "th",
+        "igh"
+      ],
+      [
+        "pala",
+        "toplasty"
+      ],
+      [
+        "c",
+        "us"
+      ],
+      [
+        "g",
+        "inal"
+      ],
+      [
+        "m",
+        "at"
+      ],
+      [
+        "x",
+        "oma"
+      ],
+      [
+        "my",
+        "xoma"
+      ],
+      [
+        "in",
+        "ten"
+      ],
+      [
+        "tr",
+        "as"
+      ],
+      [
+        "si",
+        "ty"
+      ],
+      [
+        "cyst",
+        "ot"
+      ],
+      [
+        "ul",
+        "tras"
+      ],
+      [
+        "fo",
+        "cus"
+      ],
+      [
+        "brid",
+        "ge"
+      ],
+      [
+        "cl",
+        "ub"
+      ],
+      [
+        "bone",
+        "bridge"
+      ],
+      [
+        "mar",
+        "ginal"
+      ],
+      [
+        "aur",
+        "iculectomy"
+      ],
+      [
+        "inten",
+        "sity"
+      ],
+      [
+        "ultras",
+        "ound"
+      ],
+      [
+        "focus",
+        "ed"
+      ],
+      [
+        "e",
+        "ro"
+      ],
+      [
+        "e",
+        "at"
+      ],
+      [
+        "p",
+        "neu"
+      ],
+      [
+        "peri",
+        "anal"
+      ],
+      [
+        "mon",
+        "ectomy"
+      ],
+      [
+        "pneu",
+        "monectomy"
+      ],
+      [
+        "a",
+        "ph"
+      ],
+      [
+        "gast",
+        "roscopy"
+      ],
+      [
+        "sw",
+        "eat"
+      ],
+      [
+        "alve",
+        "olar"
+      ],
+      [
+        "club",
+        "foot"
+      ],
+      [
+        "f",
+        "ul"
+      ],
+      [
+        "i",
+        "u"
+      ],
+      [
+        "j",
+        "o"
+      ],
+      [
+        "p",
+        "oral"
+      ],
+      [
+        "u",
+        "al"
+      ],
+      [
+        "in",
+        "t"
+      ],
+      [
+        "si",
+        "co"
+      ],
+      [
+        "ve",
+        "sico"
+      ],
+      [
+        "ple",
+        "d"
+      ],
+      [
+        "urethro",
+        "tomy"
+      ],
+      [
+        "gastro",
+        "jejunostomy"
+      ],
+      [
+        "sta",
+        "pled"
+      ],
+      [
+        "tem",
+        "poral"
+      ],
+      [
+        "vis",
+        "ual"
+      ],
+      [
+        "iu",
+        "d"
+      ],
+      [
+        "jo",
+        "int"
+      ],
+      [
+        "g",
+        "y"
+      ],
+      [
+        "r",
+        "ag"
+      ],
+      [
+        "sphinctero",
+        "tomy"
+      ],
+      [
+        "dig",
+        "ital"
+      ],
+      [
+        "c",
+        "m"
+      ],
+      [
+        "f",
+        "ib"
+      ],
+      [
+        "m",
+        "ectomy"
+      ],
+      [
+        "p",
+        "cl"
+      ],
+      [
+        "my",
+        "om"
+      ],
+      [
+        "an",
+        "tero"
+      ],
+      [
+        "di",
+        "aph"
+      ],
+      [
+        "ve",
+        "st"
+      ],
+      [
+        "lo",
+        "c"
+      ],
+      [
+        "thy",
+        "mectomy"
+      ],
+      [
+        "lob",
+        "e"
+      ],
+      [
+        "hydro",
+        "ce"
+      ],
+      [
+        "fascio",
+        "cutaneous"
+      ],
+      [
+        "cm",
+        "c"
+      ],
+      [
+        "myom",
+        "ectomy"
+      ],
+      [
+        "antero",
+        "lateral"
+      ],
+      [
+        "diaph",
+        "rag"
+      ],
+      [
+        "a",
+        "z"
+      ],
+      [
+        "ro",
+        "of"
+      ],
+      [
+        "al",
+        "lo"
+      ],
+      [
+        "al",
+        "az"
+      ],
+      [
+        "la",
+        "th"
+      ],
+      [
+        "la",
+        "bia"
+      ],
+      [
+        "an",
+        "ce"
+      ],
+      [
+        "at",
+        "res"
+      ],
+      [
+        "de",
+        "roof"
+      ],
+      [
+        "trans",
+        "nasal"
+      ],
+      [
+        "ch",
+        "alaz"
+      ],
+      [
+        "li",
+        "ance"
+      ],
+      [
+        "cor",
+        "tic"
+      ],
+      [
+        "app",
+        "liance"
+      ],
+      [
+        "fasc",
+        "ial"
+      ],
+      [
+        "av",
+        "m"
+      ],
+      [
+        "allo",
+        "graft"
+      ],
+      [
+        "lath",
+        "am"
+      ],
+      [
+        "atres",
+        "ia"
+      ],
+      [
+        "deroof",
+        "ing"
+      ],
+      [
+        "chalaz",
+        "ion"
+      ],
+      [
+        "h",
+        "am"
+      ],
+      [
+        "i",
+        "z"
+      ],
+      [
+        "i",
+        "tion"
+      ],
+      [
+        "al",
+        "ition"
+      ],
+      [
+        "co",
+        "alition"
+      ],
+      [
+        "thyro",
+        "id"
+      ],
+      [
+        "sub",
+        "total"
+      ],
+      [
+        "tar",
+        "sal"
+      ],
+      [
+        "f",
+        "e"
+      ],
+      [
+        "f",
+        "i"
+      ],
+      [
+        "q",
+        "u"
+      ],
+      [
+        "ro",
+        "n"
+      ],
+      [
+        "ca",
+        "vit"
+      ],
+      [
+        "cavit",
+        "ron"
+      ],
+      [
+        "v",
+        "ical"
+      ],
+      [
+        "in",
+        "trac"
+      ],
+      [
+        "er",
+        "vical"
+      ],
+      [
+        "ul",
+        "na"
+      ],
+      [
+        "nd",
+        "ral"
+      ],
+      [
+        "osteocho",
+        "ndral"
+      ],
+      [
+        "canal",
+        "plasty"
+      ],
+      [
+        "sup",
+        "rac"
+      ],
+      [
+        "suprac",
+        "ervical"
+      ],
+      [
+        "n",
+        "ate"
+      ],
+      [
+        "o",
+        "nal"
+      ],
+      [
+        "o",
+        "esophageal"
+      ],
+      [
+        "re",
+        "flu"
+      ],
+      [
+        "ec",
+        "ic"
+      ],
+      [
+        "str",
+        "ing"
+      ],
+      [
+        "extrac",
+        "ranial"
+      ],
+      [
+        "sub",
+        "trig"
+      ],
+      [
+        "trache",
+        "oesophageal"
+      ],
+      [
+        "recto",
+        "vaginal"
+      ],
+      [
+        "ham",
+        "string"
+      ],
+      [
+        "intrac",
+        "ranial"
+      ],
+      [
+        "reflu",
+        "x"
+      ],
+      [
+        "subtrig",
+        "onal"
+      ],
+      [
+        "ne",
+        "str"
+      ],
+      [
+        "di",
+        "fi"
+      ],
+      [
+        "mo",
+        "difi"
+      ],
+      [
+        "br",
+        "ach"
+      ],
+      [
+        "neo",
+        "nate"
+      ],
+      [
+        "fe",
+        "nestr"
+      ],
+      [
+        "modifi",
+        "ed"
+      ],
+      [
+        "g",
+        "ur"
+      ],
+      [
+        "t",
+        "v"
+      ],
+      [
+        "st",
+        "en"
+      ],
+      [
+        "an",
+        "chial"
+      ],
+      [
+        "us",
+        "ing"
+      ],
+      [
+        "hyst",
+        "er"
+      ],
+      [
+        "ma",
+        "xil"
+      ],
+      [
+        "br",
+        "anchial"
+      ],
+      [
+        "mat",
+        "ic"
+      ],
+      [
+        "ful",
+        "gur"
+      ],
+      [
+        "diaphrag",
+        "matic"
+      ],
+      [
+        "tv",
+        "t"
+      ],
+      [
+        "sten",
+        "osis"
+      ],
+      [
+        "maxil",
+        "la"
+      ],
+      [
+        "fulgur",
+        "ation"
+      ],
+      [
+        "b",
+        "ase"
+      ],
+      [
+        "i",
+        "bul"
+      ],
+      [
+        "ex",
+        "enter"
+      ],
+      [
+        "su",
+        "tur"
+      ],
+      [
+        "para",
+        "thyroid"
+      ],
+      [
+        "intra",
+        "operative"
+      ],
+      [
+        "vest",
+        "ibul"
+      ],
+      [
+        "hydroce",
+        "le"
+      ],
+      [
+        "exenter",
+        "ation"
+      ],
+      [
+        "sutur",
+        "ing"
+      ],
+      [
+        "vestibul",
+        "oplasty"
+      ],
+      [
+        "p",
+        "re"
+      ],
+      [
+        "t",
+        "ex"
+      ],
+      [
+        "ic",
+        "ular"
+      ],
+      [
+        "ac",
+        "j"
+      ],
+      [
+        "ig",
+        "n"
+      ],
+      [
+        "fore",
+        "ign"
+      ],
+      [
+        "aur",
+        "icular"
+      ],
+      [
+        "loc",
+        "ation"
+      ],
+      [
+        "p",
+        "ull"
+      ],
+      [
+        "co",
+        "lo"
+      ],
+      [
+        "ar",
+        "ge"
+      ],
+      [
+        "thro",
+        "ug"
+      ],
+      [
+        "en",
+        "so"
+      ],
+      [
+        "mo",
+        "tor"
+      ],
+      [
+        "cho",
+        "anal"
+      ],
+      [
+        "ch",
+        "arge"
+      ],
+      [
+        "oc",
+        "ele"
+      ],
+      [
+        "cor",
+        "tex"
+      ],
+      [
+        "fre",
+        "n"
+      ],
+      [
+        "urethro",
+        "lysis"
+      ],
+      [
+        "urete",
+        "ro"
+      ],
+      [
+        "sw",
+        "enso"
+      ],
+      [
+        "sphinctero",
+        "plasty"
+      ],
+      [
+        "colo",
+        "anal"
+      ],
+      [
+        "throug",
+        "h"
+      ],
+      [
+        "swenso",
+        "n"
+      ],
+      [
+        "g",
+        "en"
+      ],
+      [
+        "g",
+        "ical"
+      ],
+      [
+        "j",
+        "or"
+      ],
+      [
+        "r",
+        "hin"
+      ],
+      [
+        "u",
+        "vul"
+      ],
+      [
+        "al",
+        "ato"
+      ],
+      [
+        "ar",
+        "dial"
+      ],
+      [
+        "op",
+        "alato"
+      ],
+      [
+        "dis",
+        "location"
+      ],
+      [
+        "ma",
+        "jor"
+      ],
+      [
+        "sur",
+        "gical"
+      ],
+      [
+        "mes",
+        "enter"
+      ],
+      [
+        "uvul",
+        "opalato"
+      ],
+      [
+        "mesenter",
+        "ic"
+      ],
+      [
+        "uvulopalato",
+        "pharyngoplasty"
+      ],
+      [
+        "c",
+        "ro"
+      ],
+      [
+        "o",
+        "rec"
+      ],
+      [
+        "s",
+        "cro"
+      ],
+      [
+        "v",
+        "ity"
+      ],
+      [
+        "to",
+        "ral"
+      ],
+      [
+        "co",
+        "stomy"
+      ],
+      [
+        "ar",
+        "ch"
+      ],
+      [
+        "an",
+        "orec"
+      ],
+      [
+        "en",
+        "uc"
+      ],
+      [
+        "le",
+        "ation"
+      ],
+      [
+        "ca",
+        "vity"
+      ],
+      [
+        "hy",
+        "men"
+      ],
+      [
+        "cor",
+        "p"
+      ],
+      [
+        "ce",
+        "costomy"
+      ],
+      [
+        "pec",
+        "toral"
+      ],
+      [
+        "gen",
+        "ioplasty"
+      ],
+      [
+        "scro",
+        "tal"
+      ],
+      [
+        "anorec",
+        "toplasty"
+      ],
+      [
+        "enuc",
+        "leation"
+      ],
+      [
+        "pectoral",
+        "is"
+      ],
+      [
+        "o",
+        "id"
+      ],
+      [
+        "io",
+        "gram"
+      ],
+      [
+        "co",
+        "mast"
+      ],
+      [
+        "my",
+        "ectomy"
+      ],
+      [
+        "an",
+        "ast"
+      ],
+      [
+        "ne",
+        "comast"
+      ],
+      [
+        "mast",
+        "oid"
+      ],
+      [
+        "ileo",
+        "anal"
+      ],
+      [
+        "pala",
+        "tal"
+      ],
+      [
+        "gy",
+        "necomast"
+      ],
+      [
+        "gynecomast",
+        "ia"
+      ],
+      [
+        "l",
+        "ing"
+      ],
+      [
+        "s",
+        "ling"
+      ],
+      [
+        "ro",
+        "desis"
+      ],
+      [
+        "ra",
+        "pid"
+      ],
+      [
+        "ard",
+        "ectomy"
+      ],
+      [
+        "ti",
+        "co"
+      ],
+      [
+        "rect",
+        "us"
+      ],
+      [
+        "expan",
+        "sion"
+      ],
+      [
+        "pal",
+        "mar"
+      ],
+      [
+        "pleu",
+        "rodesis"
+      ],
+      [
+        "fasc",
+        "iectomy"
+      ],
+      [
+        "peric",
+        "ardectomy"
+      ],
+      [
+        "fenestr",
+        "ated"
+      ],
+      [
+        "a",
+        "toplasty"
+      ],
+      [
+        "i",
+        "do"
+      ],
+      [
+        "p",
+        "p"
+      ],
+      [
+        "al",
+        "pp"
+      ],
+      [
+        "la",
+        "ng"
+      ],
+      [
+        "or",
+        "y"
+      ],
+      [
+        "ac",
+        "cess"
+      ],
+      [
+        "di",
+        "ac"
+      ],
+      [
+        "cho",
+        "lang"
+      ],
+      [
+        "ple",
+        "ural"
+      ],
+      [
+        "car",
+        "diac"
+      ],
+      [
+        "sigmo",
+        "ido"
+      ],
+      [
+        "me",
+        "atoplasty"
+      ],
+      [
+        "pec",
+        "tus"
+      ],
+      [
+        "peric",
+        "ardial"
+      ],
+      [
+        "alpp",
+        "s"
+      ],
+      [
+        "access",
+        "ory"
+      ],
+      [
+        "cholang",
+        "iogram"
+      ],
+      [
+        "sigmoido",
+        "scopy"
+      ],
+      [
+        "3",
+        "6"
+      ],
+      [
+        "e",
+        "ve"
+      ],
+      [
+        "s",
+        "le"
+      ],
+      [
+        "to",
+        "ur"
+      ],
+      [
+        "ra",
+        "vit"
+      ],
+      [
+        "con",
+        "tour"
+      ],
+      [
+        "sub",
+        "cutaneous"
+      ],
+      [
+        "decomp",
+        "res"
+      ],
+      [
+        "fib",
+        "ula"
+      ],
+      [
+        "brach",
+        "ioplasty"
+      ],
+      [
+        "36",
+        "0"
+      ],
+      [
+        "sle",
+        "eve"
+      ],
+      [
+        "ravit",
+        "ch"
+      ],
+      [
+        "decompres",
+        "sive"
+      ],
+      [
+        "d",
+        "ur"
+      ],
+      [
+        "v",
+        "ator"
+      ],
+      [
+        "le",
+        "vator"
+      ],
+      [
+        "ex",
+        "ca"
+      ],
+      [
+        "vat",
+        "um"
+      ],
+      [
+        "thoraco",
+        "abdominal"
+      ],
+      [
+        "ening",
+        "ocele"
+      ],
+      [
+        "labyrinth",
+        "ectomy"
+      ],
+      [
+        "vesico",
+        "tomy"
+      ],
+      [
+        "vesico",
+        "vaginal"
+      ],
+      [
+        "dur",
+        "a"
+      ],
+      [
+        "exca",
+        "vatum"
+      ],
+      [
+        "c",
+        "c"
+      ],
+      [
+        "e",
+        "t"
+      ],
+      [
+        "f",
+        "ic"
+      ],
+      [
+        "h",
+        "iz"
+      ],
+      [
+        "m",
+        "eningocele"
+      ],
+      [
+        "p",
+        "ero"
+      ],
+      [
+        "r",
+        "hiz"
+      ],
+      [
+        "ar",
+        "ti"
+      ],
+      [
+        "ab",
+        "ulum"
+      ],
+      [
+        "ac",
+        "et"
+      ],
+      [
+        "ent",
+        "ero"
+      ],
+      [
+        "cr",
+        "ico"
+      ],
+      [
+        "se",
+        "qu"
+      ],
+      [
+        "sigmo",
+        "idectomy"
+      ],
+      [
+        "procto",
+        "sigmoidectomy"
+      ],
+      [
+        "est",
+        "rectomy"
+      ],
+      [
+        "fic",
+        "ial"
+      ],
+      [
+        "pero",
+        "neal"
+      ],
+      [
+        "rhiz",
+        "otomy"
+      ],
+      [
+        "arti",
+        "ficial"
+      ],
+      [
+        "acet",
+        "abulum"
+      ],
+      [
+        "sequ",
+        "estrectomy"
+      ],
+      [
+        "d",
+        "ac"
+      ],
+      [
+        "g",
+        "rac"
+      ],
+      [
+        "o",
+        "cyst"
+      ],
+      [
+        "r",
+        "y"
+      ],
+      [
+        "s",
+        "pac"
+      ],
+      [
+        "u",
+        "e"
+      ],
+      [
+        "u",
+        "ter"
+      ],
+      [
+        "al",
+        "o"
+      ],
+      [
+        "to",
+        "ng"
+      ],
+      [
+        "pla",
+        "te"
+      ],
+      [
+        "or",
+        "hin"
+      ],
+      [
+        "de",
+        "cortic"
+      ],
+      [
+        "il",
+        "is"
+      ],
+      [
+        "para",
+        "pharyngeal"
+      ],
+      [
+        "nav",
+        "igation"
+      ],
+      [
+        "ten",
+        "otomy"
+      ],
+      [
+        "fren",
+        "ulectomy"
+      ],
+      [
+        "uretero",
+        "stomy"
+      ],
+      [
+        "dac",
+        "ry"
+      ],
+      [
+        "grac",
+        "ilis"
+      ],
+      [
+        "ocyst",
+        "orhin"
+      ],
+      [
+        "spac",
+        "e"
+      ],
+      [
+        "tong",
+        "ue"
+      ],
+      [
+        "decortic",
+        "ation"
+      ],
+      [
+        "dacry",
+        "ocystorhin"
+      ],
+      [
+        "dacryocystorhin",
+        "ostomy"
+      ],
+      [
+        "a",
+        "u"
+      ],
+      [
+        "g",
+        "ment"
+      ],
+      [
+        "r",
+        "hy"
+      ],
+      [
+        "pla",
+        "nt"
+      ],
+      [
+        "ip",
+        "ital"
+      ],
+      [
+        "se",
+        "gment"
+      ],
+      [
+        "ileo",
+        "femoral"
+      ],
+      [
+        "hem",
+        "i"
+      ],
+      [
+        "vascular",
+        "iz"
+      ],
+      [
+        "sphinc",
+        "ter"
+      ],
+      [
+        "fib",
+        "ular"
+      ],
+      [
+        "hymen",
+        "ectomy"
+      ],
+      [
+        "rhy",
+        "tidectomy"
+      ],
+      [
+        "plant",
+        "ar"
+      ],
+      [
+        "segment",
+        "ectomy"
+      ],
+      [
+        "vasculariz",
+        "ed"
+      ],
+      [
+        "b",
+        "ectomy"
+      ],
+      [
+        "g",
+        "r"
+      ],
+      [
+        "g",
+        "u"
+      ],
+      [
+        "m",
+        "bectomy"
+      ],
+      [
+        "n",
+        "k"
+      ],
+      [
+        "o",
+        "n"
+      ],
+      [
+        "ro",
+        "d"
+      ],
+      [
+        "co",
+        "mple"
+      ],
+      [
+        "my",
+        "elo"
+      ],
+      [
+        "thro",
+        "mbectomy"
+      ],
+      [
+        "id",
+        "ed"
+      ],
+      [
+        "bo",
+        "cc"
+      ],
+      [
+        "pro",
+        "fundo"
+      ],
+      [
+        "ul",
+        "cer"
+      ],
+      [
+        "im",
+        "age"
+      ],
+      [
+        "su",
+        "bocc"
+      ],
+      [
+        "los",
+        "otomy"
+      ],
+      [
+        "fla",
+        "nk"
+      ],
+      [
+        "cal",
+        "losotomy"
+      ],
+      [
+        "dig",
+        "it"
+      ],
+      [
+        "corp",
+        "us"
+      ],
+      [
+        "gr",
+        "id"
+      ],
+      [
+        "gu",
+        "ided"
+      ],
+      [
+        "comple",
+        "tion"
+      ],
+      [
+        "myelo",
+        "meningocele"
+      ],
+      [
+        "profundo",
+        "plasty"
+      ],
+      [
+        "subocc",
+        "ipital"
+      ],
+      [
+        "i",
+        "rod"
+      ],
+      [
+        "k",
+        "ar"
+      ],
+      [
+        "o",
+        "romandibular"
+      ],
+      [
+        "p",
+        "to"
+      ],
+      [
+        "p",
+        "herectomy"
+      ],
+      [
+        "ec",
+        "ulectomy"
+      ],
+      [
+        "is",
+        "pherectomy"
+      ],
+      [
+        "ab",
+        "eculectomy"
+      ],
+      [
+        "tr",
+        "abeculectomy"
+      ],
+      [
+        "at",
+        "tu"
+      ],
+      [
+        "ped",
+        "s"
+      ],
+      [
+        "trans",
+        "mastoid"
+      ],
+      [
+        "vag",
+        "inoplasty"
+      ],
+      [
+        "tor",
+        "so"
+      ],
+      [
+        "cer",
+        "cla"
+      ],
+      [
+        "thoraco",
+        "lumbar"
+      ],
+      [
+        "fre",
+        "sh"
+      ],
+      [
+        "sh",
+        "irod"
+      ],
+      [
+        "hem",
+        "ispherectomy"
+      ],
+      [
+        "perine",
+        "oplasty"
+      ],
+      [
+        "polyp",
+        "ectomy"
+      ],
+      [
+        "cortic",
+        "ectomy"
+      ],
+      [
+        "entero",
+        "cutaneous"
+      ],
+      [
+        "pto",
+        "sis"
+      ],
+      [
+        "attu",
+        "ne"
+      ],
+      [
+        "cercla",
+        "ge"
+      ],
+      [
+        "shirod",
+        "kar"
+      ],
+      [
+        "d",
+        "u"
+      ],
+      [
+        "n",
+        "ip"
+      ],
+      [
+        "o",
+        "ir"
+      ],
+      [
+        "o",
+        "den"
+      ],
+      [
+        "v",
+        "oir"
+      ],
+      [
+        "w",
+        "e"
+      ],
+      [
+        "y",
+        "a"
+      ],
+      [
+        "re",
+        "ser"
+      ],
+      [
+        "er",
+        "cle"
+      ],
+      [
+        "el",
+        "id"
+      ],
+      [
+        "lo",
+        "gy"
+      ],
+      [
+        "ma",
+        "ya"
+      ],
+      [
+        "tub",
+        "ercle"
+      ],
+      [
+        "he",
+        "pa"
+      ],
+      [
+        "patel",
+        "lar"
+      ],
+      [
+        "ey",
+        "elid"
+      ],
+      [
+        "condy",
+        "lo"
+      ],
+      [
+        "radio",
+        "logy"
+      ],
+      [
+        "om",
+        "maya"
+      ],
+      [
+        "du",
+        "oden"
+      ],
+      [
+        "nip",
+        "ple"
+      ],
+      [
+        "reser",
+        "voir"
+      ],
+      [
+        "b",
+        "ip"
+      ],
+      [
+        "o",
+        "lec"
+      ],
+      [
+        "p",
+        "ul"
+      ],
+      [
+        "s",
+        "ectomy"
+      ],
+      [
+        "t",
+        "t"
+      ],
+      [
+        "t",
+        "ac"
+      ],
+      [
+        "to",
+        "celectomy"
+      ],
+      [
+        "la",
+        "cer"
+      ],
+      [
+        "ar",
+        "pal"
+      ],
+      [
+        "er",
+        "ma"
+      ],
+      [
+        "sp",
+        "erma"
+      ],
+      [
+        "ca",
+        "uter"
+      ],
+      [
+        "ti",
+        "e"
+      ],
+      [
+        "me",
+        "tac"
+      ],
+      [
+        "ran",
+        "on"
+      ],
+      [
+        "mon",
+        "ary"
+      ],
+      [
+        "mat",
+        "a"
+      ],
+      [
+        "rhin",
+        "ectomy"
+      ],
+      [
+        "crico",
+        "pharyngeal"
+      ],
+      [
+        "hepa",
+        "tico"
+      ],
+      [
+        "condylo",
+        "mata"
+      ],
+      [
+        "bip",
+        "olar"
+      ],
+      [
+        "olec",
+        "ranon"
+      ],
+      [
+        "pul",
+        "monary"
+      ],
+      [
+        "lacer",
+        "ation"
+      ],
+      [
+        "sperma",
+        "tocelectomy"
+      ],
+      [
+        "cauter",
+        "ization"
+      ],
+      [
+        "metac",
+        "arpal"
+      ],
+      [
+        "g",
+        "ge"
+      ],
+      [
+        "y",
+        "ear"
+      ],
+      [
+        "re",
+        "in"
+      ],
+      [
+        "th",
+        "lon"
+      ],
+      [
+        "tr",
+        "ia"
+      ],
+      [
+        "cyst",
+        "oplasty"
+      ],
+      [
+        "trans",
+        "canal"
+      ],
+      [
+        "lo",
+        "id"
+      ],
+      [
+        "for",
+        "cement"
+      ],
+      [
+        "laryng",
+        "eal"
+      ],
+      [
+        "cu",
+        "p"
+      ],
+      [
+        "minor",
+        "a"
+      ],
+      [
+        "se",
+        "ton"
+      ],
+      [
+        "rou",
+        "nd"
+      ],
+      [
+        "un",
+        "der"
+      ],
+      [
+        "col",
+        "loid"
+      ],
+      [
+        "me",
+        "ato"
+      ],
+      [
+        "pharyng",
+        "ectomy"
+      ],
+      [
+        "cla",
+        "gge"
+      ],
+      [
+        "orbi",
+        "tal"
+      ],
+      [
+        "rhin",
+        "otomy"
+      ],
+      [
+        "year",
+        "s"
+      ],
+      [
+        "rein",
+        "forcement"
+      ],
+      [
+        "tria",
+        "thlon"
+      ],
+      [
+        "meato",
+        "tomy"
+      ],
+      [
+        "clagge",
+        "tt"
+      ],
+      [
+        "a",
+        "ro"
+      ],
+      [
+        "l",
+        "ingu"
+      ],
+      [
+        "t",
+        "end"
+      ],
+      [
+        "co",
+        "lon"
+      ],
+      [
+        "an",
+        "oplasty"
+      ],
+      [
+        "ex",
+        "tend"
+      ],
+      [
+        "id",
+        "ent"
+      ],
+      [
+        "at",
+        "ic"
+      ],
+      [
+        "at",
+        "tico"
+      ],
+      [
+        "el",
+        "ian"
+      ],
+      [
+        "ig",
+        "elian"
+      ],
+      [
+        "sp",
+        "igelian"
+      ],
+      [
+        "vag",
+        "inoscopy"
+      ],
+      [
+        "endo",
+        "scopy"
+      ],
+      [
+        "varico",
+        "celectomy"
+      ],
+      [
+        "me",
+        "so"
+      ],
+      [
+        "zyg",
+        "om"
+      ],
+      [
+        "brach",
+        "ial"
+      ],
+      [
+        "plate",
+        "au"
+      ],
+      [
+        "lingu",
+        "al"
+      ],
+      [
+        "extend",
+        "ed"
+      ],
+      [
+        "attico",
+        "tomy"
+      ],
+      [
+        "zygom",
+        "atic"
+      ],
+      [
+        "h",
+        "alo"
+      ],
+      [
+        "i",
+        "v"
+      ],
+      [
+        "o",
+        "mastoid"
+      ],
+      [
+        "s",
+        "ical"
+      ],
+      [
+        "x",
+        "us"
+      ],
+      [
+        "re",
+        "sectio"
+      ],
+      [
+        "ro",
+        "myotomy"
+      ],
+      [
+        "in",
+        "tu"
+      ],
+      [
+        "ve",
+        "sical"
+      ],
+      [
+        "ur",
+        "ach"
+      ],
+      [
+        "ula",
+        "ted"
+      ],
+      [
+        "lo",
+        "romyotomy"
+      ],
+      [
+        "ple",
+        "xus"
+      ],
+      [
+        "flu",
+        "id"
+      ],
+      [
+        "ger",
+        "ation"
+      ],
+      [
+        "stern",
+        "omastoid"
+      ],
+      [
+        "py",
+        "loromyotomy"
+      ],
+      [
+        "recto",
+        "vesical"
+      ],
+      [
+        "ful",
+        "geration"
+      ],
+      [
+        "qu",
+        "intu"
+      ],
+      [
+        "fren",
+        "uloplasty"
+      ],
+      [
+        "corp",
+        "ectomy"
+      ],
+      [
+        "meso",
+        "rectal"
+      ],
+      [
+        "iv",
+        "c"
+      ],
+      [
+        "urach",
+        "al"
+      ],
+      [
+        "quintu",
+        "ple"
+      ],
+      [
+        "b",
+        "ac"
+      ],
+      [
+        "c",
+        "ti"
+      ],
+      [
+        "e",
+        "one"
+      ],
+      [
+        "f",
+        "en"
+      ],
+      [
+        "g",
+        "o"
+      ],
+      [
+        "j",
+        "un"
+      ],
+      [
+        "n",
+        "us"
+      ],
+      [
+        "p",
+        "ir"
+      ],
+      [
+        "s",
+        "cal"
+      ],
+      [
+        "v",
+        "h"
+      ],
+      [
+        "al",
+        "us"
+      ],
+      [
+        "ic",
+        "ation"
+      ],
+      [
+        "ho",
+        "id"
+      ],
+      [
+        "as",
+        "pir"
+      ],
+      [
+        "con",
+        "jun"
+      ],
+      [
+        "lo",
+        "fen"
+      ],
+      [
+        "it",
+        "eone"
+      ],
+      [
+        "per",
+        "iteone"
+      ],
+      [
+        "gra",
+        "f"
+      ],
+      [
+        "ph",
+        "alus"
+      ],
+      [
+        "retro",
+        "periteone"
+      ],
+      [
+        "if",
+        "ication"
+      ],
+      [
+        "ile",
+        "al"
+      ],
+      [
+        "fla",
+        "il"
+      ],
+      [
+        "es",
+        "vh"
+      ],
+      [
+        "loc",
+        "ulated"
+      ],
+      [
+        "hydroce",
+        "phalus"
+      ],
+      [
+        "fenestr",
+        "ation"
+      ],
+      [
+        "hymen",
+        "otomy"
+      ],
+      [
+        "we",
+        "ight"
+      ],
+      [
+        "ident",
+        "ification"
+      ],
+      [
+        "bac",
+        "lofen"
+      ],
+      [
+        "cti",
+        "val"
+      ],
+      [
+        "go",
+        "ld"
+      ],
+      [
+        "nus",
+        "s"
+      ],
+      [
+        "scal",
+        "p"
+      ],
+      [
+        "aspir",
+        "ation"
+      ],
+      [
+        "conjun",
+        "ctival"
+      ],
+      [
+        "retroperiteone",
+        "scopic"
+      ],
+      [
+        "2",
+        "5"
+      ],
+      [
+        "b",
+        "io"
+      ],
+      [
+        "e",
+        "g"
+      ],
+      [
+        "g",
+        "a"
+      ],
+      [
+        "h",
+        "ar"
+      ],
+      [
+        "h",
+        "eck"
+      ],
+      [
+        "o",
+        "mph"
+      ],
+      [
+        "o",
+        "electro"
+      ],
+      [
+        "p",
+        "r"
+      ],
+      [
+        "r",
+        "hinoplasty"
+      ],
+      [
+        "w",
+        "art"
+      ],
+      [
+        "st",
+        "icle"
+      ],
+      [
+        "al",
+        "mous"
+      ],
+      [
+        "al",
+        "ocele"
+      ],
+      [
+        "la",
+        "ge"
+      ],
+      [
+        "th",
+        "almous"
+      ],
+      [
+        "an",
+        "ti"
+      ],
+      [
+        "en",
+        "oph"
+      ],
+      [
+        "en",
+        "ce"
+      ],
+      [
+        "rec",
+        "tion"
+      ],
+      [
+        "rec",
+        "heck"
+      ],
+      [
+        "ia",
+        "t"
+      ],
+      [
+        "ped",
+        "iat"
+      ],
+      [
+        "im",
+        "ary"
+      ],
+      [
+        "no",
+        "vectomy"
+      ],
+      [
+        "ti",
+        "lage"
+      ],
+      [
+        "gra",
+        "ph"
+      ],
+      [
+        "ph",
+        "alo"
+      ],
+      [
+        "ph",
+        "aro"
+      ],
+      [
+        "sy",
+        "novectomy"
+      ],
+      [
+        "cor",
+        "rection"
+      ],
+      [
+        "se",
+        "eg"
+      ],
+      [
+        "ble",
+        "pharo"
+      ],
+      [
+        "leg",
+        "ion"
+      ],
+      [
+        "col",
+        "lateral"
+      ],
+      [
+        "stere",
+        "oelectro"
+      ],
+      [
+        "car",
+        "tilage"
+      ],
+      [
+        "te",
+        "sticle"
+      ],
+      [
+        "divertic",
+        "ulectomy"
+      ],
+      [
+        "scap",
+        "hoid"
+      ],
+      [
+        "diaphrag",
+        "m"
+      ],
+      [
+        "duoden",
+        "al"
+      ],
+      [
+        "bio",
+        "tic"
+      ],
+      [
+        "har",
+        "vest"
+      ],
+      [
+        "omph",
+        "alocele"
+      ],
+      [
+        "pr",
+        "imary"
+      ],
+      [
+        "anti",
+        "biotic"
+      ],
+      [
+        "enoph",
+        "thalmous"
+      ],
+      [
+        "ence",
+        "phalo"
+      ],
+      [
+        "graph",
+        "y"
+      ],
+      [
+        "blepharo",
+        "plasty"
+      ],
+      [
+        "stereoelectro",
+        "encephalo"
+      ],
+      [
+        "stereoelectroencephalo",
+        "graphy"
+      ],
+      [
+        "1",
+        "0"
+      ],
+      [
+        "c",
+        "ard"
+      ],
+      [
+        "h",
+        "el"
+      ],
+      [
+        "n",
+        "yst"
+      ],
+      [
+        "p",
+        "repa"
+      ],
+      [
+        "st",
+        "em"
+      ],
+      [
+        "io",
+        "ver"
+      ],
+      [
+        "ec",
+        "h"
+      ],
+      [
+        "ec",
+        "mo"
+      ],
+      [
+        "bo",
+        "nd"
+      ],
+      [
+        "vic",
+        "ular"
+      ],
+      [
+        "lamin",
+        "oplasty"
+      ],
+      [
+        "cor",
+        "neal"
+      ],
+      [
+        "na",
+        "vicular"
+      ],
+      [
+        "tel",
+        "lar"
+      ],
+      [
+        "len",
+        "sectomy"
+      ],
+      [
+        "pancreat",
+        "ic"
+      ],
+      [
+        "bur",
+        "sectomy"
+      ],
+      [
+        "teno",
+        "synovectomy"
+      ],
+      [
+        "crico",
+        "id"
+      ],
+      [
+        "harvest",
+        "ing"
+      ],
+      [
+        "card",
+        "iover"
+      ],
+      [
+        "nyst",
+        "om"
+      ],
+      [
+        "prepa",
+        "tellar"
+      ],
+      [
+        "bond",
+        "ing"
+      ],
+      [
+        "c",
+        "p"
+      ],
+      [
+        "d",
+        "a"
+      ],
+      [
+        "d",
+        "al"
+      ],
+      [
+        "e",
+        "th"
+      ],
+      [
+        "e",
+        "in"
+      ],
+      [
+        "g",
+        "ous"
+      ],
+      [
+        "i",
+        "ac"
+      ],
+      [
+        "i",
+        "um"
+      ],
+      [
+        "i",
+        "qu"
+      ],
+      [
+        "n",
+        "as"
+      ],
+      [
+        "n",
+        "iqu"
+      ],
+      [
+        "o",
+        "scop"
+      ],
+      [
+        "r",
+        "ip"
+      ],
+      [
+        "s",
+        "ch"
+      ],
+      [
+        "t",
+        "ech"
+      ],
+      [
+        "u",
+        "tery"
+      ],
+      [
+        "v",
+        "as"
+      ],
+      [
+        "v",
+        "iac"
+      ],
+      [
+        "st",
+        "ag"
+      ],
+      [
+        "st",
+        "ein"
+      ],
+      [
+        "ro",
+        "om"
+      ],
+      [
+        "to",
+        "lo"
+      ],
+      [
+        "la",
+        "s"
+      ],
+      [
+        "th",
+        "ectomy"
+      ],
+      [
+        "ar",
+        "tic"
+      ],
+      [
+        "er",
+        "cp"
+      ],
+      [
+        "er",
+        "da"
+      ],
+      [
+        "pa",
+        "eds"
+      ],
+      [
+        "le",
+        "do"
+      ],
+      [
+        "ac",
+        "le"
+      ],
+      [
+        "cyst",
+        "otomy"
+      ],
+      [
+        "ul",
+        "oscop"
+      ],
+      [
+        "trans",
+        "gastric"
+      ],
+      [
+        "cho",
+        "duoden"
+      ],
+      [
+        "cho",
+        "ledo"
+      ],
+      [
+        "dis",
+        "artic"
+      ],
+      [
+        "ca",
+        "utery"
+      ],
+      [
+        "sy",
+        "mpa"
+      ],
+      [
+        "diagnost",
+        "i"
+      ],
+      [
+        "operat",
+        "ing"
+      ],
+      [
+        "bro",
+        "viac"
+      ],
+      [
+        "urethro",
+        "plasty"
+      ],
+      [
+        "sep",
+        "tum"
+      ],
+      [
+        "inter",
+        "position"
+      ],
+      [
+        "ce",
+        "le"
+      ],
+      [
+        "pinn",
+        "acle"
+      ],
+      [
+        "divertic",
+        "uloscop"
+      ],
+      [
+        "ran",
+        "ula"
+      ],
+      [
+        "uretero",
+        "cele"
+      ],
+      [
+        "uter",
+        "ine"
+      ],
+      [
+        "au",
+        "tolo"
+      ],
+      [
+        "we",
+        "erda"
+      ],
+      [
+        "colon",
+        "oscopy"
+      ],
+      [
+        "cardiover",
+        "sion"
+      ],
+      [
+        "dal",
+        "las"
+      ],
+      [
+        "eth",
+        "mo"
+      ],
+      [
+        "niqu",
+        "e"
+      ],
+      [
+        "rip",
+        "stein"
+      ],
+      [
+        "tech",
+        "nique"
+      ],
+      [
+        "vas",
+        "ectomy"
+      ],
+      [
+        "stag",
+        "ing"
+      ],
+      [
+        "choduoden",
+        "ostomy"
+      ],
+      [
+        "choledo",
+        "choduodenostomy"
+      ],
+      [
+        "disartic",
+        "ulation"
+      ],
+      [
+        "sympa",
+        "thectomy"
+      ],
+      [
+        "diverticuloscop",
+        "e"
+      ],
+      [
+        "autolo",
+        "gous"
+      ],
+      [
+        "3",
+        "r"
+      ],
+      [
+        "i",
+        "i"
+      ],
+      [
+        "l",
+        "er"
+      ],
+      [
+        "m",
+        "ation"
+      ],
+      [
+        "n",
+        "x"
+      ],
+      [
+        "p",
+        "or"
+      ],
+      [
+        "r",
+        "3"
+      ],
+      [
+        "u",
+        "tero"
+      ],
+      [
+        "v",
+        "ision"
+      ],
+      [
+        "z",
+        "ero"
+      ],
+      [
+        "io",
+        "tomy"
+      ],
+      [
+        "to",
+        "entero"
+      ],
+      [
+        "ic",
+        "ardial"
+      ],
+      [
+        "ne",
+        "sis"
+      ],
+      [
+        "is",
+        "is"
+      ],
+      [
+        "for",
+        "mation"
+      ],
+      [
+        "stimula",
+        "tion"
+      ],
+      [
+        "ep",
+        "icardial"
+      ],
+      [
+        "ge",
+        "nesis"
+      ],
+      [
+        "sy",
+        "n"
+      ],
+      [
+        "thoraco",
+        "scopy"
+      ],
+      [
+        "oph",
+        "ary"
+      ],
+      [
+        "gastro",
+        "sch"
+      ],
+      [
+        "mal",
+        "formation"
+      ],
+      [
+        "cortic",
+        "al"
+      ],
+      [
+        "uretero",
+        "lysis"
+      ],
+      [
+        "hel",
+        "ler"
+      ],
+      [
+        "nas",
+        "ophary"
+      ],
+      [
+        "ethmo",
+        "idectomy"
+      ],
+      [
+        "3r",
+        "d"
+      ],
+      [
+        "por",
+        "toentero"
+      ],
+      [
+        "utero",
+        "sacral"
+      ],
+      [
+        "gastrosch",
+        "isis"
+      ],
+      [
+        "nasophary",
+        "nx"
+      ],
+      [
+        "portoentero",
+        "stomy"
+      ],
+      [
+        "a",
+        "ve"
+      ],
+      [
+        "d",
+        "h"
+      ],
+      [
+        "e",
+        "la"
+      ],
+      [
+        "g",
+        "on"
+      ],
+      [
+        "h",
+        "aph"
+      ],
+      [
+        "i",
+        "tor"
+      ],
+      [
+        "k",
+        "ed"
+      ],
+      [
+        "m",
+        "t"
+      ],
+      [
+        "m",
+        "u"
+      ],
+      [
+        "m",
+        "is"
+      ],
+      [
+        "o",
+        "w"
+      ],
+      [
+        "s",
+        "mo"
+      ],
+      [
+        "s",
+        "orr"
+      ],
+      [
+        "t",
+        "it"
+      ],
+      [
+        "u",
+        "taneous"
+      ],
+      [
+        "z",
+        "aro"
+      ],
+      [
+        "to",
+        "ma"
+      ],
+      [
+        "co",
+        "sal"
+      ],
+      [
+        "co",
+        "cc"
+      ],
+      [
+        "th",
+        "opexy"
+      ],
+      [
+        "in",
+        "ic"
+      ],
+      [
+        "ic",
+        "p"
+      ],
+      [
+        "an",
+        "er"
+      ],
+      [
+        "an",
+        "ch"
+      ],
+      [
+        "an",
+        "ium"
+      ],
+      [
+        "or",
+        "age"
+      ],
+      [
+        "tal",
+        "us"
+      ],
+      [
+        "le",
+        "ep"
+      ],
+      [
+        "ed",
+        "ing"
+      ],
+      [
+        "di",
+        "vision"
+      ],
+      [
+        "do",
+        "tomy"
+      ],
+      [
+        "us",
+        "al"
+      ],
+      [
+        "mo",
+        "id"
+      ],
+      [
+        "de",
+        "smo"
+      ],
+      [
+        "bo",
+        "lectomy"
+      ],
+      [
+        "bo",
+        "ss"
+      ],
+      [
+        "em",
+        "bolectomy"
+      ],
+      [
+        "der",
+        "moid"
+      ],
+      [
+        "trans",
+        "cr"
+      ],
+      [
+        "sp",
+        "y"
+      ],
+      [
+        "lo",
+        "aner"
+      ],
+      [
+        "ent",
+        "ectomy"
+      ],
+      [
+        "ph",
+        "i"
+      ],
+      [
+        "oc",
+        "utaneous"
+      ],
+      [
+        "cl",
+        "inic"
+      ],
+      [
+        "tibial",
+        "is"
+      ],
+      [
+        "cor",
+        "dotomy"
+      ],
+      [
+        "arterio",
+        "venous"
+      ],
+      [
+        "ili",
+        "zaro"
+      ],
+      [
+        "bro",
+        "id"
+      ],
+      [
+        "sh",
+        "ave"
+      ],
+      [
+        "ileo",
+        "rectal"
+      ],
+      [
+        "sub",
+        "mu"
+      ],
+      [
+        "trache",
+        "ocutaneous"
+      ],
+      [
+        "med",
+        "ian"
+      ],
+      [
+        "can",
+        "thopexy"
+      ],
+      [
+        "vagin",
+        "ectomy"
+      ],
+      [
+        "tar",
+        "sorr"
+      ],
+      [
+        "ta",
+        "ked"
+      ],
+      [
+        "om",
+        "entectomy"
+      ],
+      [
+        "mon",
+        "itor"
+      ],
+      [
+        "alve",
+        "oplasty"
+      ],
+      [
+        "fe",
+        "eding"
+      ],
+      [
+        "fi",
+        "broid"
+      ],
+      [
+        "colon",
+        "ic"
+      ],
+      [
+        "syn",
+        "desmo"
+      ],
+      [
+        "dh",
+        "s"
+      ],
+      [
+        "ela",
+        "stic"
+      ],
+      [
+        "haph",
+        "y"
+      ],
+      [
+        "mt",
+        "p"
+      ],
+      [
+        "ow",
+        "n"
+      ],
+      [
+        "tit",
+        "anium"
+      ],
+      [
+        "anch",
+        "orage"
+      ],
+      [
+        "transcr",
+        "usal"
+      ],
+      [
+        "ilizaro",
+        "v"
+      ],
+      [
+        "submu",
+        "cosal"
+      ],
+      [
+        "tarsorr",
+        "haphy"
+      ],
+      [
+        "taked",
+        "own"
+      ],
+      [
+        "syndesmo",
+        "tic"
+      ],
+      [
+        "a",
+        "min"
+      ],
+      [
+        "c",
+        "y"
+      ],
+      [
+        "c",
+        "in"
+      ],
+      [
+        "d",
+        "re"
+      ],
+      [
+        "d",
+        "le"
+      ],
+      [
+        "d",
+        "el"
+      ],
+      [
+        "i",
+        "ver"
+      ],
+      [
+        "k",
+        "y"
+      ],
+      [
+        "m",
+        "id"
+      ],
+      [
+        "m",
+        "it"
+      ],
+      [
+        "o",
+        "roscopic"
+      ],
+      [
+        "o",
+        "trache"
+      ],
+      [
+        "p",
+        "ectomy"
+      ],
+      [
+        "p",
+        "ho"
+      ],
+      [
+        "s",
+        "um"
+      ],
+      [
+        "t",
+        "ent"
+      ],
+      [
+        "t",
+        "ear"
+      ],
+      [
+        "v",
+        "ation"
+      ],
+      [
+        "y",
+        "ge"
+      ],
+      [
+        "re",
+        "location"
+      ],
+      [
+        "ro",
+        "no"
+      ],
+      [
+        "io",
+        "inguinal"
+      ],
+      [
+        "la",
+        "pa"
+      ],
+      [
+        "la",
+        "ta"
+      ],
+      [
+        "co",
+        "re"
+      ],
+      [
+        "co",
+        "tomy"
+      ],
+      [
+        "co",
+        "rono"
+      ],
+      [
+        "ar",
+        "toma"
+      ],
+      [
+        "tomy",
+        "cin"
+      ],
+      [
+        "in",
+        "at"
+      ],
+      [
+        "in",
+        "um"
+      ],
+      [
+        "pa",
+        "tent"
+      ],
+      [
+        "is",
+        "iotomy"
+      ],
+      [
+        "tr",
+        "ident"
+      ],
+      [
+        "ex",
+        "amin"
+      ],
+      [
+        "ag",
+        "ment"
+      ],
+      [
+        "op",
+        "hy"
+      ],
+      [
+        "ra",
+        "y"
+      ],
+      [
+        "em",
+        "inal"
+      ],
+      [
+        "cran",
+        "ium"
+      ],
+      [
+        "ch",
+        "in"
+      ],
+      [
+        "laryng",
+        "otrache"
+      ],
+      [
+        "ep",
+        "isiotomy"
+      ],
+      [
+        "trac",
+        "hel"
+      ],
+      [
+        "sy",
+        "rin"
+      ],
+      [
+        "flu",
+        "roscopy"
+      ],
+      [
+        "mi",
+        "tomycin"
+      ],
+      [
+        "il",
+        "ioinguinal"
+      ],
+      [
+        "arterio",
+        "sus"
+      ],
+      [
+        "ang",
+        "iogram"
+      ],
+      [
+        "lefort",
+        "e"
+      ],
+      [
+        "car",
+        "pectomy"
+      ],
+      [
+        "car",
+        "inat"
+      ],
+      [
+        "duct",
+        "us"
+      ],
+      [
+        "mediast",
+        "inum"
+      ],
+      [
+        "fr",
+        "agment"
+      ],
+      [
+        "neu",
+        "rectomy"
+      ],
+      [
+        "fasc",
+        "ia"
+      ],
+      [
+        "trig",
+        "eminal"
+      ],
+      [
+        "bur",
+        "ch"
+      ],
+      [
+        "neuro",
+        "navigation"
+      ],
+      [
+        "ele",
+        "vation"
+      ],
+      [
+        "ham",
+        "artoma"
+      ],
+      [
+        "rhin",
+        "ophy"
+      ],
+      [
+        "dura",
+        "plasty"
+      ],
+      [
+        "gon",
+        "iotomy"
+      ],
+      [
+        "cocc",
+        "yge"
+      ],
+      [
+        "dre",
+        "z"
+      ],
+      [
+        "del",
+        "iver"
+      ],
+      [
+        "ky",
+        "pho"
+      ],
+      [
+        "mid",
+        "dle"
+      ],
+      [
+        "sum",
+        "mit"
+      ],
+      [
+        "lapa",
+        "oroscopic"
+      ],
+      [
+        "corono",
+        "idectomy"
+      ],
+      [
+        "examin",
+        "ation"
+      ],
+      [
+        "laryngotrache",
+        "oplasty"
+      ],
+      [
+        "trachel",
+        "ectomy"
+      ],
+      [
+        "syrin",
+        "x"
+      ],
+      [
+        "carinat",
+        "um"
+      ],
+      [
+        "rhinophy",
+        "ma"
+      ],
+      [
+        "coccyge",
+        "al"
+      ],
+      [
+        "deliver",
+        "y"
+      ],
+      [
+        "kypho",
+        "plasty"
+      ]
+    ]
+  }
+}

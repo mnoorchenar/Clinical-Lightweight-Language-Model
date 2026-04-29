@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdflatex -interaction=nonstopmode flowchart.tex)",
+      "Bash(pdflatex -interaction=nonstopmode -jobname=overleaf/main overleaf/00_main.tex)",
+      "Bash(ls D:/SurgeryProject/Clinical-Lightweight-Language-Model/results/*.pdf)",
+      "Bash(bibtex overleaf/main)",
+      "Bash(grep -v \"^$\")",
+      "Bash(pdflatex -interaction=nonstopmode -jobname=overleaf/main_test overleaf/00_main.tex)",
+      "Bash(bibtex overleaf/main_test)",
+      "Bash(pdflatex -interaction=nonstopmode -output-directory=overleaf overleaf/00_main.tex)",
+      "Bash(bibtex 00_main)",
+      "Bash(bibtex overleaf/00_main)",
+      "Bash(python3 -c \"import sys,json; lines=sys.stdin.read\\(\\).strip\\(\\).split\\('\\\\n'\\); [print\\(json.loads\\(l\\).get\\('content',''\\)[:500] if isinstance\\(json.loads\\(l\\).get\\('content',''\\),str\\) else ''\\) for l in lines[-5:] if l]\")",
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(inkscape --version)",
+      "Bash(where inkscape:*)",
+      "Bash(node -e \"require\\('puppeteer'\\); console.log\\('puppeteer ok'\\)\")",
+      "Bash(node -e \"require\\('playwright'\\); console.log\\('playwright ok'\\)\")",
+      "Bash(pip show:*)",
+      "Bash(pip install:*)",
+      "Bash(mkdir -p flowchart)",
+      "Bash(mv overleaf/flowchart.html overleaf/flowchart.svg overleaf/flowchart.pdf overleaf/06_flowchart.tex watch_flowchart.py make_pdf.bat make_pdf.sh flowchart/)"
+    ]
+  }
+}

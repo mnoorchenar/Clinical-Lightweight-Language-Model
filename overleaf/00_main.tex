@@ -1,0 +1,176 @@
+\documentclass[3p]{elsarticle}
+
+% ── Core packages ─────────────────────────────────────────────────────────────
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{results/}}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{soul}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subcaption}
+\usepackage{threeparttable}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage[capitalize, noabbrev]{cleveref}
+% tikz is not used — flowchart is SVG-based; do not add tikz.
+
+% ── Table caption style ───────────────────────────────────────────────────────
+\usepackage[font=normalsize]{caption}
+\captionsetup[table]{format=plain, justification=raggedright,
+              labelsep=none, singlelinecheck=false, labelfont=bf}
+
+%% Line numbers — uncomment ONLY when submitting to the journal
+%% \usepackage{lineno}
+%% \linenumbers
+
+% ── Journal name ─────────────────────────────────────────────────────────────
+\journal{JOURNAL PLACEHOLDER}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+\begin{frontmatter}
+
+% ── Title ─────────────────────────────────────────────────────────────────────
+\title{Surgical Duration Prediction with Distilled Clinical Language Models for Operating Room Scheduling}
+
+% ── Authors and affiliations ──────────────────────────────────────────────────
+\author[1]{Author One\corref{cor1}}
+\author[1]{Author Two}
+
+\affiliation[1]{organization={Department, Faculty, University},
+               addressline={Street Address},
+               city={City},
+               postcode={Postcode},
+               state={State/Province},
+               country={Country}}
+
+\cortext[cor1]{Corresponding author}
+\emailauthor{Author One}{email@university.edu}
+
+% ── Abstract ──────────────────────────────────────────────────────────────────
+\begin{abstract}
+Accurate prediction of surgical case duration is central to operating-room (OR) efficiency, yet existing machine learning approaches rely almost exclusively on structured Electronic Health Record (EHR) fields and discard the free-text procedure description despite it being the richest pre-operative signal available at the time of booking. Large clinical language models such as Bio-ClinicalBERT can encode this text effectively, but their storage footprints (436\,MB) and inference latencies (21\,ms per case) render them impractical for the resource-constrained hardware common in OR scheduling systems. This paper proposes TinySurgicalBERT, a 0.75\,MB INT8-quantised BERT student model distilled specifically from the surgical procedure lexicon of a 180{,}370-case institutional dataset. A domain-specific Byte-Pair Encoding tokeniser trained on surgical procedure text eliminates out-of-vocabulary tokens, and a combined mean-squared-error and cosine-similarity distillation objective transfers Bio-ClinicalBERT's embedding geometry into a two-layer student with a 128-dimensional hidden representation and a 256-dimensional output embedding. After static INT8 quantisation and ONNX export, the model is evaluated against three encoding baselines — structured-only, SentenceBERT, and Bio-ClinicalBERT — across eight regression models on 180{,}370 surgical cases under five-fold cross-validation with Optuna hyperparameter optimisation. TinySurgicalBERT achieves Mean Absolute Error (MAE) of $26.38 \pm 0.09$ min with XGBoost, statistically equivalent to SentenceBERT ($26.35 \pm 0.07$ min) and Bio-ClinicalBERT ($26.40 \pm 0.11$ min), while requiring $580\times$ and $121\times$ less storage, respectively. All text-augmented encoders reduce MAE by approximately 24\,\% over the structured-only baseline ($34.80 \pm 0.12$ min). End-to-end inference time is $0.484 \pm 0.072$\,ms per case --- $43.7\times$ faster than Bio-ClinicalBERT --- enabling real-time prediction on standard CPU hardware without GPU acceleration. These results demonstrate that domain-specific knowledge distillation can close the gap between predictive accuracy and deployment feasibility in clinical scheduling, making high-quality surgical duration prediction accessible on edge hardware.
+\end{abstract}
+
+% ── Graphical abstract (optional — add image path when ready) ─────────────────
+\begin{graphicalabstract}
+%% \includegraphics[width=\textwidth]{results/graphical_abstract.pdf}
+\end{graphicalabstract}
+
+% ── Research highlights (optional — uncomment and fill in before submission) ──
+%% \begin{highlights}
+%% \item Highlight one
+%% \item Highlight two
+%% \item Highlight three
+%% \item Highlight four
+%% \item Highlight five
+%% \end{highlights}
+
+% ── Keywords ──────────────────────────────────────────────────────────────────
+\begin{keyword}
+surgical duration prediction \sep knowledge distillation \sep clinical language models \sep operating room scheduling \sep text encoding \sep BERT quantisation
+\end{keyword}
+
+\end{frontmatter}
+
+% ── Abbreviations ─────────────────────────────────────────────────────────────
+\section*{Abbreviations}
+\begin{description}
+    \item[ASA] American Society of Anesthesiologists
+    \item[BERT] Bidirectional Encoder Representations from Transformers
+    \item[BH] Benjamini--Hochberg
+    \item[BPE] Byte-Pair Encoding
+    \item[CPU] Central Processing Unit
+    \item[CV] Cross-Validation
+    \item[EHR] Electronic Health Record
+    \item[FDR] False Discovery Rate
+    \item[INT8] 8-bit Integer
+    \item[MAE] Mean Absolute Error
+    \item[MLP] Multi-Layer Perceptron
+    \item[NER] Named Entity Recognition
+    \item[NLP] Natural Language Processing
+    \item[OHE] One-Hot Encoding
+    \item[ONNX] Open Neural Network Exchange
+    \item[OOV] Out-of-Vocabulary
+    \item[OR] Operating Room
+    \item[RMSE] Root Mean Square Error
+    \item[sMAPE] symmetric Mean Absolute Percentage Error
+    \item[TPE] Tree-structured Parzen Estimator
+\end{description}
+
+% ── 1. Introduction ───────────────────────────────────────────────────────────
+\section{Introduction}\label{sec:introduction}
+\input{overleaf/01_introduction}
+
+% ── 2. Related Work ───────────────────────────────────────────────────────────
+\section{Related Work}\label{sec:related_work}
+\input{overleaf/02_related_works}
+
+% ── 3. Methodology ────────────────────────────────────────────────────────────
+\section{Methodology}\label{sec:methodology}
+\input{overleaf/03_methodology}
+
+%% Flowchart is referenced inside 03_methodology as Figure~\ref{fig:flowchart}
+\begin{figure*}[tp]
+\centering
+\input{flowchart/06_flowchart}
+\caption{Overall workflow of the proposed methodology.}
+\label{fig:flowchart}
+\end{figure*}
+
+% ── 4. Results and Discussion ─────────────────────────────────────────────────
+\section{Results and Discussion}\label{sec:results}
+\input{overleaf/04_results}
+
+% ── 5. Conclusion ─────────────────────────────────────────────────────────────
+\section{Conclusion}\label{sec:conclusion}
+This work addressed the challenge of deploying clinical language models for surgical duration prediction on the resource-constrained hardware common in operating-room scheduling systems. Existing approaches either rely on structured Electronic Health Record (EHR) features alone, discarding the information-rich procedure free-text, or require large clinical encoders such as Bio-ClinicalBERT that are impractical for edge deployment. TinySurgicalBERT was proposed as a principled resolution: a domain-specific BERT student model distilled from Bio-ClinicalBERT on a 180{,}370-case surgical procedure corpus, quantised to INT8, and exported to ONNX Runtime format, yielding a 0.75\,MB encoder that operates entirely on CPU without any GPU or network dependency at inference time.
+
+Evaluated across 32 encoding--model combinations on 180{,}370 surgical cases under five-fold cross-validation, TinySurgicalBERT achieved MAE of $26.38 \pm 0.09$ min with XGBoost --- statistically equivalent to SentenceBERT ($26.35 \pm 0.07$ min) and Bio-ClinicalBERT ($26.40 \pm 0.11$ min) --- while requiring $580\times$ and $121\times$ less on-disk storage, respectively. All three text-augmented encoders improved upon the structured-only baseline by approximately 24\,\% in MAE (from $34.80 \pm 0.12$ to $26.38 \pm 0.09$ min with XGBoost), establishing that procedure free-text provides independent predictive signal beyond structured EHR fields alone. TinySurgicalBERT further demonstrated inference at $0.484 \pm 0.072$\,ms per case --- $43.7\times$ faster than Bio-ClinicalBERT --- confirming suitability for real-time point-of-care scheduling on standard CPU hardware.
+
+Several limitations of this study should be acknowledged. The dataset originates from a single tertiary institution, and both the domain-specific tokeniser and the distillation objective were tuned on its particular surgical vocabulary; performance may differ at sites with distinct procedural nomenclature or scheduling conventions, and institution-specific re-distillation may be required. The five-fold cross-validation protocol limits the statistical resolution of pairwise comparisons: with $n = 5$ folds, the minimum achievable two-sided Wilcoxon $p$-value is $0.0625$, which prevents formal equivalence testing at $\alpha = 0.05$ even when observed differences are negligible in magnitude. Additionally, the evaluation is restricted to pre-operative features available at the time of booking; intra-operative signals that become available in real time were deliberately excluded to preserve the pre-operative prediction setting but may offer further predictive gains in adaptive scheduling frameworks.
+
+Three directions for future work emerge from these findings. First, external validation across multiple institutions with differing procedural vocabularies would establish the generalisability of TinySurgicalBERT and clarify when institution-specific distillation is necessary. Second, the confirmed equivalence between TinySurgicalBERT and the large encoders motivates investigation of more aggressive compression strategies --- structured pruning, low-rank decomposition, or 4-bit quantisation --- to assess whether further size reductions below 0.75\,MB are achievable without accuracy degradation. Third, prospective deployment within a live OR scheduling system, with downstream measurement of utilisation, overtime rates, and case cancellations, would provide direct evidence of operational benefit and close the gap between predictive accuracy on retrospective data and real-world clinical impact.
+
+% ── CRediT authorship contribution statement ──────────────────────────────────
+\section*{CRediT authorship contribution statement}
+\textbf{Author One}: Conceptualization, Methodology, Data analysis and curation,
+Software, Writing -- original draft and editing.
+\textbf{Author Two}: Conceptualization, Methodology, Supervision,
+Writing -- review and editing, Guidance, and Oversight throughout the research process.
+
+% ── Declaration of competing interest ─────────────────────────────────────────
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+% ── Acknowledgements ──────────────────────────────────────────────────────────
+\section*{Acknowledgement}
+%% Fill in funding sources and support before submission.
+
+% ── Data availability ─────────────────────────────────────────────────────────
+\section*{Data availability}
+%% Choose one option and remove the others before submission:
+%% Option A — data is open:
+%%   The data used in this study are publicly available at [repository/DOI].
+%% Option B — data is proprietary:
+%%   The data used in this study is proprietary and subject to confidentiality
+%%   agreements; therefore, it cannot be shared.
+%% Option C — data available on request:
+%%   The data that support the findings of this study are available from the
+%%   corresponding author upon reasonable request.
+
+% ── Bibliography ──────────────────────────────────────────────────────────────
+\bibliographystyle{unsrt}
+\bibliography{overleaf/references}
+
+\end{document}

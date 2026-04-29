@@ -1,0 +1,14 @@
+﻿__pycache__/
+*.pyc
+.env
+.DS_Store
+*.log
+.vscode/
+*.tmp
+
+# Prompt and design rules — keep private, not for version control
+prompt.md
+flowchart/flowchart_rules.md
+
+# File too large for GitHub LFS (over 2GB) - keep local only
+data/processed/fold_encoded.db

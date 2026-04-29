@@ -1,0 +1,42 @@
+%% results/efficiency_table.tex — full-width deployment comparison table
+%% Deployment format column removed (mentioned in prose); resizebox added for fit.
+
+\begin{table*}[tp]
+\centering
+\caption{\\Deployment profile of the three text encoders. Architecture columns
+  describe the deployed model. Inference time is mean\,$\pm$\,SD over $N=30$
+  repeated passes on 200 surgical procedure descriptions under single-item CPU
+  inference. Compression and speed-up are relative to TinySurgicalBERT (ours).
+  {\color{green!60!black}$\checkmark$}\,=\,TinySurgicalBERT significantly faster
+  (two-sided paired Wilcoxon signed-rank, Benjamini--Hochberg FDR corrected).}
+\label{tab:efficiency}
+\begin{threeparttable}
+{\renewcommand{\tabcolsep}{4pt}%
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccrrrr}
+\toprule
+Encoder &
+  \makecell{Trans-\\former\\layers} &
+  \makecell{Atten-\\tion\\heads} &
+  \makecell{Hidden\\dim} &
+  \makecell{Params\\(M)} &
+  \makecell{Size\\(MB)} &
+  \makecell{Compres-\\sion\\($\times$)} &
+  \makecell{Inference\\time\\(ms/case)} &
+  \makecell{Speed-\\up\\($\times$)} \\
+\midrule
+TinySurgicalBERT (ours) & 2  & 4  & 128 & 0.63  & $0.752$  & ---  & $0.484 \pm 0.072$ & --- \\
+SentenceBERT            & 6  & 12 & 384 & 22.7  & $90.87$  & $121$  & $2.570 \pm 0.136$\;{\color{green!60!black}$\checkmark^{***}$} & $5.3$ \\
+Bio-ClinicalBERT        & 12 & 12 & 768 & 110.0 & $435.76$ & $580$  & $21.190 \pm 0.111$\;{\color{green!60!black}$\checkmark^{***}$} & $43.7$ \\
+\bottomrule
+\end{tabular}}
+}% end renewcommand group
+\begin{tablenotes}
+\small
+\item $^{***}p < 0.001$ (two-sided paired Wilcoxon signed-rank,
+  Benjamini--Hochberg FDR corrected, $N=30$).
+\item Downstream XGBoost prediction contributes ${<}\,0.005$\,ms/case for all
+  encoders (negligible).
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}
